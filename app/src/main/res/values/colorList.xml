@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background">#9575CD</color>
+    <color name="background">#DDB0A0</color>
+    <color name="topAndBottomColor">#EF5350</color>
+    <color name="loginEditTextColor">#FFEBEE</color>
+    <color name="buttonColor">#E1BEE7</color>
 </resources>
