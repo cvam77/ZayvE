@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="Enter your username"
-        android:background="@color/loginEditTextColor"
+        android:background="@drawable/rounded_corners_edittext"
         android:gravity="center"
         />
 
@@ -29,7 +29,7 @@
         android:inputType="textPersonName"
         android:text="Enter your password"
         android:gravity="center"
-        android:background="@color/loginEditTextColor"/>
+        android:background="@drawable/rounded_corners_edittext"/>
 
     <Button
         android:layout_width="wrap_content"
