@@ -1,44 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical"
-    android:background="@color/background"
-    android:gravity="center"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
 
-    <EditText
-        android:id="@+id/editTextUsername"
-        android:layout_margin="20dp"
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Enter your username"
-        android:background="@drawable/rounded_corners_edittext"
-        android:gravity="center"
-        />
-
-    <EditText
-        android:id="@+id/editTextPassword"
-        android:layout_margin="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:inputType="textPersonName"
-        android:text="Enter your password"
-        android:gravity="center"
-        android:background="@drawable/rounded_corners_edittext"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_login"
-        android:background="@drawable/rounded_corners"
-        android:text="login"
-        android:layout_margin="20dp"
-
-        />
-
-</LinearLayout>
+        android:layout_height="match_parent"
+        tools:context=".AuthenticationActivity"
+        android:orientation="vertical"
+        android:gravity="center">
+        <fragment
+            android:id="@+id/myNavHostFragment"
+            android:layout_width="match_parent"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_height="match_parent"
+            app:defaultNavHost = "true"
+            app:navGraph="@navigation/navigation"/>
+    </LinearLayout>
+</layout>
