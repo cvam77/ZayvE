@@ -51,9 +51,10 @@
                 android:textColor="@android:color/white"
                 />
 
-            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:text="@string/newAccount"/>
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/signup_button"
