@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "540305818052",
+    "firebase_url": "https://zayve-ae41f.firebaseio.com",
+    "project_id": "zayve-ae41f",
+    "storage_bucket": "zayve-ae41f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:540305818052:android:0f79154e489846711be491",
+        "android_client_info": {
+          "package_name": "com.example.zayve_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "540305818052-r1a6smelkq6arj0idli8tf8hh612a1kg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRHlUJGFdqmMK85Kedyy2QjN0c0geiKi0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "540305818052-r1a6smelkq6arj0idli8tf8hh612a1kg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
