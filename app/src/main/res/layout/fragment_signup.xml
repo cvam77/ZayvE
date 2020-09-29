@@ -30,7 +30,7 @@
                 />
 
             <EditText
-                android:id="@+id/editUserEmail"
+                android:id="@+id/userEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
@@ -40,7 +40,7 @@
                 android:background="@drawable/edit_textfield_custom"
                 />
             <EditText
-                android:id="@+id/editTextPassword"
+                android:id="@+id/userPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
