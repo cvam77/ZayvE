@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/searchByInterestEditText"
+                android:hint="Search By Interest"
+                android:background="@drawable/rounded_corners_edittext"
+                android:padding="10dp"
+                android:gravity="center_horizontal"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="20dp"
+                />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/browseFriendsButton"
+                android:background="@drawable/browse_friends_button_rounded_corner"
+                android:text="Browse Friends"
+                android:padding="10dp"
+                android:gravity="center_horizontal"
+                android:layout_margin="10dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/yourFriendsTextview"
+                android:text="***Your Friends***"
+                android:padding="10dp"
+                android:gravity="center_horizontal"
+                android:layout_marginVertical="20dp"
+                android:background="#B2DFDB"
+                android:textSize="25sp"
+                android:fontFamily="cursive"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/recyclerViewHomePage"
+                />
+        </LinearLayout>
+    </FrameLayout>
+
+</layout>
