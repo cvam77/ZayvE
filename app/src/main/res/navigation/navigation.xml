@@ -10,6 +10,9 @@
         <action
             android:id="@+id/action_signupFragment2_to_loginFragment2"
             app:destination="@id/loginFragment2" />
+        <action
+            android:id="@+id/action_signupFragment2_to_homePage"
+            app:destination="@id/homePage" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment2"
@@ -18,5 +21,12 @@
         <action
             android:id="@+id/action_loginFragment2_to_signupFragment2"
             app:destination="@id/signupFragment2" />
+        <action
+            android:id="@+id/action_loginFragment2_to_homePage"
+            app:destination="@id/homePage" />
     </fragment>
+    <fragment
+        android:id="@+id/homePage"
+        android:name="com.example.zayve_test.HomePage"
+        android:label="HomePage" />
 </navigation>

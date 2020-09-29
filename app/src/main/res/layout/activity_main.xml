@@ -13,6 +13,12 @@
         tools:context=".AuthenticationActivity"
         android:orientation="vertical"
         android:gravity="center">
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="0dip"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            tools:ignore="Suspicious0dp" />
         <fragment
             android:id="@+id/myNavHostFragment"
             android:layout_width="match_parent"
@@ -21,4 +27,5 @@
             app:defaultNavHost = "true"
             app:navGraph="@navigation/navigation"/>
     </LinearLayout>
+
 </layout>
