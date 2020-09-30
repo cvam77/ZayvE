@@ -8,15 +8,24 @@
         android:name="com.example.zayve_test.SignupFragment"
         android:label="SignupFragment" >
         <action
-            android:id="@+id/action_signupFragment2_to_loginFragment2"
-            app:destination="@id/loginFragment2" />
+            android:id="@+id/action_signupFragment2_to_homepage2"
+            app:destination="@id/homepage2" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment2"
         android:name="com.example.zayve_test.LoginFragment"
         android:label="LoginFragment" >
         <action
-            android:id="@+id/action_loginFragment2_to_signupFragment2"
-            app:destination="@id/signupFragment2" />
+            android:id="@+id/action_loginFragment2_to_homepage2"
+            app:destination="@id/homepage2" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homepage2"
+        android:name="com.example.zayve_test.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/homepage_to_browse_friends_fragment"
+            />
     </fragment>
 </navigation>

@@ -4,12 +4,20 @@
 
     <data>
 
+        <variable
+            name="BrowseFriendClick"
+            type="com.example.zayve_test.HomePageFragm" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:context=".HomePageFragm"
+        android:id="@+id/home_page_fragment"
         >
+
+        <!-- TODO: Update blank fragment layout -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -34,6 +42,7 @@
                 android:id="@+id/browseFriendsButton"
                 android:background="@drawable/browse_friends_button_rounded_corner"
                 android:text="Browse Friends"
+                android:onClick="@{BrowseFriendClick::BrowseFriendButtonClicked}"
                 android:padding="10dp"
                 android:gravity="center_horizontal"
                 android:layout_margin="10dp"
@@ -60,6 +69,6 @@
                 android:id="@+id/recyclerViewHomePage"
                 />
         </LinearLayout>
-    </FrameLayout>
 
+    </FrameLayout>
 </layout>

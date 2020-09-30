@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+            name="testButton"
+            type="com.example.zayve_test.AuthenticationActivity" />
     </data>
 
     <LinearLayout
@@ -34,15 +37,39 @@
             android:gravity="center"
             android:background="@drawable/rounded_corners_edittext" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_login"
+                android:background="@drawable/rounded_corners"
+                android:text="login"
+                android:layout_margin="20dp"
+
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_signup"
+                android:background="@drawable/rounded_corners"
+                android:text="sign up"
+                android:layout_margin="20dp"
+                />
+
+        </LinearLayout>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/button_login"
-            android:background="@drawable/rounded_corners"
-            android:text="login"
-            android:layout_margin="20dp"
-
+            android:text="Test Button -->"
             />
+
 
     </LinearLayout>
 </layout>
