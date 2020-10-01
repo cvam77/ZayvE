@@ -13,7 +13,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Profile">
+        tools:context=".ProfileFragment">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -33,17 +33,18 @@
                     android:layout_width="128sp"
                     android:layout_height="128sp"
                     android:layout_gravity="center"
-                    app:cardCornerRadius="100sp">
+                    app:cardCornerRadius="100sp"
+                    android:background="@android:color/holo_red_dark">
 
                     <ImageView
                         android:id="@+id/profile_avatar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:background="#FFFFFF"
                         android:contentDescription="@string/avatar_pic"
                         android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/profile_avatar" />
+                        android:src="@drawable/add_image_icon"
+                         />
                 </androidx.cardview.widget.CardView>
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -71,128 +72,37 @@
                     android:layout_height="20sp" />
 
 
-                <LinearLayout
-                    android:id="@+id/card1"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/interest1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:paddingVertical="8sp"
+                    android:text="Soccer" />
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/interest1_icon"
-                        android:layout_width="32sp"
-                        android:layout_height="32sp"
-                        android:src="@drawable/soccer_icon" />
 
-                    <Space
-                        android:layout_width="8sp"
-                        android:layout_height="wrap_content" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/interest1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="12sp"
-                        android:text="Soccer" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/card2"
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:paddingVertical="8sp"
+                    android:text="Tennis" />
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/interest2_icon"
-                        android:layout_width="32sp"
-                        android:layout_height="32sp"
-                        android:src="@drawable/tennis_icon" />
-
-                    <Space
-                        android:layout_width="8sp"
-                        android:layout_height="wrap_content" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/interest2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="12sp"
-                        android:text="Tennis" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/card3"
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:paddingVertical="8sp"
+                    android:text="Reading" />
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/interest3_icon"
-                        android:layout_width="32sp"
-                        android:layout_height="32sp"
-                        android:src="@drawable/reading_icon" />
-
-                    <Space
-                        android:layout_width="8sp"
-                        android:layout_height="wrap_content" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/interest3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="12sp"
-                        android:text="Reading" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/card4"
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:paddingVertical="8sp"
+                    android:text="Video Games" />
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/interest4_icon"
-                        android:layout_width="32sp"
-                        android:layout_height="32sp"
-                        android:src="@drawable/videogame_icon" />
-
-                    <Space
-                        android:layout_width="8sp"
-                        android:layout_height="wrap_content" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/interest4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="12sp"
-                        android:text="Video Games" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/card5"
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/interest5_icon"
-                        android:layout_width="32sp"
-                        android:layout_height="32sp"
-                        android:src="@drawable/cricket_icon" />
-
-                    <Space
-                        android:layout_width="8sp"
-                        android:layout_height="wrap_content" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/interest5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="12sp"
-                        android:text="Cricket" />
-                </LinearLayout>
-
-
-
+                    android:paddingVertical="8sp"
+                    android:text="Cricket" />
 
                 <Space
                     android:layout_width="match_parent"

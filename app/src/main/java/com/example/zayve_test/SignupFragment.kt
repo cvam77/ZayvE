@@ -19,6 +19,7 @@ import com.example.zayve_test.databinding.FragmentSignupBinding
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 
 
@@ -43,6 +44,7 @@ class SignupFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.P)
     private fun signUpUser(context: Context): Unit {
+        val displayName=binding.userName
         if (binding.userName.toString().isEmpty()) {
             binding.userName.error = "Please enter a valid user name"
             binding.userName.requestFocus()
@@ -74,30 +76,30 @@ class SignupFragment : Fragment() {
                             Log.d(TAG, "createUserWithEmail: success")
                             // THE USER ID
                             val userId = task.result?.user?.uid;
-                            saveUserName(userId)
-                            findNavController().navigate(R.id.action_signupFragment2_to_homePage)
+                            val user = FirebaseAuth.getInstance().currentUser
+
+                            val profileUpdates = UserProfileChangeRequest.Builder()
+                                    .setDisplayName(binding.userName.text.toString())
+                                    .build()
+
+                            user!!.updateProfile(profileUpdates)
+                                    .addOnCompleteListener { task ->
+                                        if (task.isSuccessful) {
+                                            Log.d(TAG, "User profile updated.")
+                                        }
+                                    }
+//                            saveUserName(userId)
+                            findNavController().navigate(R.id.action_signupFragment2_to_profileSetupFragment)
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail: failure", task.exception)
                             Toast.makeText(context, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show()
                         }
+
                     })
         }
 
-    }
-
-    private fun saveUserName(userId: String?): Unit {
-        // Create a new user with a first and last name
-        val user: MutableMap<String, String> = HashMap()
-        user[userId.toString()] = binding.userName.text.toString()
-
-        val db = FirebaseFirestore.getInstance()
-        // Add a new document with a generated ID
-        db.collection("users")
-                .add(user)
-                .addOnSuccessListener { documentReference -> Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.id) }
-                .addOnFailureListener { e -> Log.w(TAG, "Error adding document", e) }
     }
 }
 
