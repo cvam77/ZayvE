@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="profile"
+            type="String" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Profile">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16sp">
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="50sp" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="128sp"
+                    android:layout_height="128sp"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="100sp">
+
+                    <ImageView
+                        android:id="@+id/profile_avatar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="#FFFFFF"
+                        android:contentDescription="@string/avatar_pic"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/profile_avatar" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/profile_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Apahadi73" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="50sp" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="@string/top_interests"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20sp" />
+
+
+                <LinearLayout
+                    android:id="@+id/card1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/interest1_icon"
+                        android:layout_width="32sp"
+                        android:layout_height="32sp"
+                        android:src="@drawable/soccer_icon" />
+
+                    <Space
+                        android:layout_width="8sp"
+                        android:layout_height="wrap_content" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/interest1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="12sp"
+                        android:text="Soccer" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/card2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/interest2_icon"
+                        android:layout_width="32sp"
+                        android:layout_height="32sp"
+                        android:src="@drawable/tennis_icon" />
+
+                    <Space
+                        android:layout_width="8sp"
+                        android:layout_height="wrap_content" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/interest2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="12sp"
+                        android:text="Tennis" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/card3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/interest3_icon"
+                        android:layout_width="32sp"
+                        android:layout_height="32sp"
+                        android:src="@drawable/reading_icon" />
+
+                    <Space
+                        android:layout_width="8sp"
+                        android:layout_height="wrap_content" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/interest3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="12sp"
+                        android:text="Reading" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/card4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/interest4_icon"
+                        android:layout_width="32sp"
+                        android:layout_height="32sp"
+                        android:src="@drawable/videogame_icon" />
+
+                    <Space
+                        android:layout_width="8sp"
+                        android:layout_height="wrap_content" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/interest4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="12sp"
+                        android:text="Video Games" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/card5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/interest5_icon"
+                        android:layout_width="32sp"
+                        android:layout_height="32sp"
+                        android:src="@drawable/cricket_icon" />
+
+                    <Space
+                        android:layout_width="8sp"
+                        android:layout_height="wrap_content" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/interest5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="12sp"
+                        android:text="Cricket" />
+                </LinearLayout>
+
+
+
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="30sp" />
+
+                <Button
+                    android:id="@+id/update_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/btn_custom"
+                    android:padding="8sp"
+                    android:text="@string/edit_profile"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+    </FrameLayout>
+</layout>

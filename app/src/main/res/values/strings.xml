@@ -9,4 +9,7 @@
     <string name="signUpButtonText">Sign Up</string>
     <string name="loginExtra">Already have an account?</string>
     <string name="newAccount">Create a new account</string>
+    <string name="avatar_pic">avatar pic</string>
+    <string name="top_interests">Top Interests</string>
+    <string name="edit_profile">Edit Profile</string>
 </resources>
