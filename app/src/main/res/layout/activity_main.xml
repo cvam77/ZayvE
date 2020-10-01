@@ -16,28 +16,15 @@
         android:orientation="vertical"
         android:background="@color/background"
         android:gravity="center">
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="0dip"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            tools:ignore="Suspicious0dp" />
+        <fragment
+            android:id="@+id/myNavHostFragment"
 
-
-        <EditText
-            android:id="@+id/editTextUsername"
-            android:layout_margin="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="Enter your username"
-            android:background="@drawable/rounded_corners_edittext"
-            android:gravity="center" />
-
-        <EditText
-            android:id="@+id/editTextPassword"
-            android:layout_margin="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:inputType="textPersonName"
-            android:text="Enter your password"
-            android:gravity="center"
-            android:background="@drawable/rounded_corners_edittext" />
-
-        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -72,4 +59,5 @@
 
 
     </LinearLayout>
+
 </layout>
