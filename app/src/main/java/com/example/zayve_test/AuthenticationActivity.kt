@@ -1,9 +1,11 @@
 package com.example.zayve_test
 
-import android.database.DatabaseUtils
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.example.zayve_test.databinding.ActivityMainBinding
 
 class AuthenticationActivity : AppCompatActivity() {

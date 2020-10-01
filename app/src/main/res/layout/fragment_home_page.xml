@@ -3,61 +3,79 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="BrowseFriendClick"
+            type="com.example.zayve_test.HomePageFragm" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
+        android:layout_height="match_parent"
+        tools:context=".HomePageFragm"
+        android:id="@+id/home_page_fragment"
+        >
+
+        <!-- TODO: Update blank fragment layout -->
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:descendantFocusability="beforeDescendants"
-            android:focusableInTouchMode="true"
-            >
-
-            <EditText
-                android:id="@+id/searchByInterestEditText"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginVertical="20dp"
-                android:background="@drawable/rounded_corners_edittext"
-                android:gravity="center_horizontal"
-                android:hint="Search By Interest"
-                android:padding="10dp" />
+            android:layout_height="match_parent" >
 
             <Button
-                android:id="@+id/browseFriendsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_corners"
+                android:drawableBottom="@android:drawable/ic_menu_info_details"
+                android:id="@+id/see_profile_button"
+                android:text="Profile"
+                android:paddingTop="5dp"
+                android:layout_gravity="end"
+                android:layout_margin="10dp"/>
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/browse_friends_button_rounded_corner"
-                android:gravity="center_horizontal"
+                android:id="@+id/searchByInterestEditText"
+                android:hint="Search By Interest"
+                android:background="@drawable/rounded_corners_edittext"
                 android:padding="10dp"
-                android:text="Browse Friends" />
+                android:gravity="center_horizontal"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="20dp"
+                />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/browseFriendsButton"
+                android:background="@drawable/browse_friends_button_rounded_corner"
+                android:text="Browse Friends"
+                android:padding="10dp"
+                android:gravity="center_horizontal"
+                android:layout_margin="10dp"
+                />
 
             <TextView
-                android:id="@+id/yourFriendsTextview"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:id="@+id/yourFriendsTextview"
+                android:text="***Your Friends***"
+                android:padding="10dp"
+                android:gravity="center_horizontal"
                 android:layout_marginVertical="20dp"
                 android:background="#B2DFDB"
-                android:fontFamily="cursive"
-                android:gravity="center_horizontal"
-                android:padding="10dp"
-                android:text="***Your Friends***"
-                android:textColor="#000000"
                 android:textSize="25sp"
-                android:textStyle="bold" />
+                android:fontFamily="cursive"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewHomePage"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:id="@+id/recyclerViewHomePage"
+                />
         </LinearLayout>
-    </FrameLayout>
 
+    </FrameLayout>
 </layout>

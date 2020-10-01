@@ -38,7 +38,6 @@ class SignupFragment : Fragment() {
                 signUpUser(container.context.applicationContext)
             }
         }
-
         return binding.root
     }
 
