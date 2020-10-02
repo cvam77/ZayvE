@@ -2,11 +2,15 @@
     <string name="app_name">ZayvE_test</string>
     <string name="email">Email</string>
     <string name="password">password</string>
-    <string name="loginButtonText">login</string>
+    <string name="loginButtonText">LOG IN</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="userName">user name</string>
-    <string name="signUpButtonText">Sign Up</string>
+    <string name="signUpButtonText">SIGN UP</string>
     <string name="loginExtra">Already have an account?</string>
     <string name="newAccount">Create a new account</string>
+    <string name="avatar_pic">avatar pic</string>
+    <string name="top_interests">Top Interests</string>
+    <string name="edit_profile">EDIT PROFILE</string>
+    <string name="save_profile">SAVE PROFILE</string>
 </resources>

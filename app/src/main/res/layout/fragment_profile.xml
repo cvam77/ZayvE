@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="profile"
+            type="String" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ProfileFragment">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16sp">
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="50sp" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="128sp"
+                    android:layout_height="128sp"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="100sp"
+                    android:background="@android:color/holo_red_dark">
+
+                    <ImageView
+                        android:id="@+id/profile_avatar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/avatar_pic"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/add_image_icon"
+                         />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/profile_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Apahadi73" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="50sp" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="@string/top_interests"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20sp" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/interest1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="8sp"
+                    android:text="Soccer" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="8sp"
+                    android:text="Tennis" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="8sp"
+                    android:text="Reading" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="8sp"
+                    android:text="Video Games" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="8sp"
+                    android:text="Cricket" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="30sp" />
+
+                <Button
+                    android:id="@+id/update_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/btn_custom"
+                    android:padding="8sp"
+                    android:text="@string/edit_profile"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+    </FrameLayout>
+</layout>
