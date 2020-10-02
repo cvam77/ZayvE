@@ -1,7 +1,5 @@
-package com.example.zayve_test
+package com.example.zayve_test.authorization
 
-import android.R.attr.password
-import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Build
@@ -16,13 +14,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.example.zayve_test.R
 import com.example.zayve_test.databinding.FragmentLoginBinding
-import com.example.zayve_test.databinding.FragmentSignupBinding
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-
 
 
 class LoginFragment : Fragment() {

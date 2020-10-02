@@ -1,4 +1,4 @@
-package com.example.zayve_test
+package com.example.zayve_test.authorization
 
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -15,12 +15,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.example.zayve_test.R
 import com.example.zayve_test.databinding.FragmentSignupBinding
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
-import com.google.firebase.firestore.FirebaseFirestore
 
 
 //sign up fragment
