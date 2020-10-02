@@ -17,6 +17,7 @@
             android:id="@+id/action_signupFragment2_to_profileSetupFragment"
             app:destination="@id/profileSetupFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/loginFragment2"
         android:name="com.example.zayve_test.LoginFragment"
@@ -34,7 +35,8 @@
     <fragment
         android:id="@+id/homePage"
         android:name="com.example.zayve_test.HomePage"
-        android:label="HomePage" >
+        android:label="HomePage"
+        >
         <action
             android:id="@+id/action_homePage_to_profile"
             app:destination="@id/profile" />

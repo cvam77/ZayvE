@@ -2,20 +2,41 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <data>
+
+        <variable
+            name="testButton"
+            type="com.example.zayve_test.AuthenticationActivity" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:context=".MainActivity"
         android:orientation="vertical"
-        tools:context=".AuthenticationActivity">
+        android:background="@color/background"
+        android:gravity="center">
 
 
-        <fragment
-            android:id="@+id/myNavHostFragment"
-            android:layout_width="match_parent"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_height="match_parent"
-            app:defaultNavHost = "true"
-            app:navGraph="@navigation/navigation"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_login"
+            android:background="@drawable/rounded_corners"
+            android:text="login"
+            android:layout_margin="20dp"
+
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_signup"
+            android:background="@drawable/rounded_corners"
+            android:text="sign up"
+            android:layout_margin="20dp"
+            />
+
     </LinearLayout>
 
-</layout>
+
+    </layout>

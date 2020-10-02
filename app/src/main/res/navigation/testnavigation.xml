@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/testnavigation"
+    app:startDestination="@id/homePageFragm">
+
+    <fragment
+        android:id="@+id/homePageFragm"
+        android:name="com.example.zayve_test.HomePageFragm"
+        android:label="HomePageFragm" >
+        <action
+            android:id="@+id/action_homePageFragm_to_browseFriendsFragment"
+            app:destination="@id/browseFriendsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/browseFriendsFragment"
+        android:name="com.example.zayve_test.BrowseFriendsFragment"
+        android:label="fragment_browse_friends"
+        tools:layout="@layout/fragment_browse_friends" />
+</navigation>

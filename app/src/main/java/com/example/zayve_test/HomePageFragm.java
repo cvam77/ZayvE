@@ -16,10 +16,11 @@ import android.widget.Toast;
 
 import com.example.zayve_test.databinding.ActivityMainBinding;
 
+import static androidx.navigation.fragment.NavHostFragment.findNavController;
+
 public class HomePageFragm extends Fragment implements View.OnClickListener
 {
 
-    private ActivityMainBinding activityMainBinding;
     private clickHandlerHomePageFragm mClickHandlerHomePageFragm;
 
     private Button seeProfileButton;
@@ -27,9 +28,6 @@ public class HomePageFragm extends Fragment implements View.OnClickListener
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
-        View view = activityMainBinding.getRoot();
 
     }
 
@@ -53,13 +51,8 @@ public class HomePageFragm extends Fragment implements View.OnClickListener
 
     public void BrowseFriendButtonClicked()
     {
-        Fragment hometoBrowseFragment = new BrowseFriendsFragment();
 
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.home_page_fragment,hometoBrowseFragment);
 
-        fragmentTransaction.addToBackStack(null);
-
-        fragmentTransaction.commit();
     }
 
     public class clickHandlerHomePageFragm
