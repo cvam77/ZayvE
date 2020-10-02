@@ -9,10 +9,15 @@
     tools:context=".JustForTestActivity">
 
 
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/test_fragment"
-        android:name="com.example.zayve_test.HomePageFragm"
-        />
+   <FrameLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/frameLayoutContainer"
+       >
+
+       <include layout="@layout/fragment_home_page"/>
+
+
+   </FrameLayout>
+
 </LinearLayout>

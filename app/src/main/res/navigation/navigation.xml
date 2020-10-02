@@ -14,6 +14,7 @@
             android:id="@+id/action_signupFragment2_to_homePage"
             app:destination="@id/homePage" />
     </fragment>
+
     <fragment
         android:id="@+id/loginFragment2"
         android:name="com.example.zayve_test.LoginFragment"

@@ -2,14 +2,21 @@ package com.example.zayve_test;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class JustForTestActivity extends AppCompatActivity implements View.OnClickListener {
+public class JustForTestActivity extends AppCompatActivity {
+
+
+    Button mBrowseFriendsButton;
+    Button mSeeProfileButton;
+
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
 
 
     @Override
@@ -17,27 +24,43 @@ public class JustForTestActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_just_for_test);
 
+        fragmentManager = getSupportFragmentManager();
+
+        mBrowseFriendsButton = findViewById(R.id.browseFriendsButton);
+        mBrowseFriendsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BrowseFriendsButtonClicked();
+            }
+        });
+
+        mSeeProfileButton = findViewById(R.id.see_profile_button);
+        mSeeProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                seeProfileButtonClicked();
+
+            }
+        });
+
 
 
     }
 
-    public void BrowseFriendButtonClicked()
-    {
-        Fragment hometoBrowseFragment = new BrowseFriendsFragment();
+    private void seeProfileButtonClicked() {
 
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.home_page_fragment,hometoBrowseFragment);
+    }
 
+    private void BrowseFriendsButtonClicked() {
+
+        Fragment fragment = new BrowseFriendsFragment();
+
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.frameLayoutContainer,fragment,"demofragment");
         fragmentTransaction.addToBackStack(null);
-
         fragmentTransaction.commit();
+
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId())
-        {
-            case R.id.browseFriendsButton:
-                BrowseFriendButtonClicked();
-        }
-    }
 }
+
