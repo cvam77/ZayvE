@@ -48,7 +48,12 @@ public class JustForTestActivity extends AppCompatActivity {
     }
 
     private void seeProfileButtonClicked() {
+        Fragment fragment = new ProfileFragment();
 
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.frameLayoutContainer,fragment,"demofragment");
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     private void BrowseFriendsButtonClicked() {
