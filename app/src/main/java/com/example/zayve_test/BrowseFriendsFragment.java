@@ -54,19 +54,19 @@ public class BrowseFriendsFragment extends Fragment {
 
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
-        FirebaseRecyclerAdapter<EachUserProfile, BrowseFriendsViewHolder> firebaseAdapter = new FirebaseRecyclerAdapter<EachUserProfile, BrowseFriendsViewHolder>() {
-            @Override
-            protected void populateViewHolder(BrowseFriendsViewHolder browseFriendsViewHolder, EachUserProfile eachUserProfile, int i) {
-
-            }
-
-            @Override
-            public BrowseFriendsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.each_user,parent,false);
-                BrowseFriendsViewHolder viewHolder = new BrowseFriendsViewHolder(view);
-                return viewHolder;
-            }
-        };
+//        FirebaseRecyclerAdapter<EachUserProfile, BrowseFriendsViewHolder> firebaseAdapter = new FirebaseRecyclerAdapter<EachUserProfile, BrowseFriendsViewHolder>() {
+//            @Override
+//            protected void populateViewHolder(BrowseFriendsViewHolder browseFriendsViewHolder, EachUserProfile eachUserProfile, int i) {
+//
+//            }
+//
+//            @Override
+//            public BrowseFriendsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.each_user,parent,false);
+//                BrowseFriendsViewHolder viewHolder = new BrowseFriendsViewHolder(view);
+//                return viewHolder;
+//            }
+//        };
 
 
     }
@@ -77,7 +77,7 @@ public class BrowseFriendsFragment extends Fragment {
 
         TextView mNameTextview, mFirstInterestTextview, mSecondInterestTextview, mThirdInterestTextview,
         mFourthInterestTextview, mFifthInterestTextview;
-        
+
         public BrowseFriendsViewHolder(@NonNull View itemView) {
             super(itemView);
         }
