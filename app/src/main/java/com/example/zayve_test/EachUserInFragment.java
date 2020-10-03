@@ -4,39 +4,26 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
 
-
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
 
-import static androidx.navigation.fragment.NavHostFragment.findNavController;
-
-public class HomePageFragm extends Fragment
-{
+public class EachUserInFragment extends Fragment {
 
 
+    private TextView mUsernameTextView;
 
-    private ArrayList<String> a1;
-
-    private Button seeProfileButton;
+    String globalName;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
@@ -44,17 +31,21 @@ public class HomePageFragm extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        globalName = getArguments().getString("globalName");
 
-
-        return inflater.inflate(R.layout.fragment_home_page, container, false);
-
+        return inflater.inflate(R.layout.fragment_each_user_in, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mUsernameTextView = getView().findViewById(R.id.user_name_textview);
 
+
+
+        mUsernameTextView.setText(globalName);
 
     }
 }

@@ -1,10 +1,13 @@
 package com.example.zayve_test;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +20,6 @@ public class JustForTestActivity extends AppCompatActivity {
 
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +44,6 @@ public class JustForTestActivity extends AppCompatActivity {
 
             }
         });
-
-
-
     }
 
     private void seeProfileButtonClicked() {
@@ -59,6 +58,7 @@ public class JustForTestActivity extends AppCompatActivity {
     private void BrowseFriendsButtonClicked() {
 
         Fragment fragment = new BrowseFriendsFragment();
+
 
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.frameLayoutContainer,fragment,"demofragment");
