@@ -26,10 +26,14 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
 
     ArrayList<String> arrayList = new ArrayList<>();
 
-    String string;
+    ArrayList<ArrayList<String>> VarrayList = new ArrayList<>();
 
-    public ViewPagerAdapter(@NonNull FragmentManager fm) {
+    private DatabaseReference mDatabaseRef;
+
+
+    public ViewPagerAdapter(@NonNull FragmentManager fm, ArrayList<ArrayList<String>> a) {
         super(fm);
+        this.VarrayList = a;
     }
 
     @NonNull
@@ -39,21 +43,24 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
         EachUserInFragment eachUserInFragment = new EachUserInFragment();
         Bundle bundle = new Bundle();
 
-        bundle.putString("globalName","string");
-
-
+        bundle.putString("globalName",VarrayList.get(0).get(position));
+        bundle.putString("firstInterest",VarrayList.get(1).get(position));
+        bundle.putString("secondInterest",VarrayList.get(2).get(position));
+        bundle.putString("thirdInterest",VarrayList.get(3).get(position));
+        bundle.putString("fourthInterest",VarrayList.get(4).get(position));
+        bundle.putString("fifthInterest",VarrayList.get(5).get(position));
+        bundle.putString("profilePictureString",VarrayList.get(6).get(position));
+        bundle.putString("intro",VarrayList.get(7).get(position));
         eachUserInFragment.setArguments(bundle);
         return eachUserInFragment;
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return VarrayList.get(0).size();
     }
 
-    public ArrayList<String> getArrayList() {
-        return arrayList;
-    }
+
 
     public void setArrayList(ArrayList<String> arrayList) {
         this.arrayList = arrayList;

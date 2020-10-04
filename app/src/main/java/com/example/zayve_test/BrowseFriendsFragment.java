@@ -1,14 +1,12 @@
 package com.example.zayve_test;
 
-import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
@@ -16,14 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Gallery;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
 import com.example.zayve_test.models.ViewPagerAdapter;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,11 +25,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeMap;
 
-import static android.app.Activity.RESULT_OK;
+import javax.xml.transform.Result;
 
 public class BrowseFriendsFragment extends Fragment {
 
@@ -48,8 +43,6 @@ public class BrowseFriendsFragment extends Fragment {
     private Uri imageUri;
 
     private static final int GALLERY_INTENT = 2;
-
-    private DatabaseReference mDatabaseRef;
 
 
 
@@ -77,27 +70,8 @@ public class BrowseFriendsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-//        Button mUploadImageButton = (Button) getView().findViewById(R.id.push_photo);
-//        mUploadImageButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                ActionPick();
-//            }
-//        });
-
-//        mListView = getView().findViewById(R.id.list_view);
-//
-//        a1 = new ArrayList<>();
-//
-//        a1.add("Shivam");
-//
-//        arrayAdapter = new ArrayAdapter<String>(getContext(),R.layout.each_user,R.id.user_name_textview,a1);
-//        mListView.setAdapter(arrayAdapter);
-
         mStorage = FirebaseStorage.getInstance().getReference();
 
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
 
 //        a1.add("def");
@@ -105,135 +79,150 @@ public class BrowseFriendsFragment extends Fragment {
 
         viewPager = getView().findViewById(R.id.view_pager);
 
-        viewPagerAdapter = new ViewPagerAdapter(getParentFragmentManager());
-        viewPager.setAdapter(viewPagerAdapter);
+        final ArrayList<String> sarrayList = new ArrayList<>();
 
-        mDatabaseRef.child("BrowseFriendsList").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if(snapshot.exists())
-                {
-                    for(DataSnapshot childSnapshot: snapshot.getChildren())
-                    {
-                        String name = childSnapshot.getValue().toString();
+        boolean backgroundDone = false;
 
-
-
-                    }
-
-
-
-
-
-//                    for(DataSnapshot childSnapshot: snapshot.getChildren())
-//                    {
-//
-//                    }
-
-                }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-//        FirebaseRecyclerAdapter<EachUserProfile, BrowseFriendsViewHolder> firebaseAdapter = new FirebaseRecyclerAdapter<EachUserProfile, BrowseFriendsViewHolder>() {
-//            @Override
-//            protected void populateViewHolder(BrowseFriendsViewHolder browseFriendsViewHolder, EachUserProfile eachUserProfile, int i) {
-//
-//            }
-//
-//            @Override
-//            public BrowseFriendsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.each_user,parent,false);
-//                BrowseFriendsViewHolder viewHolder = new BrowseFriendsViewHolder(view);
-//                return viewHolder;
-//            }
-//        };
-
+        CallAsync callAsync = new CallAsync();
+        callAsync.execute();
 
     }
 
 
-//    private void ActionPick() {
-//
-//        Intent intent = new Intent(Intent.ACTION_PICK);
-//        intent.setType("image/*");
-//
-//        startActivityForResult(intent,GALLERY_INTENT);
-//
-//    }
-//
-//
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        Log.d("successno","success");
-//        if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK)
-//        {
-//            Uri uri = data.getData();
-//
-//            StorageReference filepath = mStorage.child("Photos").child(uri.getLastPathSegment());
-//
-//            filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                @Override
-//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                    Toast.makeText(getContext(),"Upload Successful",Toast.LENGTH_LONG);
-//
-//                    String downloadUri = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-//
-//                    mDatabaseRef.child("BrowseFriendsList").push().child("ProfilePicture").setValue(downloadUri);
-//
-//                }
-//            });
-//        }
-//    }
-//
-//
-//    public static class BrowseFriendsViewHolder extends RecyclerView.ViewHolder
-//    {
-//
-//        TextView mNameTextview, mFirstInterestTextview, mSecondInterestTextview, mThirdInterestTextview,
-//        mFourthInterestTextview, mFifthInterestTextview;
-//
-//        public BrowseFriendsViewHolder(@NonNull View itemView) {
-//            super(itemView);
-//        }
-//    }
+    public void gettingArray(ArrayList<ArrayList<String>> harrayList)
+    {
+        viewPagerAdapter = new ViewPagerAdapter(getParentFragmentManager(),harrayList );
+        viewPager.setAdapter(viewPagerAdapter);
+
+
+
+    }
+
+    class CallAsync extends AsyncTask<Void,Void,ArrayList<ArrayList<String>>> {
+
+        private DatabaseReference mDatabaseRef;
+
+        @Override
+        protected ArrayList<ArrayList<String>> doInBackground(Void... voids) {
+
+            mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+
+
+
+            final ArrayList<ArrayList<String>> secondLevelAl = new ArrayList<>();
+
+            mDatabaseRef.child("BrowseFriendsList").addChildEventListener(new ChildEventListener() {
+                ArrayList<String> nameAl = new ArrayList<>();
+                ArrayList<String> firstInterestAl = new ArrayList<>();
+                ArrayList<String> secondInterestAl = new ArrayList<>();
+                ArrayList<String> thirdInterestAl = new ArrayList<>();
+                ArrayList<String> fourthInterestAl = new ArrayList<>();
+                ArrayList<String> fifthInterestAl = new ArrayList<>();
+                ArrayList<String> profilePicAl = new ArrayList<>();
+                ArrayList<String> introAl = new ArrayList<>();
+
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    if (snapshot.exists()) {
+
+                        for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                            if (childSnapshot.getKey().equals("name")) {
+                                String name = childSnapshot.getValue().toString();
+                                nameAl.add(name);
+                            }
+                            else if (childSnapshot.getKey().equals("ProfilePicture")) {
+                                String urlString = childSnapshot.getValue().toString();
+                                Log.d("pinterestArraywaList", urlString);
+                                profilePicAl.add(urlString);
+                            }
+                            else if (childSnapshot.getKey().equals("Intro")) {
+                                String intro = childSnapshot.getValue().toString();
+                                Log.d("kvayobey", intro);
+                                introAl.add(intro);
+                            }
+//                            {
+//                                String interest = childSnapshot.getValue().toString();
+//                                Log.d("interestArraywaList", interest);
+//                                ArrayList<String> firstLevelInterestAl = new ArrayList<>();
+//                                firstLevelInterestAl.add(interest);
+//                                secondLevelInterestAl.add(firstLevelInterestAl);
+//                                thirdLevelAl.add(secondLevelInterestAl);
+//                            }
+                        }
+
+                        for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+
+                            for(DataSnapshot secondLevelSnapshot : childSnapshot.getChildren())
+                            {
+                                String interest = secondLevelSnapshot.getValue().toString();
+
+                                switch (secondLevelSnapshot.getKey())
+                                {
+
+                                    case "0": firstInterestAl.add(interest); break;
+                                    case "1": secondInterestAl.add(interest); break;
+                                    case "2": thirdInterestAl.add(interest);  break;
+                                    case "3": fourthInterestAl.add(interest);  break;
+                                    case "4": fifthInterestAl.add(interest);  break;
+                                    default:
+                                        firstInterestAl.add("");
+                                        secondInterestAl.add("");
+                                        thirdInterestAl.add("");
+                                        fourthInterestAl.add("");
+                                        fifthInterestAl.add("");
+                                }
+                            }
+                        }
+
+
+
+                        secondLevelAl.add(nameAl);
+                        secondLevelAl.add(firstInterestAl);
+                        secondLevelAl.add(secondInterestAl);
+                        secondLevelAl.add(thirdInterestAl);
+                        secondLevelAl.add(fourthInterestAl);
+                        secondLevelAl.add(fifthInterestAl);
+                        secondLevelAl.add(profilePicAl);
+                        secondLevelAl.add(introAl);
+                    }
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+
+            }
+
+
+            );
+
+            while (secondLevelAl.isEmpty())
+            {
+
+            }
+            return secondLevelAl;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<ArrayList<String>> arrayLists) {
+            super.onPostExecute(arrayLists);
+            gettingArray(arrayLists);
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
