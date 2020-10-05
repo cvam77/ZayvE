@@ -15,6 +15,4 @@ class AuthenticationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding:ActivityMainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main)
     }
-
-
 }

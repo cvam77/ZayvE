@@ -2,6 +2,7 @@ package com.example.zayve_test.authorization
 
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +16,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.example.zayve_test.JustForTestActivity
 import com.example.zayve_test.R
 import com.example.zayve_test.databinding.FragmentSignupBinding
 import com.google.android.gms.tasks.OnCompleteListener
@@ -89,7 +91,9 @@ class SignupFragment : Fragment() {
                                         }
                                     }
 //                            saveUserName(userId)
-                            findNavController().navigate(R.id.action_signupFragment2_to_profileSetupFragment)
+//                            findNavController().navigate(R.id.action_signupFragment2_to_profileSetupFragment)
+                            val intent = Intent(activity, JustForTestActivity::class.java)
+                            startActivity(intent)
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail: failure", task.exception)

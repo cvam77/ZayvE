@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.zayve_test.BrowseFriendsFragment;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -57,7 +59,7 @@ public class JustForTestActivity extends AppCompatActivity {
             }
         });
 
-                Button mUploadImageButton = (Button) findViewById(R.id.upload_image);
+        Button mUploadImageButton = (Button) findViewById(R.id.upload_image);
         mUploadImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,15 +67,14 @@ public class JustForTestActivity extends AppCompatActivity {
                 ActionPick();
             }
         });
-
     }
 
-        private void ActionPick() {
+    private void ActionPick() {
 
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
 
-        startActivityForResult(intent,2);
+        startActivityForResult(intent, 2);
 
     }
 
@@ -81,11 +82,9 @@ public class JustForTestActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.d("successno","success");
-        if(requestCode == 2 && resultCode == RESULT_OK)
-        {
+        Log.d("successno", "success");
+        if (requestCode == 2 && resultCode == RESULT_OK) {
             Uri uri = data.getData();
-
 
 
             StorageReference mStorage = FirebaseStorage.getInstance().getReference();
@@ -107,10 +106,6 @@ public class JustForTestActivity extends AppCompatActivity {
                             mDatabaseReferenco.child("BrowseFriendsList").push().child("ProfilePicture").setValue(String.valueOf(uri));
                         }
                     });
-
-
-
-
                 }
             });
         }
@@ -121,7 +116,7 @@ public class JustForTestActivity extends AppCompatActivity {
         Fragment fragment = new ProfileFragment();
 
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.frameLayoutContainer,fragment,"demofragment");
+        fragmentTransaction.replace(R.id.frameLayoutContainer, fragment, "demofragment");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
@@ -130,9 +125,8 @@ public class JustForTestActivity extends AppCompatActivity {
 
         Fragment fragment = new BrowseFriendsFragment();
 
-
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.frameLayoutContainer,fragment,"demofragment");
+        fragmentTransaction.replace(R.id.frameLayoutContainer, fragment, "demofragment");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
