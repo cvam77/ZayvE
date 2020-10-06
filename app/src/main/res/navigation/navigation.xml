@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
     app:startDestination="@id/loginFragment2">
 
     <fragment
@@ -10,9 +12,6 @@
         <action
             android:id="@+id/action_signupFragment2_to_loginFragment2"
             app:destination="@id/loginFragment2" />
-        <action
-            android:id="@+id/action_signupFragment2_to_homePage"
-            app:destination="@id/homePage" />
         <action
             android:id="@+id/action_signupFragment2_to_profileSetupFragment"
             app:destination="@id/profileSetupFragment" />
@@ -25,39 +24,9 @@
         <action
             android:id="@+id/action_loginFragment2_to_signupFragment2"
             app:destination="@id/signupFragment2" />
-        <action
-            android:id="@+id/action_loginFragment2_to_homePage"
-            app:destination="@id/homePage" />
-        <action
-            android:id="@+id/action_loginFragment2_to_profile2"
-            app:destination="@id/profile" />
-    </fragment>
-    <fragment
-        android:id="@+id/homePage"
-        android:name="com.example.zayve_test.HomePage"
-        android:label="HomePage"
-        >
-        <action
-            android:id="@+id/action_homePage_to_profile"
-            app:destination="@id/profile" />
-    </fragment>
-    <fragment
-        android:id="@+id/profile"
-        android:name="com.example.zayve_test.ProfileFragment"
-        android:label="Profile" >
-        <action
-            android:id="@+id/action_profile_to_homePage"
-            app:destination="@id/homePage" />
-        <action
-            android:id="@+id/action_profile_to_profileSetupFragment"
-            app:destination="@id/profileSetupFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileSetupFragment"
         android:name="com.example.zayve_test.ProfileSetupFragment"
-        android:label="ProfileSetupFragment" >
-        <action
-            android:id="@+id/action_profileSetupFragment_to_profile"
-            app:destination="@id/profile" />
-    </fragment>
+        android:label="ProfileSetupFragment" />
 </navigation>

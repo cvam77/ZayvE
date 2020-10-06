@@ -8,18 +8,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-
-import com.example.zayve_test.BrowseFriendsFragment;
-import com.example.zayve_test.ClassForGettingSnapshots;
 import com.example.zayve_test.EachUserInFragment;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter
 {
