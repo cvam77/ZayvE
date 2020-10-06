@@ -2,6 +2,7 @@ package com.example.zayve_test;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -14,14 +15,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.zayve_test.databinding.ActivityMainBinding;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
-public class HomePageFragm extends Fragment implements View.OnClickListener
+public class HomePageFragm extends Fragment
 {
 
-    private clickHandlerHomePageFragm mClickHandlerHomePageFragm;
+
+
+    private ArrayList<String> a1;
 
     private Button seeProfileButton;
 
@@ -41,26 +51,10 @@ public class HomePageFragm extends Fragment implements View.OnClickListener
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId())
-        {
-            case R.id.browseFriendsButton:
-                BrowseFriendButtonClicked();
-        }
-    }
-
-    public void BrowseFriendButtonClicked()
-    {
-
-
-    }
-
-    public class clickHandlerHomePageFragm
-    {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
 
 
     }
-
-
 }

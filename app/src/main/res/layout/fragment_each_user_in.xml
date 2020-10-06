@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="#0C0000"
+    tools:context=".EachUserInFragment">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="26dp"
+            android:layout_gravity="end"
+            android:layout_marginRight="50dp"
+            app:srcCompat="@drawable/com_facebook_tooltip_black_xout" />
+
+        <TextView
+            android:id="@+id/user_name_textview"
+            android:layout_width="270dp"
+            android:layout_height="53dp"
+            android:fontFamily="cursive"
+            android:text="Shivam Chaudhary"
+            android:textColor="#263238"
+            android:textSize="35sp"
+            android:textStyle="bold"
+
+            />
+
+        <ImageView
+            android:id="@+id/profile_picture_imageview"
+            android:layout_width="326dp"
+            android:layout_height="259dp"
+            android:layout_margin="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/first_interest_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_name_textview"
+            app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/intro_tv"
+            android:padding="10dp"
+            android:text="Hey, I am Shivam. I am new in UT Tyler. I am looking for some friends to hang out with. If we have any of the matching interest below, just ZayvE me by hitting on any of the interests below and then we can get connected with each other."
+            android:textStyle="italic"
+            android:fontFamily="sans-serif"
+            android:textColor="#455A64"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           >
+
+            <TextView
+                android:id="@+id/first_interest_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Coding"
+                android:fontFamily="cursive"
+                android:textSize="35sp"
+                android:textColor="#000000"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="11dp"
+                android:background="#5A5858"
+                app:srcCompat="@drawable/com_facebook_button_like_icon_selected" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:id="@+id/second_interest_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Coding"
+                android:fontFamily="cursive"
+                android:textSize="35sp"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="11dp"
+                android:background="#5A5858"
+                app:srcCompat="@drawable/com_facebook_button_like_icon_selected" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:id="@+id/third_interest_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Coding"
+                android:fontFamily="cursive"
+                android:textSize="35sp"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="11dp"
+                android:background="#5A5858"
+                app:srcCompat="@drawable/com_facebook_button_like_icon_selected" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           >
+
+            <TextView
+                android:id="@+id/fourth_interest_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Coding"
+                android:fontFamily="cursive"
+                android:textSize="35sp"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="11dp"
+                android:background="#5A5858"
+                app:srcCompat="@drawable/com_facebook_button_like_icon_selected" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:id="@+id/fifth_interest_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Coding"
+                android:fontFamily="cursive"
+                android:textSize="35sp"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="11dp"
+                android:background="#5A5858"
+                app:srcCompat="@drawable/com_facebook_button_like_icon_selected" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

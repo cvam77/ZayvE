@@ -10,7 +10,7 @@
         android:id="@+id/signupFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".LoginFragment">
+        tools:context=".authorization.LoginFragment">
 
         <LinearLayout
             android:layout_width="match_parent"

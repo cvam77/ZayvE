@@ -7,19 +7,11 @@
     android:background="#FAFAFA">
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Upload Image"
-        android:id="@+id/button_upload_image"
-        />
-
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/image_to_be_uploaded"
-        android:layout_margin="50dp"
-        />
+   <androidx.viewpager.widget.ViewPager
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+      android:id="@+id/view_pager"
+      />
 
 
 
