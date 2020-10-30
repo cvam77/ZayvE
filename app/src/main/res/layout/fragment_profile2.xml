@@ -33,7 +33,7 @@
                     android:layout_height="128sp"
                     android:layout_gravity="center"
                     android:background="@android:color/holo_red_dark"
-                    app:cardCornerRadius="25sp">
+                    app:cardCornerRadius="100sp">
 
                     <ImageView
                         android:id="@+id/profile_avatar"
