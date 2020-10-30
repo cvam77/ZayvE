@@ -113,7 +113,7 @@ public class JustForTestActivity extends AppCompatActivity {
 
 
     private void seeProfileButtonClicked() {
-        Fragment fragment = new ProfileFragment();
+        Fragment fragment = new ProfileSetupFragment();
 
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayoutContainer, fragment, "demofragment");

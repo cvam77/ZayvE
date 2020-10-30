@@ -29,7 +29,7 @@ class ProfileFragment : Fragment() {
         database = FirebaseDatabase.getInstance().reference.child("users").child(user.uid);
         fetchUserData()
         binding.editButton.setOnClickListener {
-            findNavController().navigate(R.id.action_profile_to_profileSetupFragment)
+
         }
         return binding.root
     }

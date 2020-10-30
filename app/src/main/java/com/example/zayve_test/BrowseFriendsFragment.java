@@ -93,9 +93,6 @@ public class BrowseFriendsFragment extends Fragment {
     {
         viewPagerAdapter = new ViewPagerAdapter(getParentFragmentManager(),harrayList );
         viewPager.setAdapter(viewPagerAdapter);
-
-
-
     }
 
     class CallAsync extends AsyncTask<Void,Void,ArrayList<ArrayList<String>>> {

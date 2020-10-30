@@ -93,7 +93,7 @@ class ProfileSetupFragment : Fragment() {
                         myDBref.child("users").child(user.uid).child("interests").setValue(interests)
                         myDBref.child("users").child(user.uid).child("avatar_image").setValue(imageDownloadUrl)
 //                        after saving data to the realtime database, navigates to homepage 
-                        findNavController().navigate(R.id.action_profileSetupFragment_to_profile)
+                      
                     }
                     Log.d("response", "Successfully uploaded the image to firebase")
                 }
