@@ -25,4 +25,9 @@
         android:id="@+id/profileSetupFragment3"
         android:name="com.example.zayve_test.ui.profile.ProfileSetupFragment"
         android:label="ProfileSetupFragment" />
+    <fragment
+        android:id="@+id/nav_browse_friends"
+        android:name="com.example.zayve_test.ui.browse_friends.BrowseFriendsFragment"
+        android:label="fragment_browse_friends"
+        tools:layout="@layout/fragment_browse_friends" />
 </navigation>
