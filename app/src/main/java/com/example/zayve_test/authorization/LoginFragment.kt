@@ -45,6 +45,7 @@ class LoginFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.P)
     private fun loginUser(context: Context): Unit {
+        // It needs to check if the email or password is not filled in, or the app will crash.
         activity?.mainExecutor?.let {
             auth.signInWithEmailAndPassword(binding.userEmail.text.toString(), binding.userPassword.text.toString())
                     .addOnCompleteListener(it, OnCompleteListener<AuthResult?> { task ->
