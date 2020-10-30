@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ZayveActivity">
+        <activity android:name=".AuthenticationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,7 +29,7 @@
             android:name=".ZayveActivity2"
             android:label="@string/title_activity_zayve"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AuthenticationActivity" />
+        <activity android:name=".ZayveActivity" />
     </application>
 
 </manifest>
