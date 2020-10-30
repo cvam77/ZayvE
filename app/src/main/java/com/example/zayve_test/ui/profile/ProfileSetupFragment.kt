@@ -8,12 +8,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.zayve_test.R
 import com.example.zayve_test.ZayveActivity
 import com.example.zayve_test.databinding.FragmentProfileSetupBinding
 import com.google.android.gms.tasks.Task
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -49,6 +51,7 @@ class ProfileSetupFragment : Fragment() {
         binding.saveProfile.setOnClickListener {
             submitInterests()
         }
+
         return binding.root
     }
 
@@ -95,6 +98,7 @@ class ProfileSetupFragment : Fragment() {
                         userDb.child("about").setValue(binding.userIntro.text.toString())
                         userDb.child("user_name").setValue(binding.userName.text.toString())
 //                        after saving data to the realtime database, navigates to ZayveActivity
+//                        todo: if possible, manage the navigation to the profile frag
                         val intent = Intent(activity, ZayveActivity::class.java)
                         startActivity(intent)
 
