@@ -1,4 +1,4 @@
-package com.example.zayve_test;
+package com.example.zayve_test.ui;
 
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.example.zayve_test.R;
 import com.example.zayve_test.models.ViewPagerAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;

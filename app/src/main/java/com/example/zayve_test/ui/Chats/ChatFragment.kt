@@ -1,4 +1,4 @@
-package com.example.zayve_test.ui.slideshow
+package com.example.zayve_test.ui.Chats
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.zayve_test.R
 
-class SlideshowFragment : Fragment() {
+class ChatFragment : Fragment() {
 
-    private lateinit var slideshowViewModel: SlideshowViewModel
+    private lateinit var chatViewModel: ChatViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        slideshowViewModel =
-                ViewModelProvider(this).get(SlideshowViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_slideshow, container, false)
-        val textView: TextView = root.findViewById(R.id.text_slideshow)
-        slideshowViewModel.text.observe(viewLifecycleOwner, Observer {
+        chatViewModel =
+                ViewModelProvider(this).get(ChatViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_chat, container, false)
+        val textView: TextView = root.findViewById(R.id.text_home)
+        chatViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root

@@ -1,4 +1,4 @@
-package com.example.zayve_test;
+package com.example.zayve_test.ui;
 
 import android.os.Bundle;
 
@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
+import com.example.zayve_test.R;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
