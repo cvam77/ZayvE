@@ -25,11 +25,10 @@ class ProfileSetupFragment : Fragment() {
     private lateinit var binding: FragmentProfileSetupBinding
     private var SELECT_PHOTO: Int = 1
     private lateinit var mStorageRef: StorageReference;
-    private lateinit var myDBref:DatabaseReference
+    private lateinit var myDBref: DatabaseReference
     private lateinit var imageURI: Uri
-    private  var imageDownloadUrl=""
-    private lateinit var user:FirebaseUser
-
+    private var imageDownloadUrl = ""
+    private lateinit var user: FirebaseUser
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -37,9 +36,9 @@ class ProfileSetupFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_setup, container, false)
 //        receivers user name from firebase
         user = FirebaseAuth.getInstance().currentUser!!
-            for (profile in user.providerData) {
-                binding.profileUsername.text = profile.displayName
-            }
+        for (profile in user.providerData) {
+            binding.profileUsername.text = profile.displayName
+        }
 //        picks an image from user
         binding.pickImage.setOnClickListener {
             var intent: Intent = Intent(Intent.ACTION_PICK)
@@ -56,12 +55,12 @@ class ProfileSetupFragment : Fragment() {
     private fun submitInterests() {
 //        realtime database reference
         val database = FirebaseDatabase.getInstance()
-         myDBref = database.reference
+        myDBref = database.reference
         uploadAvatarImage(imageURI)
 
     }
 
-//    handles image picker result
+    //    handles image picker result
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == SELECT_PHOTO) {
@@ -79,21 +78,22 @@ class ProfileSetupFragment : Fragment() {
 //                val riversRef: StorageReference = mStorageRef.child("images/" + user.uid)
         val riversRef: StorageReference = mStorageRef.child("images/${user.uid}")
         riversRef.putFile(imageURI)
-                .addOnSuccessListener { taskSnapshot-> // Get a URL to the uploaded content
+                .addOnSuccessListener { taskSnapshot -> // Get a URL to the uploaded content
                     // Get a URL to the uploaded content
                     val downloadTask: Task<Uri> = taskSnapshot.storage.downloadUrl
                     downloadTask.addOnSuccessListener {
                         imageDownloadUrl = it.toString()
                         Log.d("response", "downloadUrl:$imageDownloadUrl")
-                        var interests = arrayListOf<String>(binding.interest1.text.toString(), binding.interest2.text.toString(),
+                        val interests = arrayListOf<String>(binding.interest1.text.toString(), binding.interest2.text.toString(),
                                 binding.interest3.text.toString(),
                                 binding.interest4.text.toString(),
                                 binding.interest5.text.toString()
                         )
-                        myDBref.child("users").child(user.uid).child("interests").setValue(interests)
-                        myDBref.child("users").child(user.uid).child("profile_image").setValue(imageDownloadUrl)
-                        myDBref.child("users").child(user.uid).child("about").setValue(binding.userIntro.text.toString())
-                        myDBref.child("users").child(user.uid).child("user_name").setValue(binding.userName.text.toString())
+                        val userDb = myDBref.child("users").child(user.uid)
+                        userDb.child("interests").setValue(interests)
+                        userDb.child("profile_image").setValue(imageDownloadUrl)
+                        userDb.child("about").setValue(binding.userIntro.text.toString())
+                        userDb.child("user_name").setValue(binding.userName.text.toString())
 //                        after saving data to the realtime database, navigates to homepage
                     }
                     Log.d("response", "Successfully uploaded the data to firebase")

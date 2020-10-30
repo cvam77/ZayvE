@@ -22,7 +22,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-public class ZayveActivity extends AppCompatActivity {
+public class ZayveActivity2 extends AppCompatActivity {
 
 
     Button mBrowseFriendsButton;

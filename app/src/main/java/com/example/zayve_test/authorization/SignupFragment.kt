@@ -15,8 +15,8 @@ import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import com.example.zayve_test.ZayveActivity
 import com.example.zayve_test.R
+import com.example.zayve_test.ZayveActivity
 import com.example.zayve_test.databinding.FragmentSignupBinding
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
