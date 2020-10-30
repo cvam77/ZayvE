@@ -12,7 +12,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ProfileFragment">
+        tools:context=".ui.profile.ProfileFragment">
 
         <RelativeLayout
             android:layout_width="match_parent"

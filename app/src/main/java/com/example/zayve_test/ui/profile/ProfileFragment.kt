@@ -1,4 +1,4 @@
-package com.example.zayve_test
+package com.example.zayve_test.ui.profile
 
 import android.os.Bundle
 import android.util.Log
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import com.example.zayve_test.R
 import com.example.zayve_test.databinding.FragmentProfileBinding
 import com.example.zayve_test.models.User
 import com.google.firebase.auth.FirebaseAuth

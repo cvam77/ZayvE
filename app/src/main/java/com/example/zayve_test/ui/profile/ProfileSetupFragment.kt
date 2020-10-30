@@ -1,4 +1,4 @@
-package com.example.zayve_test
+package com.example.zayve_test.ui.profile
 
 import android.app.Activity
 import android.content.Intent
@@ -10,7 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import com.example.zayve_test.R
+import com.example.zayve_test.ZayveActivity
 import com.example.zayve_test.databinding.FragmentProfileSetupBinding
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
@@ -41,7 +42,7 @@ class ProfileSetupFragment : Fragment() {
         }
 //        picks an image from user
         binding.pickImage.setOnClickListener {
-            var intent: Intent = Intent(Intent.ACTION_PICK)
+            val intent: Intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
             startActivityForResult(intent, SELECT_PHOTO)
         }
@@ -56,8 +57,7 @@ class ProfileSetupFragment : Fragment() {
 //        realtime database reference
         val database = FirebaseDatabase.getInstance()
         myDBref = database.reference
-        uploadAvatarImage(imageURI)
-
+        uploadUserProfile()
     }
 
     //    handles image picker result
@@ -73,11 +73,11 @@ class ProfileSetupFragment : Fragment() {
     }
 
     //   uploads avatar image and saves downloadurl into imageUrl
-    private fun uploadAvatarImage(data: Uri) {
+    private fun uploadUserProfile() {
         mStorageRef = FirebaseStorage.getInstance().reference;
-//                val riversRef: StorageReference = mStorageRef.child("images/" + user.uid)
-        val riversRef: StorageReference = mStorageRef.child("images/${user.uid}")
-        riversRef.putFile(imageURI)
+        val imageStorageBucketRef: StorageReference = mStorageRef.child("images/${user.uid}")
+//        puts image into the firebase storage, fetches image download url and uploads the user profile to the backend
+        imageStorageBucketRef.putFile(imageURI)
                 .addOnSuccessListener { taskSnapshot -> // Get a URL to the uploaded content
                     // Get a URL to the uploaded content
                     val downloadTask: Task<Uri> = taskSnapshot.storage.downloadUrl
@@ -94,7 +94,10 @@ class ProfileSetupFragment : Fragment() {
                         userDb.child("profile_image").setValue(imageDownloadUrl)
                         userDb.child("about").setValue(binding.userIntro.text.toString())
                         userDb.child("user_name").setValue(binding.userName.text.toString())
-//                        after saving data to the realtime database, navigates to homepage
+//                        after saving data to the realtime database, navigates to ZayveActivity
+                        val intent = Intent(activity, ZayveActivity::class.java)
+                        startActivity(intent)
+
                     }
                     Log.d("response", "Successfully uploaded the data to firebase")
                 }
