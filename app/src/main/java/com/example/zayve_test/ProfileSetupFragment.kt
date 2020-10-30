@@ -91,8 +91,10 @@ class ProfileSetupFragment : Fragment() {
                                 binding.interest5.text.toString()
                         )
                         myDBref.child("users").child(user.uid).child("interests").setValue(interests)
-                        myDBref.child("users").child(user.uid).child("avatar_image").setValue(imageDownloadUrl)
-//                        after saving data to the realtime database, navigates to homepage 
+                        myDBref.child("users").child(user.uid).child("profile_image").setValue(imageDownloadUrl)
+                        myDBref.child("users").child(user.uid).child("about").setValue(binding.userIntro.text.toString())
+                        myDBref.child("users").child(user.uid).child("user_name").setValue(binding.userName.text.toString())
+//                        after saving data to the realtime database, navigates to homepage
                     }
                     Log.d("response", "Successfully uploaded the data to firebase")
                 }
