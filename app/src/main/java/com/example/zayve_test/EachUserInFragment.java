@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -24,7 +25,7 @@ import com.squareup.picasso.Picasso;
 public class EachUserInFragment extends Fragment {
 
     private DatabaseReference mDatabaseReference;
-    private FirebaseAuth mFirebaseAuthentication;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     private TextView mUsernameTextView,mFirstInterestTextView,mSecondInterestTextView,mThirdInterestTextView,
             mFourthInterestTextView,mFifthInterestTextView,introTv;
@@ -88,7 +89,7 @@ public class EachUserInFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(),firstInterest,Toast.LENGTH_SHORT).show();
-                String id = mFirebaseAuthentication.getCurrentUser().getUid();
+                String id = user.getUid();
                 Log.d("gettingids",id);
                 //                mDatabaseReference.child("BrowsedUsers").child(mFirebaseAuthentication.getCurrentUser().getUid()).setValue(firstInterest);
 

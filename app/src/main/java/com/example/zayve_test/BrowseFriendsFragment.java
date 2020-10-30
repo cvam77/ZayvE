@@ -18,6 +18,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.example.zayve_test.models.ViewPagerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,13 +46,15 @@ public class BrowseFriendsFragment extends Fragment {
 
     private static final int GALLERY_INTENT = 2;
 
-
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
     private ArrayList<String> a1;
 
     private ArrayAdapter<String> arrayAdapter;
 
     ListView mListView;
+
+    FirebaseUser getCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,8 +108,6 @@ public class BrowseFriendsFragment extends Fragment {
 
             mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
-
-
             final ArrayList<ArrayList<String>> secondLevelAl = new ArrayList<>();
 
             mDatabaseRef.child("users").addChildEventListener(new ChildEventListener() {
@@ -122,21 +124,28 @@ public class BrowseFriendsFragment extends Fragment {
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                     if (snapshot.exists()) {
 
-                        for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                            if (childSnapshot.getKey().equals("user_name")) {
-                                String name = childSnapshot.getValue().toString();
-                                nameAl.add(name);
-                            }
-                            else if (childSnapshot.getKey().equals("profile_image")) {
-                                String urlString = childSnapshot.getValue().toString();
-                                Log.d("pinterestArraywaList", urlString);
-                                profilePicAl.add(urlString);
-                            }
-                            else if (childSnapshot.getKey().equals("about")) {
-                                String intro = childSnapshot.getValue().toString();
-                                Log.d("kvayobey", intro);
-                                introAl.add(intro);
-                            }
+                        Log.d("mishirjitu", snapshot.getKey().toString());
+                        Log.d("mishirjitu", "current user = " + getCurrentUser.getUid());
+
+                        if(!snapshot.getKey().equals(getCurrentUser.getUid()))
+                        {
+                            for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+
+
+                                if (childSnapshot.getKey().equals("user_name")) {
+                                    String name = childSnapshot.getValue().toString();
+                                    nameAl.add(name);
+                                }
+                                else if (childSnapshot.getKey().equals("profile_image")) {
+                                    String urlString = childSnapshot.getValue().toString();
+                                    Log.d("pinterestArraywaList", urlString);
+                                    profilePicAl.add(urlString);
+                                }
+                                else if (childSnapshot.getKey().equals("about")) {
+                                    String intro = childSnapshot.getValue().toString();
+                                    Log.d("kvayobey", intro);
+                                    introAl.add(intro);
+                                }
 //                            {
 //                                String interest = childSnapshot.getValue().toString();
 //                                Log.d("interestArraywaList", interest);
@@ -145,42 +154,44 @@ public class BrowseFriendsFragment extends Fragment {
 //                                secondLevelInterestAl.add(firstLevelInterestAl);
 //                                thirdLevelAl.add(secondLevelInterestAl);
 //                            }
-                        }
+                            }
 
-                        for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                            for (DataSnapshot childSnapshot : snapshot.getChildren()) {
 
-                            for(DataSnapshot secondLevelSnapshot : childSnapshot.getChildren())
-                            {
-                                String interest = secondLevelSnapshot.getValue().toString();
-
-                                switch (secondLevelSnapshot.getKey())
+                                for(DataSnapshot secondLevelSnapshot : childSnapshot.getChildren())
                                 {
+                                    String interest = secondLevelSnapshot.getValue().toString();
 
-                                    case "0": firstInterestAl.add(interest); break;
-                                    case "1": secondInterestAl.add(interest); break;
-                                    case "2": thirdInterestAl.add(interest);  break;
-                                    case "3": fourthInterestAl.add(interest);  break;
-                                    case "4": fifthInterestAl.add(interest);  break;
-                                    default:
-                                        firstInterestAl.add("");
-                                        secondInterestAl.add("");
-                                        thirdInterestAl.add("");
-                                        fourthInterestAl.add("");
-                                        fifthInterestAl.add("");
+                                    switch (secondLevelSnapshot.getKey())
+                                    {
+
+                                        case "0": firstInterestAl.add(interest); break;
+                                        case "1": secondInterestAl.add(interest); break;
+                                        case "2": thirdInterestAl.add(interest);  break;
+                                        case "3": fourthInterestAl.add(interest);  break;
+                                        case "4": fifthInterestAl.add(interest);  break;
+                                        default:
+                                            firstInterestAl.add("");
+                                            secondInterestAl.add("");
+                                            thirdInterestAl.add("");
+                                            fourthInterestAl.add("");
+                                            fifthInterestAl.add("");
+                                    }
                                 }
                             }
+
+
+
+                            secondLevelAl.add(nameAl);
+                            secondLevelAl.add(firstInterestAl);
+                            secondLevelAl.add(secondInterestAl);
+                            secondLevelAl.add(thirdInterestAl);
+                            secondLevelAl.add(fourthInterestAl);
+                            secondLevelAl.add(fifthInterestAl);
+                            secondLevelAl.add(profilePicAl);
+                            secondLevelAl.add(introAl);
                         }
 
-
-
-                        secondLevelAl.add(nameAl);
-                        secondLevelAl.add(firstInterestAl);
-                        secondLevelAl.add(secondInterestAl);
-                        secondLevelAl.add(thirdInterestAl);
-                        secondLevelAl.add(fourthInterestAl);
-                        secondLevelAl.add(fifthInterestAl);
-                        secondLevelAl.add(profilePicAl);
-                        secondLevelAl.add(introAl);
                     }
                 }
 
