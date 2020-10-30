@@ -15,11 +15,19 @@
         android:id="@+id/nav_profile"
         android:name="com.example.zayve_test.ui.profile.ProfileFragment"
         android:label="@string/menu_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_nav_profile_to_profileSetupFragment3"
+            app:destination="@id/profileSetupFragment3" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.example.zayve_test.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/profileSetupFragment3"
+        android:name="com.example.zayve_test.ui.profile.ProfileSetupFragment"
+        android:label="ProfileSetupFragment" />
 </navigation>

@@ -22,8 +22,9 @@ class ProfileViewModel : ViewModel() {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val profilePic = dataSnapshot.child("profile_image").value as String
                     val interests = dataSnapshot.child("interests").value as ArrayList<String>
+                    val userName = dataSnapshot.child("user_name").value as String
 //                    this user is our model User
-                    _user.value= User(user.displayName.toString(), profilePic,interests )
+                    _user.value= User(userName, profilePic,interests )
 
                 }
                 override fun onCancelled(databaseError: DatabaseError) {
