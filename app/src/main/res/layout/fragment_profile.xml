@@ -12,7 +12,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ProfileFragment">
+        tools:context=".ui.profile.ProfileFragment2">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -33,7 +33,7 @@
                     android:layout_height="128sp"
                     android:layout_gravity="center"
                     android:background="@android:color/holo_red_dark"
-                    app:cardCornerRadius="100sp">
+                    app:cardCornerRadius="25sp">
 
                     <ImageView
                         android:id="@+id/profile_avatar"
@@ -45,11 +45,16 @@
                         android:src="@drawable/avatar_icon" />
                 </androidx.cardview.widget.CardView>
 
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="15sp" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/profile_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:textFontWeight="700"
                     android:text="@{user.userName}" />
 
                 <Space

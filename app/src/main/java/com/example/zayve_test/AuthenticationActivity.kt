@@ -4,15 +4,12 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.example.zayve_test.databinding.ActivityMainBinding
+import com.example.zayve_test.databinding.ActivityAuthenticationBinding
 
 class AuthenticationActivity : AppCompatActivity() {
-    private val manager = supportFragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding:ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
-
+        val binding:ActivityAuthenticationBinding = DataBindingUtil.setContentView(this, R.layout.activity_authentication)
     }
 }

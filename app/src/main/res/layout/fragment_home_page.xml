@@ -5,14 +5,14 @@
     <data>
         <variable
             name="BrowseFriendClick"
-            type="com.example.zayve_test.HomePageFragm" />
+            type="com.example.zayve_test.ui.HomePageFragm" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
 
         android:layout_height="match_parent"
-        tools:context=".HomePageFragm"
+        tools:context=".ui.HomePageFragm"
         android:id="@+id/home_page_fragment"
         >
 

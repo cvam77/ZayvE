@@ -1,4 +1,4 @@
-package com.example.zayve_test;
+package com.example.zayve_test.ui;
 
 
 public class EachUserProfile
