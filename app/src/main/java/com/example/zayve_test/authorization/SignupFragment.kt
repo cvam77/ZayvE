@@ -15,8 +15,7 @@ import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
-import com.example.zayve_test.JustForTestActivity
+import com.example.zayve_test.ZayveActivity
 import com.example.zayve_test.R
 import com.example.zayve_test.databinding.FragmentSignupBinding
 import com.google.android.gms.tasks.OnCompleteListener
@@ -92,7 +91,7 @@ class SignupFragment : Fragment() {
                                     }
 //                            saveUserName(userId)
 //                            findNavController().navigate(R.id.action_signupFragment2_to_profileSetupFragment)
-                            val intent = Intent(activity, JustForTestActivity::class.java)
+                            val intent = Intent(activity, ZayveActivity::class.java)
                             startActivity(intent)
                         } else {
                             // If sign in fails, display a message to the user.

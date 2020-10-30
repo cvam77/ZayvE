@@ -14,7 +14,7 @@ import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import com.example.zayve_test.JustForTestActivity
+import com.example.zayve_test.ZayveActivity
 import com.example.zayve_test.R
 import com.example.zayve_test.databinding.FragmentLoginBinding
 import com.google.android.gms.tasks.OnCompleteListener
@@ -53,7 +53,7 @@ class LoginFragment : Fragment() {
                             Log.d(TAG, "signInWithEmail:success")
                             //        TODo: remember to change the navigation here to login_to_homepage
 //                            findNavController().navigate(R.id.action_loginFragment2_to_profile2)
-                            val intent = Intent(activity, JustForTestActivity::class.java)
+                            val intent = Intent(activity, ZayveActivity::class.java)
                             startActivity(intent)
                         } else {
                             // If sign in fails, display a message to the user.

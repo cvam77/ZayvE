@@ -22,7 +22,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-public class JustForTestActivity extends AppCompatActivity {
+public class ZayveActivity extends AppCompatActivity {
 
 
     Button mBrowseFriendsButton;
@@ -69,6 +69,7 @@ public class JustForTestActivity extends AppCompatActivity {
         });
     }
 
+    //Ignore this method
     private void ActionPick() {
 
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -78,6 +79,7 @@ public class JustForTestActivity extends AppCompatActivity {
 
     }
 
+    //Ignore this method part 2
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -111,7 +113,7 @@ public class JustForTestActivity extends AppCompatActivity {
         }
     }
 
-
+    //Going from ZayveActivity to See Profile Fragment
     private void seeProfileButtonClicked() {
         Fragment fragment = new ProfileSetupFragment();
 
@@ -121,6 +123,7 @@ public class JustForTestActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    //Going from ZayveActivity to BrowseFriendsFragment
     private void BrowseFriendsButtonClicked() {
 
         Fragment fragment = new BrowseFriendsFragment();

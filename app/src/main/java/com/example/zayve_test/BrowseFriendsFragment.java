@@ -108,7 +108,7 @@ public class BrowseFriendsFragment extends Fragment {
 
             final ArrayList<ArrayList<String>> secondLevelAl = new ArrayList<>();
 
-            mDatabaseRef.child("BrowseFriendsList").addChildEventListener(new ChildEventListener() {
+            mDatabaseRef.child("users").addChildEventListener(new ChildEventListener() {
                 ArrayList<String> nameAl = new ArrayList<>();
                 ArrayList<String> firstInterestAl = new ArrayList<>();
                 ArrayList<String> secondInterestAl = new ArrayList<>();
@@ -123,16 +123,16 @@ public class BrowseFriendsFragment extends Fragment {
                     if (snapshot.exists()) {
 
                         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                            if (childSnapshot.getKey().equals("name")) {
+                            if (childSnapshot.getKey().equals("user_name")) {
                                 String name = childSnapshot.getValue().toString();
                                 nameAl.add(name);
                             }
-                            else if (childSnapshot.getKey().equals("ProfilePicture")) {
+                            else if (childSnapshot.getKey().equals("profile_image")) {
                                 String urlString = childSnapshot.getValue().toString();
                                 Log.d("pinterestArraywaList", urlString);
                                 profilePicAl.add(urlString);
                             }
-                            else if (childSnapshot.getKey().equals("Intro")) {
+                            else if (childSnapshot.getKey().equals("about")) {
                                 String intro = childSnapshot.getValue().toString();
                                 Log.d("kvayobey", intro);
                                 introAl.add(intro);
