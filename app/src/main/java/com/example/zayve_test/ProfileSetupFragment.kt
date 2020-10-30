@@ -93,9 +93,8 @@ class ProfileSetupFragment : Fragment() {
                         myDBref.child("users").child(user.uid).child("interests").setValue(interests)
                         myDBref.child("users").child(user.uid).child("avatar_image").setValue(imageDownloadUrl)
 //                        after saving data to the realtime database, navigates to homepage 
-                      
                     }
-                    Log.d("response", "Successfully uploaded the image to firebase")
+                    Log.d("response", "Successfully uploaded the data to firebase")
                 }
                 .addOnFailureListener {
                     Log.d("response", "Unsuccessful to upload the image to firebase")

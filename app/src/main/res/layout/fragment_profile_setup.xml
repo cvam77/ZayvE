@@ -13,6 +13,9 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -28,7 +31,7 @@
                     android:layout_width="128sp"
                     android:layout_height="128sp"
                     android:layout_gravity="center"
-                    app:cardCornerRadius="100sp">
+                    app:cardCornerRadius="10sp">
 
                     <ImageView
                         android:id="@+id/profile_avatar"
@@ -204,6 +207,8 @@
                     android:textColor="@android:color/white" />
 
             </LinearLayout>
+            </ScrollView>
+
         </RelativeLayout>
 
     </FrameLayout>
