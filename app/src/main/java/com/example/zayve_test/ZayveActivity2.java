@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.zayve_test.ui.BrowseFriendsFragment;
+import com.example.zayve_test.ui.browse_friends.BrowseFriendsFragment;
 import com.example.zayve_test.ui.profile.ProfileSetupFragment;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
