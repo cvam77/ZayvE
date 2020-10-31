@@ -1,4 +1,4 @@
-package com.example.zayve_test.ui;
+package com.example.zayve_test.ui.browse_friends;
 
 import android.os.Bundle;
 

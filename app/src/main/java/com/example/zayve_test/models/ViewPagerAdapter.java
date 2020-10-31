@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import com.example.zayve_test.ui.EachUserInFragment;
+import com.example.zayve_test.ui.browse_friends.EachUserInFragment;
 import com.google.firebase.database.DatabaseReference;
 import java.util.ArrayList;
 

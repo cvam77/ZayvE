@@ -212,7 +212,6 @@ public class BrowseFriendsFragment extends Fragment {
 
             while (secondLevelAl.isEmpty())
             {
-
             }
             return secondLevelAl;
         }
