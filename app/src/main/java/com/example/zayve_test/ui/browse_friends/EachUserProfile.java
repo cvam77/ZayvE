@@ -1,4 +1,4 @@
-package com.example.zayve_test;
+package com.example.zayve_test.ui.browse_friends;
 
 
 public class EachUserProfile

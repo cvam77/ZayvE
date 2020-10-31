@@ -1,4 +1,4 @@
-package com.example.zayve_test;
+package com.example.zayve_test.ui.browse_friends;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.zayve_test.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

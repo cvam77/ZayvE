@@ -1,4 +1,4 @@
-package com.example.zayve_test.authorization
+package com.example.zayve_test.ui.authorization
 
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -14,8 +14,8 @@ import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import com.example.zayve_test.ZayveActivity
 import com.example.zayve_test.R
+import com.example.zayve_test.ZayveActivity
 import com.example.zayve_test.databinding.FragmentLoginBinding
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
@@ -53,7 +53,6 @@ class LoginFragment : Fragment() {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success")
                             //        TODo: remember to change the navigation here to login_to_homepage
-//                            findNavController().navigate(R.id.action_loginFragment2_to_profile2)
                             val intent = Intent(activity, ZayveActivity::class.java)
                             startActivity(intent)
                         } else {

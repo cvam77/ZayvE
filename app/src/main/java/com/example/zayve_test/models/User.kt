@@ -1,4 +1,4 @@
 package com.example.zayve_test.models
 
-data class User(val userName:String ,val avatar_image: String, val interests: ArrayList<String>) {
+data class User(val userName:String, val profile_pic: String, val interests: ArrayList<String>) {
 }

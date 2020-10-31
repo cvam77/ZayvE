@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_requests">
+
+    <fragment
+        android:id="@+id/nav_chat_page"
+        android:name="com.example.zayve_test.ui.Chats.ChatFragment"
+        android:label="Chat"
+        tools:layout="@layout/fragment_chat" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.example.zayve_test.ui.profile.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_nav_profile_to_profileSetupFragment3"
+            app:destination="@id/profileSetupFragment3" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileSetupFragment3"
+        android:name="com.example.zayve_test.ui.profile.ProfileSetupFragment"
+        android:label="ProfileSetupFragment" />
+    <fragment
+        android:id="@+id/nav_browse_friends"
+        android:name="com.example.zayve_test.ui.browse_friends.BrowseFriendsFragment"
+        android:label="fragment_browse_friends"
+        tools:layout="@layout/fragment_browse_friends" />
+    <fragment
+        android:id="@+id/nav_requests"
+        android:name="com.example.zayve_test.ui.requests.RequestsFragment"
+        android:label="Requests" />
+</navigation>

@@ -1,14 +1,12 @@
 package com.example.zayve_test.models;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import com.example.zayve_test.EachUserInFragment;
+import com.example.zayve_test.ui.browse_friends.EachUserInFragment;
 import com.google.firebase.database.DatabaseReference;
 import java.util.ArrayList;
 
