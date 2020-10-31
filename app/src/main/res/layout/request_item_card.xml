@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="request"
+            type="com.example.zayve_test.models.Request" />
+
+        <variable
+            name="acceptBtnListner"
+            type="com.example.zayve_test.adapters.reyclerviewAdapters.AcceptButtonListner" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8sp"
+        android:layout_marginVertical="2sp"
+        app:cardCornerRadius="8sp">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="8sp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/image_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8sp"
+                android:foregroundGravity="center"
+                app:cardCornerRadius="25sp">
+
+                <ImageView
+                    android:id="@+id/user_card_image"
+                    android:layout_width="50sp"
+                    android:layout_height="50sp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@{request.userName}"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/avatar_icon" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8sp"
+                    android:maxWidth="150sp"
+                    android:text="@{request.userName}"
+                    android:textColor="@color/title"
+                    android:textFontWeight="700"
+                    android:textSize="18sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8sp"
+                    android:maxWidth="150sp"
+                    android:text="@{request.interest}"
+                    android:textColor="@color/title"
+                    android:textSize="18sp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/request_accept_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="@drawable/btn_custom"
+                android:onClick="@{()->acceptBtnListner.onClick(request)}"
+                android:padding="8sp"
+                android:text="ACCEPT"
+                android:textColor="@android:color/white" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.cardview.widget.CardView>
+</layout>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_profile">
+    app:startDestination="@id/nav_requests">
 
     <fragment
         android:id="@+id/nav_chat_page"
@@ -30,4 +30,8 @@
         android:name="com.example.zayve_test.ui.browse_friends.BrowseFriendsFragment"
         android:label="fragment_browse_friends"
         tools:layout="@layout/fragment_browse_friends" />
+    <fragment
+        android:id="@+id/nav_requests"
+        android:name="com.example.zayve_test.ui.requests.RequestsFragment"
+        android:label="Requests" />
 </navigation>
