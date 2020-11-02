@@ -41,7 +41,7 @@ class ZayveActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
 //        todo: don't forget to change here
         appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.nav_chat_page, R.id.nav_profile, R.id.nav_browse_friends,R.id.nav_requests,R.id.nav_search_by_interest), drawerLayout)
+                R.id.nav_chat_page, R.id.nav_profile, R.id.nav_browse_friends, R.id.nav_requests, R.id.nav_search_by_interest), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
@@ -56,21 +56,25 @@ class ZayveActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
     //  fetches user information from database and updates the profile view
     private fun fetchUserData(navView: NavigationView) {
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null) {
             val valueListner = object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val profilePic = dataSnapshot.child("profile_image").value as String
-                    val userName = dataSnapshot.child("user_name").value as String
-                    navView[0].findViewById<TextView>(R.id.nav_bar_user_name).text = userName
+                    Log.d("responseData", dataSnapshot.value.toString())
+                    val profilePic = dataSnapshot.child("profile_image").value
+                            ?: "https://upload.wikimedia.org/wikipedia/commons/3/3e/Android_logo_2019.png"
+                    navView[0].findViewById<TextView>(R.id.nav_bar_user_name).text = user.displayName
                     val imageView = findViewById<ImageView>(R.id.nav_bar_user_image)
-                    Picasso.get().load(profilePic).into(imageView);
+                    Picasso.get().load(profilePic as String).into(imageView);
+
                 }
+
                 override fun onCancelled(databaseError: DatabaseError) {
                     // Getting Post failed, log a message
-                    Log.w( "loadPost:onCancelled", databaseError.toException())
+                    Log.w("loadPost:onCancelled", databaseError.toException())
                 }
             }
             user.uid.let { FirebaseDatabase.getInstance().reference.child("users").child(it) }.addListenerForSingleValueEvent(valueListner)

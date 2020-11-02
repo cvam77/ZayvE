@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.zayve_test.R
@@ -60,7 +61,12 @@ class ProfileSetupFragment : Fragment() {
 //        realtime database reference
         val database = FirebaseDatabase.getInstance()
         myDBref = database.reference
-        uploadUserProfile()
+        if (imageURI != null){
+            uploadUserProfile()
+        }
+        else {
+            Toast.makeText(context,"Please pick a profile picture for your account!",Toast.LENGTH_LONG)
+        }
     }
 
     //    handles image picker result
