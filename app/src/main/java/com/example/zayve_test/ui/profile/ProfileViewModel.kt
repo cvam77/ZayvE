@@ -20,11 +20,12 @@ class ProfileViewModel : ViewModel() {
         if (user != null) {
             val valueListner = object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val profilePic = dataSnapshot.child("profile_image").value as String
-                    val interests = dataSnapshot.child("interests").value as ArrayList<String>
-                    val userName = dataSnapshot.child("user_name").value as String
+                    val profilePic = dataSnapshot.child("profile_image").value
+                            ?: "https://upload.wikimedia.org/wikipedia/commons/3/3e/Android_logo_2019.png"
+                    val interests = dataSnapshot.child("interests").value  ?: ArrayList<String>()
+                    val userName = user.displayName
 //                    this user is our model User
-                    _user.value= User(userName, profilePic,interests )
+                    _user.value= userName?.let { User(it, profilePic.toString(),interests as ArrayList<String> ) }
 
                 }
                 override fun onCancelled(databaseError: DatabaseError) {

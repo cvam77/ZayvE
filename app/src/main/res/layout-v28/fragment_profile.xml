@@ -110,7 +110,7 @@
             android:layout_margin="20dp"
             android:background="@drawable/btn_custom"
             android:padding="8sp"
-            android:text="@string/edit_profile"
+            android:text="UPDATE PROFILE"
             android:textColor="@android:color/white" />
 
     </LinearLayout>

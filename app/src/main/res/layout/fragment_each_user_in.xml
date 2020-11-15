@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="#0C0000"
-    tools:context=".ui.EachUserInFragment">
+    tools:context=".ui.browse_friends.EachUserInFragment">
 
     <ScrollView
         android:layout_width="match_parent"

@@ -24,10 +24,18 @@
     <fragment
         android:id="@+id/profileSetupFragment3"
         android:name="com.example.zayve_test.ui.profile.ProfileSetupFragment"
-        android:label="ProfileSetupFragment" />
+        android:label="ProfileSetupFragment" >
+        <action
+            android:id="@+id/action_profileSetupFragment3_to_nav_profile"
+            app:destination="@id/nav_profile" />
+    </fragment>
     <fragment
         android:id="@+id/nav_browse_friends"
         android:name="com.example.zayve_test.ui.browse_friends.BrowseFriendsFragment"
         android:label="fragment_browse_friends"
         tools:layout="@layout/fragment_browse_friends" />
+    <fragment
+        android:id="@+id/nav_requests"
+        android:name="com.example.zayve_test.ui.requests.RequestsFragment"
+        android:label="Requests" />
 </navigation>
