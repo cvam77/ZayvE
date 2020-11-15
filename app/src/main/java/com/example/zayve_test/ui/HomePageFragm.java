@@ -29,9 +29,6 @@ import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
 public class HomePageFragm extends Fragment
 {
-
-
-
     private ArrayList<String> a1;
 
     private Button seeProfileButton;

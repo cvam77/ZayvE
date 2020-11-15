@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 
 import com.example.zayve_test.R;
 import com.example.zayve_test.models.ViewPagerAdapter;
+import com.example.zayve_test.ui.EachUserProfile;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -37,7 +38,11 @@ import javax.xml.transform.Result;
 
 public class BrowseFriendsFragment extends Fragment {
 
+    int timeCounter = 0;
+
     private StorageReference mStorage;
+
+    ArrayList<String> testArrayList;
 
     private ViewPagerAdapter viewPagerAdapter;
 
@@ -56,6 +61,8 @@ public class BrowseFriendsFragment extends Fragment {
     ListView mListView;
 
     FirebaseUser getCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+    ArrayList<EachUserProfile> eachUserProfileArrayList = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,144 +101,134 @@ public class BrowseFriendsFragment extends Fragment {
     }
 
 
-    public void gettingArray(ArrayList<ArrayList<String>> harrayList)
+    public void gettingArray(ArrayList<EachUserProfile> harrayList)
     {
         viewPagerAdapter = new ViewPagerAdapter(getParentFragmentManager(),harrayList );
         viewPager.setAdapter(viewPagerAdapter);
     }
 
-    class CallAsync extends AsyncTask<Void,Void,ArrayList<ArrayList<String>>> {
+
+    class CallAsync extends AsyncTask<Void,Void,ArrayList<EachUserProfile>> {
 
         private DatabaseReference mDatabaseRef;
 
         @Override
-        protected ArrayList<ArrayList<String>> doInBackground(Void... voids) {
+        protected ArrayList<EachUserProfile> doInBackground(Void... voids) {
 
             mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
-            final ArrayList<ArrayList<String>> secondLevelAl = new ArrayList<>();
-
             mDatabaseRef.child("users").addChildEventListener(new ChildEventListener() {
-                ArrayList<String> nameAl = new ArrayList<>();
-                ArrayList<String> firstInterestAl = new ArrayList<>();
-                ArrayList<String> secondInterestAl = new ArrayList<>();
-                ArrayList<String> thirdInterestAl = new ArrayList<>();
-                ArrayList<String> fourthInterestAl = new ArrayList<>();
-                ArrayList<String> fifthInterestAl = new ArrayList<>();
-                ArrayList<String> profilePicAl = new ArrayList<>();
-                ArrayList<String> introAl = new ArrayList<>();
+                  @Override
+                  public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                      if (snapshot.exists()) {
 
-                @Override
-                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                    if (snapshot.exists()) {
+                          String userId = snapshot.getKey();
 
-                        Log.d("mishirjitu", snapshot.getKey().toString());
-                        Log.d("mishirjitu", "current user = " + getCurrentUser.getUid());
+                          if(!snapshot.getKey().equals(getCurrentUser.getUid()))
+                          {
+                              String userName = "", userAbout = "", firstInt = "", secondInt = "", thirdInt = "", fourthInt = "",
+                                      fifthInt = "", userPicUrl = "";
 
-                        if(!snapshot.getKey().equals(getCurrentUser.getUid()))
-                        {
-                            for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                              for(DataSnapshot childSnapshot: snapshot.getChildren())
+                              {
+                                  String fieldKey = childSnapshot.getKey();
+                                  String value = childSnapshot.getValue().toString();
 
+                                  switch(fieldKey)
+                                  {
+                                      case "user_name":
+                                          userName = value;
+                                          break;
+                                      case "about":
+                                          userAbout = value;
+                                          break;
+                                      case "profile_image":
+                                          userPicUrl = value;
+                                          break;
+                                      default:
+                                          break;
+                                  }
 
-                                if (childSnapshot.getKey().equals("user_name")) {
-                                    String name = childSnapshot.getValue().toString();
-                                    nameAl.add(name);
-                                }
-                                else if (childSnapshot.getKey().equals("profile_image")) {
-                                    String urlString = childSnapshot.getValue().toString();
-                                    Log.d("pinterestArraywaList", urlString);
-                                    profilePicAl.add(urlString);
-                                }
-                                else if (childSnapshot.getKey().equals("about")) {
-                                    String intro = childSnapshot.getValue().toString();
-                                    Log.d("kvayobey", intro);
-                                    introAl.add(intro);
-                                }
-//                            {
-//                                String interest = childSnapshot.getValue().toString();
-//                                Log.d("interestArraywaList", interest);
-//                                ArrayList<String> firstLevelInterestAl = new ArrayList<>();
-//                                firstLevelInterestAl.add(interest);
-//                                secondLevelInterestAl.add(firstLevelInterestAl);
-//                                thirdLevelAl.add(secondLevelInterestAl);
-//                            }
-                            }
+                                  for(DataSnapshot secondLevelChildSnapshot: childSnapshot.getChildren())
+                                  {
+                                      String interestKey = secondLevelChildSnapshot.getKey();
+                                      String keyValue = secondLevelChildSnapshot.getValue().toString();
+                                      switch (interestKey)
+                                      {
+                                          case "0":
+                                              firstInt = keyValue;
+                                              break;
+                                          case "1":
+                                              secondInt= keyValue;
+                                              break;
+                                          case "2":
+                                              thirdInt= keyValue;
+                                              break;
+                                          case "3":
+                                              fourthInt= keyValue;
+                                              break;
+                                          case "4":
+                                              fifthInt= keyValue;
+                                              break;
+                                          default:
+                                              break;
+                                      }
+                                  }
+                              }
+                              EachUserProfile eachUserProfile = new EachUserProfile(userId,userName, userAbout,
+                                      firstInt,secondInt,thirdInt,fourthInt,fifthInt);
+                              eachUserProfile.setProfilePicture(userPicUrl);
+                              eachUserProfileArrayList.add(eachUserProfile);
+                          }
 
-                            for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                      }
+                  }
 
-                                for(DataSnapshot secondLevelSnapshot : childSnapshot.getChildren())
-                                {
-                                    String interest = secondLevelSnapshot.getValue().toString();
+                  @Override
+                  public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-                                    switch (secondLevelSnapshot.getKey())
-                                    {
+                  }
 
-                                        case "0": firstInterestAl.add(interest); break;
-                                        case "1": secondInterestAl.add(interest); break;
-                                        case "2": thirdInterestAl.add(interest);  break;
-                                        case "3": fourthInterestAl.add(interest);  break;
-                                        case "4": fifthInterestAl.add(interest);  break;
-                                        default:
-                                            firstInterestAl.add("");
-                                            secondInterestAl.add("");
-                                            thirdInterestAl.add("");
-                                            fourthInterestAl.add("");
-                                            fifthInterestAl.add("");
-                                    }
-                                }
-                            }
+                  @Override
+                  public void onChildRemoved(@NonNull DataSnapshot snapshot) {
 
+                  }
 
+                  @Override
+                  public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-                            secondLevelAl.add(nameAl);
-                            secondLevelAl.add(firstInterestAl);
-                            secondLevelAl.add(secondInterestAl);
-                            secondLevelAl.add(thirdInterestAl);
-                            secondLevelAl.add(fourthInterestAl);
-                            secondLevelAl.add(fifthInterestAl);
-                            secondLevelAl.add(profilePicAl);
-                            secondLevelAl.add(introAl);
-                        }
+                  }
 
-                    }
-                }
+                  @Override
+                  public void onCancelled(@NonNull DatabaseError error) {
 
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                  }
 
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-
-            }
-
+              }
 
             );
 
-            while (secondLevelAl.isEmpty())
+            long timeStart = System.currentTimeMillis();
+
+            while(eachUserProfileArrayList.isEmpty() && timeCounter < 2)
             {
+                long timeEnd = System.currentTimeMillis();
+
+                if(timeEnd - timeStart > 2000)
+                {
+                    timeCounter = 5;
+                }
 
             }
-            return secondLevelAl;
+
+
+            return eachUserProfileArrayList;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<ArrayList<String>> arrayLists) {
-            super.onPostExecute(arrayLists);
-            gettingArray(arrayLists);
+        protected void onPostExecute(ArrayList<EachUserProfile> eachUserProfiles) {
+            super.onPostExecute(eachUserProfiles);
+            gettingArray(eachUserProfiles);
         }
     }
 }

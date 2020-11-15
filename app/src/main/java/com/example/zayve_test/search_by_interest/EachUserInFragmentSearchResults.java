@@ -1,4 +1,4 @@
-package com.example.zayve_test.ui;
+package com.example.zayve_test.search_by_interest;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 
-public class EachUserInFragment extends Fragment {
+public class EachUserInFragmentSearchResults extends Fragment {
 
     private DatabaseReference mDatabaseReference;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -32,7 +32,8 @@ public class EachUserInFragment extends Fragment {
             mFourthInterestTextView,mFifthInterestTextView,introTv;
     private ImageView mProfilePictureImageView;
 
-    String globalName,firstInterest,secondInterest,thirdInterest,fourthInterest,fifthInterest,profilePictureString;
+    String globalName = "",firstInterest = "",secondInterest = "",
+            thirdInterest = "",fourthInterest = "",fifthInterest = "",profilePictureString = "";
     String intro = "";
 
     @Override
@@ -47,15 +48,8 @@ public class EachUserInFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        globalName = getArguments().getString("globalName");
-        firstInterest = getArguments().getString("firstInterest");
-        secondInterest = getArguments().getString("secondInterest");
-        thirdInterest = getArguments().getString("thirdInterest");
-        fourthInterest = getArguments().getString("fourthInterest");
-        fifthInterest = getArguments().getString("fifthInterest");
-        profilePictureString = getArguments().getString("profilePictureString");
-        intro = getArguments().getString("intro");
-        return inflater.inflate(R.layout.fragment_each_user_in, container, false);
+
+        return inflater.inflate(R.layout.fragment_each_user_in_search_results, container, false);
     }
 
     @Override
@@ -64,18 +58,22 @@ public class EachUserInFragment extends Fragment {
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
-        Uri ppUri = Uri.parse(profilePictureString);
+        mProfilePictureImageView = getView().findViewById(R.id.profile_picture_imageview_search_result);
+        if(!profilePictureString.equals(""))
+        {
+            Uri ppUri = Uri.parse(profilePictureString);
+            Picasso.get().load(ppUri).fit().centerCrop().into(mProfilePictureImageView);
+        }
 
-        mUsernameTextView = getView().findViewById(R.id.user_name_textview);
+        mUsernameTextView = getView().findViewById(R.id.user_name_textview_search_result);
 
-        mFirstInterestTextView = getView().findViewById(R.id.first_interest_textview);
-        mSecondInterestTextView = getView().findViewById(R.id.second_interest_textview);
-        mThirdInterestTextView = getView().findViewById(R.id.third_interest_textview);
-        mFourthInterestTextView = getView().findViewById(R.id.fourth_interest_textview);
-        mFifthInterestTextView = getView().findViewById(R.id.fifth_interest_textview);
-        mProfilePictureImageView = getView().findViewById(R.id.profile_picture_imageview);
+        mFirstInterestTextView = getView().findViewById(R.id.first_interest_textview_search_result);
+        mSecondInterestTextView = getView().findViewById(R.id.second_interest_textview_search_result);
+        mThirdInterestTextView = getView().findViewById(R.id.third_interest_textview_search_result);
+        mFourthInterestTextView = getView().findViewById(R.id.fourth_interest_textview_search_result);
+        mFifthInterestTextView = getView().findViewById(R.id.fifth_interest_textview_search_result);
 
-        introTv = getView().findViewById(R.id.intro_tv);
+        introTv = getView().findViewById(R.id.intro_tv_search_result);
 
         mUsernameTextView.setText(globalName);
         mUsernameTextView.setOnClickListener(new View.OnClickListener() {
@@ -102,8 +100,5 @@ public class EachUserInFragment extends Fragment {
         mFifthInterestTextView.setText(fifthInterest);
 
         introTv.setText(intro);
-
-        Picasso.get().load(ppUri).fit().centerCrop().into(mProfilePictureImageView);
-
     }
 }

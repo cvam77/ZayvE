@@ -6,22 +6,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import com.example.zayve_test.ui.EachUserInFragment;
+
+import com.example.zayve_test.search_by_interest.EachUserInFragmentSearchResults;
 import com.example.zayve_test.ui.EachUserProfile;
 import com.google.firebase.database.DatabaseReference;
+
 import java.util.ArrayList;
 
-public class ViewPagerAdapter extends FragmentStatePagerAdapter
+public class ViewPagerAdapterSearchResults extends FragmentStatePagerAdapter
 {
-
-    ArrayList<EachUserProfile> arrayList = new ArrayList<>();
+    ArrayList<String> arrayList = new ArrayList<>();
 
     ArrayList<EachUserProfile> VarrayList = new ArrayList<>();
 
     private DatabaseReference mDatabaseRef;
 
-
-    public ViewPagerAdapter(@NonNull FragmentManager fm, ArrayList<EachUserProfile> a) {
+    public ViewPagerAdapterSearchResults(@NonNull FragmentManager fm, ArrayList<EachUserProfile> a) {
         super(fm);
         this.VarrayList = a;
     }
@@ -30,7 +30,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
     @Override
     public Fragment getItem(int position) {
 
-        EachUserInFragment eachUserInFragment = new EachUserInFragment();
+        EachUserInFragmentSearchResults eachUserInFragment = new EachUserInFragmentSearchResults();
         Bundle bundle = new Bundle();
 
         bundle.putString("globalName",VarrayList.get(position).getUserName());
@@ -52,7 +52,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
 
 
 
-    public void setArrayList(ArrayList<EachUserProfile> arrayList) {
+    public void setArrayList(ArrayList<String> arrayList) {
         this.arrayList = arrayList;
         notifyDataSetChanged();
     }

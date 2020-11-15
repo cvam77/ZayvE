@@ -1,110 +1,4 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 package com.example.zayve_test;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -118,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.zayve_test.search_by_interest.SearchInterestResultsFragment;
 import com.example.zayve_test.ui.browse_friends.BrowseFriendsFragment;
 import com.example.zayve_test.ui.profile.ProfileSetupFragment;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -231,7 +126,7 @@ public class ZayveActivity2 extends AppCompatActivity {
     //Going from ZayveActivity to BrowseFriendsFragment
     private void BrowseFriendsButtonClicked() {
 
-        Fragment fragment = new BrowseFriendsFragment();
+        Fragment fragment = new SearchInterestResultsFragment();
 
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayoutContainer, fragment, "demofragment");

@@ -3,17 +3,35 @@ package com.example.zayve_test.ui;
 
 public class EachUserProfile
 {
-    private String userName,profilePicture,firstInterest,secondInterest,thirdInterest,fourthInterest,fifthInterest;
+    private String userId, userName, userAbout, profilePicture,firstInterest,secondInterest,thirdInterest,fourthInterest,fifthInterest;
 
-    public EachUserProfile(String userName, String profilePicture, String firstInterest, String secondInterest,
-                           String thirdInterest, String fourthInterest, String fifthInterest) {
+    public EachUserProfile(String userId, String userName, String userAbout,
+                           String firstInterest, String secondInterest, String thirdInterest,
+                           String fourthInterest, String fifthInterest) {
+        this.userId = userId;
         this.userName = userName;
-        this.profilePicture = profilePicture;
+        this.userAbout = userAbout;
         this.firstInterest = firstInterest;
         this.secondInterest = secondInterest;
         this.thirdInterest = thirdInterest;
         this.fourthInterest = fourthInterest;
         this.fifthInterest = fifthInterest;
+    }
+
+    public String getUserAbout() {
+        return userAbout;
+    }
+
+    public void setUserAbout(String userAbout) {
+        this.userAbout = userAbout;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
