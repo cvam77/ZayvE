@@ -49,6 +49,15 @@ public class EachUserInFragmentSearchResults extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+        globalName = getArguments().getString("globalName");
+        firstInterest = getArguments().getString("firstInterest");
+        secondInterest = getArguments().getString("secondInterest");
+        thirdInterest = getArguments().getString("thirdInterest");
+        fourthInterest = getArguments().getString("fourthInterest");
+        fifthInterest = getArguments().getString("fifthInterest");
+        profilePictureString = getArguments().getString("profilePictureString");
+        intro = getArguments().getString("intro");
+
         return inflater.inflate(R.layout.fragment_each_user_in_search_results, container, false);
     }
 
