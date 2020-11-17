@@ -137,7 +137,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
                     {
                         mFirstInterestTextView.setTextColor(Color.parseColor("#000000"));
                         Toast.makeText(getContext(),"ZayvE Request Cancelled!",Toast.LENGTH_SHORT).show();
-                        mFirstInterestIv.setImageResource(android.R.drawable.ic_input_add);
+                        mFirstInterestIv.setImageResource(android.R.color.transparent);
                         cancelRequest(firstInterest);
                     }
                 }
@@ -159,7 +159,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
                     {
                         mSecondInterestTextView.setTextColor(Color.parseColor("#000000"));
                         Toast.makeText(getContext(),"ZayvE Request Cancelled!",Toast.LENGTH_SHORT).show();
-                        mSecondInterestIv.setImageResource(android.R.drawable.ic_input_add);
+                        mSecondInterestIv.setImageResource(android.R.color.transparent);
                         cancelRequest(secondInterest);
                     }
                 }
@@ -181,7 +181,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
                     {
                         mThirdInterestTextView.setTextColor(Color.parseColor("#000000"));
                         Toast.makeText(getContext(),"ZayvE Request Cancelled!",Toast.LENGTH_SHORT).show();
-                        mThirdInterestIv.setImageResource(android.R.drawable.ic_input_add);
+                        mThirdInterestIv.setImageResource(android.R.color.transparent);
                         cancelRequest(thirdInterest);
                     }
                 }
@@ -203,7 +203,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
                     {
                         mFourthInterestTextView.setTextColor(Color.parseColor("#000000"));
                         Toast.makeText(getContext(),"ZayvE Request Cancelled!",Toast.LENGTH_SHORT).show();
-                        mFourthInterestIv.setImageResource(android.R.drawable.ic_input_add);
+                        mFourthInterestIv.setImageResource(android.R.color.transparent);
                         cancelRequest(fourthInterest);
                     }
                 }
@@ -225,7 +225,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
                     {
                         mFifthInterestTextView.setTextColor(Color.parseColor("#000000"));
                         Toast.makeText(getContext(),"ZayvE Request Cancelled!",Toast.LENGTH_SHORT).show();
-                        mFifthInterestIv.setImageResource(android.R.drawable.ic_input_add);
+                        mFifthInterestIv.setImageResource(android.R.color.transparent);
                         cancelRequest(fifthInterest);
                     }
                 }
@@ -299,17 +299,6 @@ public class EachUserInFragmentSearchResults extends Fragment {
             }
         });
 
-        long timeStart = System.currentTimeMillis();
-        while(keyInterestRequestedUserAl.isEmpty() && timeCounter < 1)
-        {
-            long timeEnd = System.currentTimeMillis();
-
-            if(timeEnd - timeStart > 1000)
-            {
-                timeCounter = 5;
-            }
-
-        }
         arrayListDone = true;
     }
 
