@@ -19,7 +19,7 @@ import android.widget.ProgressBar;
 
 import com.example.zayve_test.R;
 import com.example.zayve_test.models.ViewPagerAdapter;
-import com.example.zayve_test.ui.EachUserProfile;
+import com.example.zayve_test.ui.browse_friends.EachUserProfile;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -42,7 +42,7 @@ public class BrowseFriendsFragment extends Fragment {
 
     private StorageReference mStorage;
 
-    ArrayList<String> testArrayList;
+    ArrayList<String> requestArrayList = new ArrayList<>();
 
     private ViewPagerAdapter viewPagerAdapter;
 
@@ -151,9 +151,21 @@ public class BrowseFriendsFragment extends Fragment {
 
                                   for(DataSnapshot secondLevelChildSnapshot: childSnapshot.getChildren())
                                   {
-                                      String interestKey = secondLevelChildSnapshot.getKey();
+                                      requestArrayList.clear();
+
+                                      String secondLevelKey = secondLevelChildSnapshot.getKey();
                                       String keyValue = secondLevelChildSnapshot.getValue().toString();
-                                      switch (interestKey)
+
+                                      if(secondLevelKey.equals(currentUser.getUid()))
+                                      {
+                                          for(DataSnapshot thirdLevel : secondLevelChildSnapshot.getChildren())
+                                          {
+                                              String requestedInterestNameByCurrentUser = thirdLevel.getKey();
+                                              requestArrayList.add(requestedInterestNameByCurrentUser);
+                                          }
+                                      }
+
+                                      switch (secondLevelKey)
                                       {
                                           case "0":
                                               firstInt = keyValue;
@@ -176,7 +188,8 @@ public class BrowseFriendsFragment extends Fragment {
                                   }
                               }
                               EachUserProfile eachUserProfile = new EachUserProfile(userId,userName, userAbout,
-                                      firstInt,secondInt,thirdInt,fourthInt,fifthInt);
+                                      CheckIfInterestExist(firstInt),CheckIfInterestExist(secondInt),CheckIfInterestExist(thirdInt),
+                                      CheckIfInterestExist(fourthInt),CheckIfInterestExist(fifthInt));
                               eachUserProfile.setProfilePicture(userPicUrl);
                               eachUserProfileArrayList.add(eachUserProfile);
                           }
@@ -230,5 +243,17 @@ public class BrowseFriendsFragment extends Fragment {
             super.onPostExecute(eachUserProfiles);
             gettingArray(eachUserProfiles);
         }
+    }
+
+    public String CheckIfInterestExist(String interestName)
+    {
+        String value = interestName;
+        if(requestArrayList.contains(interestName))
+        {
+            Log.d("arrayListSize", String.valueOf(requestArrayList.size()));
+            value = interestName + "**";
+        }
+
+        return value;
     }
 }
