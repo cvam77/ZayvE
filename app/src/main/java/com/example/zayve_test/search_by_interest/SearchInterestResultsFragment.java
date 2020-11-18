@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -27,10 +28,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zayve_test.R;
+import com.example.zayve_test.TestingFragment;
 import com.example.zayve_test.models.ViewPagerAdapter;
 import com.example.zayve_test.models.ViewPagerAdapterSearchResults;
-import com.example.zayve_test.ui.EachUserProfile;
+import com.example.zayve_test.ui.browse_friends.EachUserProfile;
 import com.example.zayve_test.ui.browse_friends.BrowseFriendsFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,7 +53,6 @@ public class SearchInterestResultsFragment extends Fragment implements SearchByI
 
     String nameResults = "";
 
-    FrameLayout frameLayout;
     TextView mSearchWordTextView, mTestTv, mYourSearchResults;
 
     EditText mSearchWordEditText;
@@ -60,8 +63,10 @@ public class SearchInterestResultsFragment extends Fragment implements SearchByI
 
     ArrayList<EachUserProfile> globalResultArrayList = new ArrayList<>();
     ArrayList<String> idArraylist = new ArrayList<>();
+    ArrayList<String> requestArrayList = new ArrayList<>();
 
-    DatabaseReference mRealtimeDatabase  = FirebaseDatabase.getInstance().getReference();;
+    DatabaseReference mRealtimeDatabase  = FirebaseDatabase.getInstance().getReference();
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
     private ViewPagerAdapterSearchResults viewPagerAdapterSearchResults;
     private ViewPager viewPagerSearchResults;
@@ -87,7 +92,7 @@ public class SearchInterestResultsFragment extends Fragment implements SearchByI
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        frameLayout = getView().findViewById(R.id.FrameLayout);
+        fragmentManager = getActivity().getSupportFragmentManager();
 
         mYourSearchResults = getView().findViewById(R.id.yourSearchResults);
 
@@ -115,12 +120,10 @@ public class SearchInterestResultsFragment extends Fragment implements SearchByI
     private void SearchButtonClicked() {
         String enteredSearchWord = mSearchWordEditText.getText().toString().trim();
 
-
-
         mYourSearchResults.setVisibility(View.VISIBLE);
         if(!enteredSearchWord.equals(""))
         {
-            frameLayout.setVisibility(View.VISIBLE);
+            mRvSearchResults.setVisibility(View.VISIBLE);
 
             InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             mgr.hideSoftInputFromWindow(mSearchWordEditText.getWindowToken(), 0);
@@ -132,7 +135,7 @@ public class SearchInterestResultsFragment extends Fragment implements SearchByI
         }
     }
 
-    private void ExecuteAsyncTasks() {
+    public void ExecuteAsyncTasks() {
         AsyncTaskIds asyncTaskIds = new AsyncTaskIds();
         AsyncTaskSearchResult asyncTaskSearchResult = new AsyncTaskSearchResult();
 
@@ -166,16 +169,33 @@ public class SearchInterestResultsFragment extends Fragment implements SearchByI
                                     String about, String firstInt, String secondInt, String thirdInt,
                                     String fourthInt, String fifthInt)
     {
-        Toast.makeText(getContext(),name + " Clicked", Toast.LENGTH_LONG).show();
+        Bundle bundle = new Bundle();
+        bundle.putString("userId",userId);
+        bundle.putString("globalName",name);
+        bundle.putString("profilePictureString",profilePicUrlString);
+        bundle.putString("intro",about);
+        bundle.putString("firstInterest",firstInt);
+        bundle.putString("secondInterest",secondInt);
+        bundle.putString("thirdInterest",thirdInt);
+        bundle.putString("fourthInterest",fourthInt);
+        bundle.putString("fifthInterest",fifthInt);
+        String backStateName = this.getClass().getName();
 
-//        Fragment fragment = new EachUserInFragmentSearchResults();
-//
-//        fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.add(R.id.linearLayoutContainer, fragment, "demofragment");
-//        fragmentTransaction.addToBackStack(null);
-//        fragmentTransaction.commit();
+        Fragment fragment = new EachUserInFragmentSearchResults();
+        fragment.setArguments(bundle);
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayoutContainer, fragment, "demofragment");
+        fragmentTransaction.addToBackStack(backStateName);
+        fragmentTransaction.commit();
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SearchButtonClicked();
+    }
+
 
     class AsyncTaskIds extends AsyncTask<Void,Void,Void>
     {
@@ -186,22 +206,26 @@ public class SearchInterestResultsFragment extends Fragment implements SearchByI
                @Override
                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                    if (snapshot.exists()) {
-                       for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                       if(!snapshot.getKey().equals(currentUser.getUid()))
+                       {
+                           for (DataSnapshot childSnapshot : snapshot.getChildren()) {
 
-                           for (DataSnapshot secondLevelSnapshot : childSnapshot.getChildren()) {
+                               for (DataSnapshot secondLevelSnapshot : childSnapshot.getChildren()) {
 
-                               String interest = secondLevelSnapshot.getValue().toString();
+                                   String interest = secondLevelSnapshot.getValue().toString();
 
-                               if (interest.toLowerCase().equals(searchWord.toLowerCase())) {
-                                   String parent = childSnapshot.getRef().getParent().getKey();
+                                   if (interest.toLowerCase().equals(searchWord.toLowerCase())) {
+                                       String parent = childSnapshot.getRef().getParent().getKey();
 
-                                   idArraylist.add(parent);
-                                   stringForTv = stringForTv + " and \n" + parent;
+                                       idArraylist.add(parent);
+                                       stringForTv = stringForTv + " and \n" + parent;
+                                   }
+
+
                                }
-
-
                            }
                        }
+
                    }
                }
 
@@ -283,9 +307,23 @@ public class SearchInterestResultsFragment extends Fragment implements SearchByI
 
                                 for(DataSnapshot secondLevelChildSnapshot: childSnapshot.getChildren())
                                 {
-                                    String interestKey = secondLevelChildSnapshot.getKey();
+                                    requestArrayList.clear();
+
+                                    String secondLevelKey = secondLevelChildSnapshot.getKey();
                                     String keyValue = secondLevelChildSnapshot.getValue().toString();
-                                    switch (interestKey)
+
+                                    if(secondLevelKey.equals(currentUser.getUid()))
+                                    {
+                                        for(DataSnapshot thirdLevel : secondLevelChildSnapshot.getChildren())
+                                        {
+                                            String requestedInterestNameByCurrentUser = thirdLevel.getKey();
+                                            Log.d("requestedInteres",requestedInterestNameByCurrentUser);
+                                            requestArrayList.add(requestedInterestNameByCurrentUser);
+                                        }
+                                    }
+
+
+                                    switch (secondLevelKey)
                                     {
                                         case "0":
                                             firstInt = keyValue;
@@ -307,8 +345,10 @@ public class SearchInterestResultsFragment extends Fragment implements SearchByI
                                     }
                                 }
                             }
+
                             EachUserProfile eachUserProfile = new EachUserProfile(userId,userName, userAbout,
-                                    firstInt,secondInt,thirdInt,fourthInt,fifthInt);
+                                    CheckIfInterestExist(firstInt),CheckIfInterestExist(secondInt),CheckIfInterestExist(thirdInt),
+                                    CheckIfInterestExist(fourthInt),CheckIfInterestExist(fifthInt));
                             eachUserProfile.setProfilePicture(userPicUrl);
                             globalResultArrayList.add(eachUserProfile);
                         }
@@ -350,6 +390,18 @@ public class SearchInterestResultsFragment extends Fragment implements SearchByI
             }
 
             return globalResultArrayList;
+        }
+
+        public String CheckIfInterestExist(String interestName)
+        {
+            String value = interestName;
+            if(requestArrayList.contains(interestName))
+            {
+                Log.d("arrayListSize", String.valueOf(requestArrayList.size()));
+                value = interestName + "**";
+            }
+
+            return value;
         }
 
         @Override

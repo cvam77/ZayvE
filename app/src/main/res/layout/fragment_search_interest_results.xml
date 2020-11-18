@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#FAFAFA"
-    android:gravity="center"
-    android:id="@+id/linearLayoutContainer"
+    android:id="@+id/frameLayoutContainerSearch"
     >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            >
+            android:layout_marginTop="10dp"
 
+            >
             <EditText
                 android:id="@+id/search_interest_edittext"
                 android:layout_width="wrap_content"
@@ -44,6 +44,7 @@
                 android:padding="10dp"
                 android:layout_marginLeft="20dp"
                 />
+
         </LinearLayout>
 
         <TextView
@@ -51,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
-            android:text="Your Search Results:"
+            android:text="Other than you,"
             android:textColor="@color/cardview_dark_background"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -61,24 +62,15 @@
             />
 
 
-    </LinearLayout>
-
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/FrameLayout"
-        android:visibility="gone"
-        >
-
-        <!-- RecyclerView that is responsible for holding a listtaskEntrytask data -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSearch"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:clipToPadding="false"
+
             />
+    </LinearLayout>
 
-    </FrameLayout>
 
-</LinearLayout>
+
+</FrameLayout>

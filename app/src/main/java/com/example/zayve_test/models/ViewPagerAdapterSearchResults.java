@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.zayve_test.search_by_interest.EachUserInFragmentSearchResults;
-import com.example.zayve_test.ui.EachUserProfile;
+import com.example.zayve_test.ui.browse_friends.EachUserProfile;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;

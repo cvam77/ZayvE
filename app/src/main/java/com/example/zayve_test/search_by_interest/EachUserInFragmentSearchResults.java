@@ -43,7 +43,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
     int timeCounter = 0;
 
     ArrayList<String> keyInterestRequestedUserAl = new ArrayList<>();
-    boolean arrayListDone = false;
+
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -56,7 +56,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
             thirdInterest = "",fourthInterest = "",fifthInterest = "",profilePictureString = "";
     String intro = "";
 
-    boolean switchRequestFirstInt = false, switchRequestSecondInt, switchRequestThirdInt,
+    boolean switchRequestFirstInt, switchRequestSecondInt, switchRequestThirdInt,
             switchRequestFourthInt, switchRequestFifthInt;
 
     @Override
@@ -64,8 +64,6 @@ public class EachUserInFragmentSearchResults extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,6 +81,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
         profilePictureString = getArguments().getString("profilePictureString");
         intro = getArguments().getString("intro");
 
+        Log.d("onResume","on Create View called");
         return inflater.inflate(R.layout.fragment_each_user_in_search_results, container, false);
     }
 
@@ -90,217 +89,257 @@ public class EachUserInFragmentSearchResults extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        SearchRequestsSent();
+        Log.d("onResume","on View Created called");
 
-        if(arrayListDone)
+        mProfilePictureImageView = getView().findViewById(R.id.profile_picture_imageview_search_result);
+        if(!profilePictureString.equals(""))
         {
-            mProfilePictureImageView = getView().findViewById(R.id.profile_picture_imageview_search_result);
-            if(!profilePictureString.equals(""))
-            {
-                Uri ppUri = Uri.parse(profilePictureString);
-                Picasso.get().load(ppUri).fit().centerCrop().into(mProfilePictureImageView);
+            Uri ppUri = Uri.parse(profilePictureString);
+            Picasso.get().load(ppUri).fit().centerCrop().into(mProfilePictureImageView);
+        }
+
+        mUsernameTextView = getView().findViewById(R.id.user_name_textview_search_result);
+
+        mFirstInterestTextView = getView().findViewById(R.id.first_interest_textview_search_result);
+        mSecondInterestTextView = getView().findViewById(R.id.second_interest_textview_search_result);
+        mThirdInterestTextView = getView().findViewById(R.id.third_interest_textview_search_result);
+        mFourthInterestTextView = getView().findViewById(R.id.fourth_interest_textview_search_result);
+        mFifthInterestTextView = getView().findViewById(R.id.fifth_interest_textview_search_result);
+
+        mFirstInterestIv = getView().findViewById(R.id.first_interest_iv);
+        mSecondInterestIv = getView().findViewById(R.id.second_interest_iv);
+        mThirdInterestIv = getView().findViewById(R.id.third_interest_iv);
+        mFourthInterestIv  = getView().findViewById(R.id.fourth_interest_iv);
+        mFifthInterestIv  = getView().findViewById(R.id.fifth_interest_iv);
+
+        introTv = getView().findViewById(R.id.intro_tv_search_result);
+
+        mUsernameTextView.setText(globalName);
+        mUsernameTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),globalName,Toast.LENGTH_SHORT).show();
             }
+        });
 
-            mUsernameTextView = getView().findViewById(R.id.user_name_textview_search_result);
+        InitializeViews();
 
-            mFirstInterestTextView = getView().findViewById(R.id.first_interest_textview_search_result);
-            mSecondInterestTextView = getView().findViewById(R.id.second_interest_textview_search_result);
-            mThirdInterestTextView = getView().findViewById(R.id.third_interest_textview_search_result);
-            mFourthInterestTextView = getView().findViewById(R.id.fourth_interest_textview_search_result);
-            mFifthInterestTextView = getView().findViewById(R.id.fifth_interest_textview_search_result);
+        introTv.setText(intro);
 
-            introTv = getView().findViewById(R.id.intro_tv_search_result);
+    }
 
-            mUsernameTextView.setText(globalName);
-            mUsernameTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(),globalName,Toast.LENGTH_SHORT).show();
+    private void InitializeViews() {
+        mFirstInterestTextView.setText(GetInterestName(firstInterest));
+        mFirstInterestTextView.setTextColor(Color.parseColor(GetInterestColor(firstInterest)));
+        SetInterestSwitch(firstInterest);
+        if(switchRequestFirstInt)
+        {
+            mFirstInterestIv.setImageResource(android.R.drawable.checkbox_on_background);
+        }
+        mFirstInterestTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                toggleSwitchRequest(1);
+                if(switchRequestFirstInt)
+                {
+                    mFirstInterestTextView.setTextColor(Color.parseColor(colorHexCode));
+                    Toast.makeText(getContext(),"ZayvE Request Sent!",Toast.LENGTH_SHORT).show();
+                    mFirstInterestIv.setImageResource(android.R.drawable.checkbox_on_background);
+                    addRequest(GetInterestName(firstInterest));
                 }
-            });
-
-            mFirstInterestTextView.setText(firstInterest);
-
-            mFirstInterestTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    toggleSwitchRequest(1);
-                    if(switchRequestFirstInt)
-                    {
-                        mFirstInterestTextView.setTextColor(Color.parseColor(colorHexCode));
-                        Toast.makeText(getContext(),"ZayvE Request Sent!",Toast.LENGTH_SHORT).show();
-                        mFirstInterestIv.setImageResource(android.R.drawable.checkbox_on_background);
-                        addRequest(firstInterest);
-                    }
-                    else
-                    {
-                        mFirstInterestTextView.setTextColor(Color.parseColor("#000000"));
-                        Toast.makeText(getContext(),"ZayvE Request Cancelled!",Toast.LENGTH_SHORT).show();
-                        mFirstInterestIv.setImageResource(android.R.color.transparent);
-                        cancelRequest(firstInterest);
-                    }
+                else
+                {
+                    mFirstInterestTextView.setTextColor(Color.parseColor("#000000"));
+                    Toast.makeText(getContext(),"ZayvE Request Cancelled!",Toast.LENGTH_SHORT).show();
+                    mFirstInterestIv.setImageResource(android.R.color.transparent);
+                    cancelRequest(GetInterestName(firstInterest));
                 }
-            });
+            }
+        });
 
-            mSecondInterestTextView.setText(secondInterest);
-            mSecondInterestTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    toggleSwitchRequest(2);
-                    if(switchRequestSecondInt)
-                    {
-                        mSecondInterestTextView.setTextColor(Color.parseColor(colorHexCode));
-                        Toast.makeText(getContext(),"ZayvE Request Sent!",Toast.LENGTH_SHORT).show();
-                        mSecondInterestIv.setImageResource(android.R.drawable.checkbox_on_background);
-                        addRequest(secondInterest);
-                    }
-                    else
-                    {
-                        mSecondInterestTextView.setTextColor(Color.parseColor("#000000"));
-                        Toast.makeText(getContext(),"ZayvE Request Cancelled!",Toast.LENGTH_SHORT).show();
-                        mSecondInterestIv.setImageResource(android.R.color.transparent);
-                        cancelRequest(secondInterest);
-                    }
+        mSecondInterestTextView.setText(GetInterestName(secondInterest));
+        mSecondInterestTextView.setTextColor(Color.parseColor(GetInterestColor(secondInterest)));
+        SetInterestSwitch(secondInterest);
+        if(switchRequestSecondInt)
+        {
+            mSecondInterestIv.setImageResource(android.R.drawable.checkbox_on_background);
+        }
+        mSecondInterestTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleSwitchRequest(2);
+                if(switchRequestSecondInt)
+                {
+                    mSecondInterestTextView.setTextColor(Color.parseColor(colorHexCode));
+                    Toast.makeText(getContext(),"ZayvE Request Sent!",Toast.LENGTH_SHORT).show();
+                    mSecondInterestIv.setImageResource(android.R.drawable.checkbox_on_background);
+                    addRequest(GetInterestName(secondInterest));
                 }
-            });
-
-            mThirdInterestTextView.setText(thirdInterest);
-            mThirdInterestTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    toggleSwitchRequest(3);
-                    if(switchRequestThirdInt)
-                    {
-                        mThirdInterestTextView.setTextColor(Color.parseColor(colorHexCode));
-                        Toast.makeText(getContext(),"ZayvE Request Sent!",Toast.LENGTH_SHORT).show();
-                        mThirdInterestIv.setImageResource(android.R.drawable.checkbox_on_background);
-                        addRequest(thirdInterest);
-                    }
-                    else
-                    {
-                        mThirdInterestTextView.setTextColor(Color.parseColor("#000000"));
-                        Toast.makeText(getContext(),"ZayvE Request Cancelled!",Toast.LENGTH_SHORT).show();
-                        mThirdInterestIv.setImageResource(android.R.color.transparent);
-                        cancelRequest(thirdInterest);
-                    }
+                else
+                {
+                    mSecondInterestTextView.setTextColor(Color.parseColor("#000000"));
+                    Toast.makeText(getContext(),"ZayvE Request Cancelled!",Toast.LENGTH_SHORT).show();
+                    mSecondInterestIv.setImageResource(android.R.color.transparent);
+                    cancelRequest(GetInterestName(secondInterest));
                 }
-            });
+            }
+        });
 
-            mFourthInterestTextView.setText(fourthInterest);
-            mFourthInterestTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    toggleSwitchRequest(4);
-                    if(switchRequestFourthInt)
-                    {
-                        mFourthInterestTextView.setTextColor(Color.parseColor(colorHexCode));
-                        Toast.makeText(getContext(),"ZayvE Request Sent!",Toast.LENGTH_SHORT).show();
-                        mFourthInterestIv.setImageResource(android.R.drawable.checkbox_on_background);
-                        addRequest(fourthInterest);
-                    }
-                    else
-                    {
-                        mFourthInterestTextView.setTextColor(Color.parseColor("#000000"));
-                        Toast.makeText(getContext(),"ZayvE Request Cancelled!",Toast.LENGTH_SHORT).show();
-                        mFourthInterestIv.setImageResource(android.R.color.transparent);
-                        cancelRequest(fourthInterest);
-                    }
+        mThirdInterestTextView.setText(GetInterestName(thirdInterest));
+        mThirdInterestTextView.setTextColor(Color.parseColor(GetInterestColor(thirdInterest)));
+        SetInterestSwitch(thirdInterest);
+        if(switchRequestThirdInt)
+        {
+            mThirdInterestIv.setImageResource(android.R.drawable.checkbox_on_background);
+        }
+        mThirdInterestTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleSwitchRequest(3);
+                if(switchRequestThirdInt)
+                {
+                    mThirdInterestTextView.setTextColor(Color.parseColor(colorHexCode));
+                    Toast.makeText(getContext(),"ZayvE Request Sent!",Toast.LENGTH_SHORT).show();
+                    mThirdInterestIv.setImageResource(android.R.drawable.checkbox_on_background);
+                    addRequest(GetInterestName(thirdInterest));
                 }
-            });
-
-            mFifthInterestTextView.setText(fifthInterest);
-            mFifthInterestTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    toggleSwitchRequest(5);
-                    if(switchRequestFifthInt)
-                    {
-                        mFifthInterestTextView.setTextColor(Color.parseColor(colorHexCode));
-                        Toast.makeText(getContext(),"ZayvE Request Sent!",Toast.LENGTH_SHORT).show();
-                        mFifthInterestIv.setImageResource(android.R.drawable.checkbox_on_background);
-                        addRequest(fifthInterest);
-                    }
-                    else
-                    {
-                        mFifthInterestTextView.setTextColor(Color.parseColor("#000000"));
-                        Toast.makeText(getContext(),"ZayvE Request Cancelled!",Toast.LENGTH_SHORT).show();
-                        mFifthInterestIv.setImageResource(android.R.color.transparent);
-                        cancelRequest(fifthInterest);
-                    }
+                else
+                {
+                    mThirdInterestTextView.setTextColor(Color.parseColor("#000000"));
+                    Toast.makeText(getContext(),"ZayvE Request Cancelled!",Toast.LENGTH_SHORT).show();
+                    mThirdInterestIv.setImageResource(android.R.color.transparent);
+                    cancelRequest(GetInterestName(thirdInterest));
                 }
-            });
+            }
+        });
 
-            mFirstInterestIv = getView().findViewById(R.id.first_interest_iv);
+        mFourthInterestTextView.setText(GetInterestName(fourthInterest));
+        mFourthInterestTextView.setTextColor(Color.parseColor(GetInterestColor(fourthInterest)));
+        SetInterestSwitch(fourthInterest);
+        if(switchRequestFourthInt)
+        {
+            mFourthInterestIv.setImageResource(android.R.drawable.checkbox_on_background);
+        }
+        mFourthInterestTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleSwitchRequest(4);
+                if(switchRequestFourthInt)
+                {
+                    mFourthInterestTextView.setTextColor(Color.parseColor(colorHexCode));
+                    Toast.makeText(getContext(),"ZayvE Request Sent!",Toast.LENGTH_SHORT).show();
+                    mFourthInterestIv.setImageResource(android.R.drawable.checkbox_on_background);
+                    addRequest(GetInterestName(fourthInterest));
+                }
+                else
+                {
+                    mFourthInterestTextView.setTextColor(Color.parseColor("#000000"));
+                    Toast.makeText(getContext(),"ZayvE Request Cancelled!",Toast.LENGTH_SHORT).show();
+                    mFourthInterestIv.setImageResource(android.R.color.transparent);
+                    cancelRequest(GetInterestName(fourthInterest));
+                }
+            }
+        });
 
-            mSecondInterestIv = getView().findViewById(R.id.second_interest_iv);
-            mThirdInterestIv = getView().findViewById(R.id.third_interest_iv);
+        mFifthInterestTextView.setText(GetInterestName(fifthInterest));
+        mFifthInterestTextView.setTextColor(Color.parseColor(GetInterestColor(fifthInterest)));
+        SetInterestSwitch(fifthInterest);
+        if(switchRequestFifthInt)
+        {
+            mFifthInterestIv.setImageResource(android.R.drawable.checkbox_on_background);
+        }
+        mFifthInterestTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleSwitchRequest(5);
+                if(switchRequestFifthInt)
+                {
+                    mFifthInterestTextView.setTextColor(Color.parseColor(colorHexCode));
+                    Toast.makeText(getContext(),"ZayvE Request Sent!",Toast.LENGTH_SHORT).show();
+                    mFifthInterestIv.setImageResource(android.R.drawable.checkbox_on_background);
+                    addRequest(GetInterestName(fifthInterest));
+                }
+                else
+                {
+                    mFifthInterestTextView.setTextColor(Color.parseColor("#000000"));
+                    Toast.makeText(getContext(),"ZayvE Request Cancelled!",Toast.LENGTH_SHORT).show();
+                    mFifthInterestIv.setImageResource(android.R.color.transparent);
+                    cancelRequest(GetInterestName(fifthInterest));
+                }
+            }
+        });
+    }
 
-            mFourthInterestIv = getView().findViewById(R.id.fourth_interest_iv);
-            mFifthInterestIv = getView().findViewById(R.id.fifth_interest_iv);
-            introTv.setText(intro);
+    private void SetInterestSwitch(String interestName) {
+        int length = interestName.length();
+        String lastTwo = "";
+
+        if(length>2)
+        {
+            lastTwo = interestName.substring(length-2);
+        }
+
+        if(lastTwo.equals("**"))
+        {
+            if(interestName.equals(firstInterest)){
+                switchRequestFirstInt = true;
+            }
+            if(interestName.equals(secondInterest)){
+                switchRequestSecondInt = true;
+            }
+            if(interestName.equals(thirdInterest)){
+                 switchRequestThirdInt = true;
+            }
+            if(interestName.equals(fourthInterest)){
+                 switchRequestFourthInt = true;
+            }
+            if(interestName.equals(fifthInterest)){
+                 switchRequestFifthInt = true;
+            }
         }
     }
 
-    private String getTextColor(String interestName) {
-        String color = "#FFFFFF";
-        Log.d("prabhas","interest name = " + interestName);
-        Log.d("prabhas","arrayList has " + keyInterestRequestedUserAl.size());
-        if(keyInterestRequestedUserAl.contains(interestName))
+    private String GetInterestName(String interestName)
+    {
+        String value = interestName;
+
+        int length = interestName.length();
+
+        String lastTwo = "";
+
+        if(length>2)
+        {
+            lastTwo = interestName.substring(length-2);
+        }
+
+
+        if(lastTwo.equals("**"))
+        {
+            value = interestName.substring(0,length-2);
+            Log.d("lastTwo",value);
+        }
+
+        return value;
+    }
+    private String GetInterestColor(String interestName) {
+        String color = "#000000";
+        int length = interestName.length();
+
+        String lastTwo = "";
+
+        if(length>2)
+        {
+            lastTwo = interestName.substring(length-2);
+        }
+        if(lastTwo.equals("**") || switchRequestFirstInt)
+        {
             color = colorHexCode;
+        }
 
         return color;
     }
 
-    private void SearchRequestsSent() {
-        mRtDatabase.child("users").child(currentUser.getUid()).child("requests_sent").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if(snapshot.exists())
-                {
-                    String userIdRequestSentKey = snapshot.getKey();
-
-                    if(userIdRequestSentKey.equals(userId))
-                    {
-                        for(DataSnapshot childSnapshot: snapshot.getChildren())
-                        {
-                            String requestSentInterestKey = childSnapshot.getKey();
-
-                            if(!keyInterestRequestedUserAl.contains(requestSentInterestKey))
-                            {
-                                Log.d("villiers",requestSentInterestKey);
-                                keyInterestRequestedUserAl.add(requestSentInterestKey);
-                            }
-                        }
-                    }
-
-                }
-
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        arrayListDone = true;
-    }
 
     private void cancelRequest(String interestName)
     {

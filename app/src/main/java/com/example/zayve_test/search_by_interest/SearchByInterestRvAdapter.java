@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zayve_test.R;
-import com.example.zayve_test.ui.EachUserProfile;
+import com.example.zayve_test.ui.browse_friends.EachUserProfile;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

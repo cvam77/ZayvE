@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#0C0000"
-    tools:context=".ui.EachUserInFragment">
+    android:background="#FAFAFA"
+    >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,6 +21,7 @@
                 android:layout_width="30dp"
                 android:layout_height="26dp"
                 android:layout_gravity="end"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="50dp"
                 app:srcCompat="@drawable/com_facebook_tooltip_black_xout" />
 
@@ -74,11 +75,11 @@
                     android:textStyle="bold" />
 
                 <ImageView
+                    android:id="@+id/first_interest_iv"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="11dp"
-                    android:background="#5A5858"
-                    app:srcCompat="@drawable/com_facebook_button_like_icon_selected" />
+                    />
 
             </LinearLayout>
 
@@ -99,11 +100,11 @@
                     android:textStyle="bold" />
 
                 <ImageView
+                    android:id="@+id/second_interest_iv"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="11dp"
-                    android:background="#5A5858"
-                    app:srcCompat="@drawable/com_facebook_button_like_icon_selected" />
+                />
 
             </LinearLayout>
 
@@ -124,11 +125,11 @@
                     android:textStyle="bold" />
 
                 <ImageView
+                    android:id="@+id/third_interest_iv"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="11dp"
-                    android:background="#5A5858"
-                    app:srcCompat="@drawable/com_facebook_button_like_icon_selected" />
+                 />
 
             </LinearLayout>
 
@@ -149,11 +150,11 @@
                     android:textStyle="bold" />
 
                 <ImageView
+                    android:id="@+id/fourth_interest_iv"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="11dp"
-                    android:background="#5A5858"
-                    app:srcCompat="@drawable/com_facebook_button_like_icon_selected" />
+            />
 
             </LinearLayout>
 
@@ -174,11 +175,12 @@
                     android:textStyle="bold" />
 
                 <ImageView
+                    android:id="@+id/fifth_interest_iv"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="11dp"
-                    android:background="#5A5858"
-                    app:srcCompat="@drawable/com_facebook_button_like_icon_selected" />
+
+                    />
 
             </LinearLayout>
 

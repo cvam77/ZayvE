@@ -6,8 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import com.example.zayve_test.ui.EachUserInFragment;
-import com.example.zayve_test.ui.EachUserProfile;
+
+import com.example.zayve_test.search_by_interest.EachUserInFragmentSearchResults;
+import com.example.zayve_test.ui.browse_friends.EachUserProfile;
 import com.google.firebase.database.DatabaseReference;
 import java.util.ArrayList;
 
@@ -30,9 +31,10 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
     @Override
     public Fragment getItem(int position) {
 
-        EachUserInFragment eachUserInFragment = new EachUserInFragment();
+        EachUserInFragmentSearchResults eachUserInFragment = new EachUserInFragmentSearchResults();
         Bundle bundle = new Bundle();
 
+        bundle.putString("userId",VarrayList.get(position).getUserId());
         bundle.putString("globalName",VarrayList.get(position).getUserName());
         bundle.putString("firstInterest",VarrayList.get(position).getFirstInterest());
         bundle.putString("secondInterest",VarrayList.get(position).getSecondInterest());
