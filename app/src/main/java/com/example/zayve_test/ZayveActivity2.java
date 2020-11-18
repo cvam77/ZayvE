@@ -126,7 +126,7 @@ public class ZayveActivity2 extends AppCompatActivity {
     //Going from ZayveActivity to BrowseFriendsFragment
     private void BrowseFriendsButtonClicked() {
 
-        Fragment fragment = new SearchInterestResultsFragment();
+        Fragment fragment = new BrowseFriendsFragment();
 
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayoutContainer, fragment, "demofragment");
