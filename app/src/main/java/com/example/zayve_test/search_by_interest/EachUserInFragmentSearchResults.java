@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zayve_test.R;
+import com.example.zayve_test.ui.browse_friends.EachUserProfile;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -31,6 +32,7 @@ import java.util.TreeMap;
 
 
 public class EachUserInFragmentSearchResults extends Fragment {
+    Boolean isDataLoaded = false;
 
     TreeMap<String, ArrayList<String>> requestTreeMap = new TreeMap<>();
 
@@ -41,6 +43,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
     String colorHexCode = "#2E7D32";
 
     int timeCounter = 0;
+    int secondTimeCounter = 0;
 
     ArrayList<String> keyInterestRequestedUserAl = new ArrayList<>();
 
@@ -52,7 +55,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
     private ImageView mProfilePictureImageView, mFirstInterestIv,mSecondInterestIv, mThirdInterestIv,
         mFourthInterestIv,mFifthInterestIv;
 
-    String userId = "",globalName = "",firstInterest = "",secondInterest = "",
+    String userId = "",globalName = "Pahadi",firstInterest = "Gaming",secondInterest = "",
             thirdInterest = "",fourthInterest = "",fifthInterest = "",profilePictureString = "";
     String intro = "";
 
@@ -69,20 +72,109 @@ public class EachUserInFragmentSearchResults extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        userId = getArguments().getString("userId");
-        Log.d("bahubali","userId = " + userId);
-        globalName = getArguments().getString("globalName");
-        firstInterest = getArguments().getString("firstInterest");
-        secondInterest = getArguments().getString("secondInterest");
-        thirdInterest = getArguments().getString("thirdInterest");
-        fourthInterest = getArguments().getString("fourthInterest");
-        fifthInterest = getArguments().getString("fifthInterest");
-        profilePictureString = getArguments().getString("profilePictureString");
-        intro = getArguments().getString("intro");
+        userId = EachUserInFragmentSearchResultsArgs.fromBundle(getArguments()).getUserID();
+        Log.d("userId",userId);
+//        intro = getArguments().getString("intro");
 
         Log.d("onResume","on Create View called");
         return inflater.inflate(R.layout.fragment_each_user_in_search_results, container, false);
+    }
+
+    public void getUser(String userId)
+    {
+        mRtDatabase.child("users").child(userId).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                for(DataSnapshot childSnapshot : snapshot.getChildren())
+                {
+
+                    String fieldKey = childSnapshot.getKey();
+                    String value = childSnapshot.getValue().toString();
+
+                    switch (fieldKey) {
+                        case "user_name":
+                            globalName = value;
+                            break;
+                        case "about":
+                            intro = value;
+                            break;
+                        case "profile_image":
+                            profilePictureString = value;
+                            break;
+                        default:
+                            break;
+                    }
+
+                    for (DataSnapshot secondLevelChildSnapshot : childSnapshot.getChildren()) {
+
+
+                        String secondLevelKey = secondLevelChildSnapshot.getKey();
+                        String keyValue = secondLevelChildSnapshot.getValue().toString();
+
+                        switch (secondLevelKey) {
+                            case "0":
+                                firstInterest = keyValue;
+                                break;
+                            case "1":
+                                secondInterest = keyValue;
+                                break;
+                            case "2":
+                                thirdInterest = keyValue;
+                                break;
+                            case "3":
+                                fourthInterest = keyValue;
+                                break;
+                            case "4":
+                                fifthInterest = keyValue;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        long timeStart = System.currentTimeMillis();
+        while(globalName.equals("") && secondTimeCounter < 2)
+        {
+            long timeEnd = System.currentTimeMillis();
+
+            if(timeEnd - timeStart > 1000)
+            {
+                secondTimeCounter = 5;
+            }
+
+        }
+        isDataLoaded = true;
+
     }
 
     @Override
@@ -122,7 +214,12 @@ public class EachUserInFragmentSearchResults extends Fragment {
             }
         });
 
-        InitializeViews();
+        getUser(userId);
+        if(isDataLoaded)
+        {
+            InitializeViews();
+        }
+
 
         introTv.setText(intro);
 

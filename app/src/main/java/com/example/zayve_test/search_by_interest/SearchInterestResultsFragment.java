@@ -1,16 +1,15 @@
 package com.example.zayve_test.search_by_interest;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -22,17 +21,11 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.zayve_test.R;
-import com.example.zayve_test.TestingFragment;
-import com.example.zayve_test.models.ViewPagerAdapter;
 import com.example.zayve_test.models.ViewPagerAdapterSearchResults;
 import com.example.zayve_test.ui.browse_friends.EachUserProfile;
-import com.example.zayve_test.ui.browse_friends.BrowseFriendsFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -169,25 +162,7 @@ public class SearchInterestResultsFragment extends Fragment implements SearchByI
                                     String about, String firstInt, String secondInt, String thirdInt,
                                     String fourthInt, String fifthInt)
     {
-        Bundle bundle = new Bundle();
-        bundle.putString("userId",userId);
-        bundle.putString("globalName",name);
-        bundle.putString("profilePictureString",profilePicUrlString);
-        bundle.putString("intro",about);
-        bundle.putString("firstInterest",firstInt);
-        bundle.putString("secondInterest",secondInt);
-        bundle.putString("thirdInterest",thirdInt);
-        bundle.putString("fourthInterest",fourthInt);
-        bundle.putString("fifthInterest",fifthInt);
-        String backStateName = this.getClass().getName();
-
-        Fragment fragment = new EachUserInFragmentSearchResults();
-        fragment.setArguments(bundle);
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayoutContainer, fragment, "demofragment");
-        fragmentTransaction.addToBackStack(backStateName);
-        fragmentTransaction.commit();
-
+        Navigation.findNavController(getActivity(),getView().getId()).navigate(SearchInterestResultsFragmentDirections.actionNavSearchToNavUser(userId));
     }
 
     @Override
