@@ -43,7 +43,7 @@ class ZayveActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
 //        todo: don't forget to change here
         appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.nav_chat_page, R.id.nav_profile, R.id.nav_browse_friends, R.id.nav_requests, R.id.nav_search_by_interest), drawerLayout)
+                R.id.nav_chat_page, R.id.nav_profile, R.id.nav_browse_friends, R.id.nav_requests, R.id.nav_search), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
