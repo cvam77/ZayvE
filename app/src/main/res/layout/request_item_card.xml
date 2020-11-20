@@ -11,6 +11,10 @@
         <variable
             name="acceptBtnListner"
             type="com.example.zayve_test.adapters.reyclerviewAdapters.AcceptButtonListner" />
+
+        <variable
+            name="declineBtnListner"
+            type="com.example.zayve_test.adapters.reyclerviewAdapters.DeleteButtonListner" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -71,7 +75,6 @@
                     android:textSize="18sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -84,9 +87,19 @@
                 android:layout_gravity="end"
                 android:background="@drawable/btn_custom"
                 android:onClick="@{()->acceptBtnListner.onClick(request)}"
-                android:padding="8sp"
+                android:padding="4sp"
                 android:text="ACCEPT"
                 android:textColor="@android:color/white" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/decline_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8sp"
+                android:background="@drawable/btn_danger"
+                android:onClick="@{()->declineBtnListner.onClick(request)}"
+                android:text="DECLINE"
+                android:textColor="@color/white" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>

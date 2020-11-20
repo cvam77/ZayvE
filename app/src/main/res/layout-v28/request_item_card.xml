@@ -11,6 +11,10 @@
         <variable
             name="acceptBtnListner"
             type="com.example.zayve_test.adapters.reyclerviewAdapters.AcceptButtonListner" />
+
+        <variable
+            name="declineBtnListner"
+            type="com.example.zayve_test.adapters.reyclerviewAdapters.DeleteButtonListner" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -47,8 +51,7 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
@@ -58,8 +61,8 @@
                     android:maxWidth="150sp"
                     android:text="@{request.userName}"
                     android:textColor="@color/title"
-                    android:textStyle="bold"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
@@ -69,8 +72,8 @@
                     android:maxWidth="150sp"
                     android:text="@{request.interest}"
                     android:textFontWeight="700"
-                    android:textStyle="italic"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:textStyle="italic" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -89,6 +92,16 @@
                 android:padding="8sp"
                 android:text="ACCEPT"
                 android:textColor="@android:color/white" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/decline_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8sp"
+                android:background="@drawable/btn_danger"
+                android:onClick="@{()->declineBtnListner.onClick(request)}"
+                android:text="DECLINE"
+                android:textColor="@color/white" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>

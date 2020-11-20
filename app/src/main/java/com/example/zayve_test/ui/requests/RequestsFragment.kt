@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.zayve_test.R
 import com.example.zayve_test.adapters.reyclerviewAdapters.AcceptButtonListner
+import com.example.zayve_test.adapters.reyclerviewAdapters.DeleteButtonListner
 import com.example.zayve_test.adapters.reyclerviewAdapters.RequestListListAdapter
 import com.example.zayve_test.databinding.FragmentRequestsBinding
 import java.util.*
@@ -24,15 +25,20 @@ class RequestsFragment : Fragment() {
     private lateinit var binding: FragmentRequestsBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_requests, container, false)
         requestsViewModel = ViewModelProvider(this).get(RequestsViewModel::class.java)
         requestsViewModel.fetchRequestList()
+//        controlls user interaction with requests
         val adapter = RequestListListAdapter(AcceptButtonListner { request ->
             requestsViewModel.acceptRequest(request)
             makeText(context, "friend request from ${request.userName.toUpperCase(Locale.ROOT)} accepted", Toast.LENGTH_LONG).show()
+        }, DeleteButtonListner { request ->
+            Log.d("reached", "delete button section reached")
+            requestsViewModel.declineRequest(request)
+            makeText(context, "friend request from ${request.userName.toUpperCase(Locale.ROOT)} declined", Toast.LENGTH_LONG).show()
         })
         binding.requestRecyclerView.adapter = adapter
         if (requestsViewModel.requestList.value != null) {
@@ -44,12 +50,12 @@ class RequestsFragment : Fragment() {
         }
 
         val callback: OnBackPressedCallback =
-            object : OnBackPressedCallback(true /* enabled by default */) {
-                override fun handleOnBackPressed() {
-                    // Handle the back button even
-                    Log.d("BACKBUTTON", "Back button clicks")
+                object : OnBackPressedCallback(true /* enabled by default */) {
+                    override fun handleOnBackPressed() {
+                        // Handle the back button even
+                        Log.d("BACKBUTTON", "Back button clicks")
+                    }
                 }
-            }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         return binding.root
     }

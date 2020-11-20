@@ -90,4 +90,8 @@ class RequestsViewModel : ViewModel() {
         }
         database.addValueEventListener(valueListner)
     }
+
+    fun declineRequest(request: Request) {
+//        Log.d("request_declined", request.userId)
+    }
 }
