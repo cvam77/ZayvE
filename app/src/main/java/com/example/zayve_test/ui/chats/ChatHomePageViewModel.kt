@@ -41,10 +41,11 @@ class ChatHomePageViewModel : ViewModel() {
                     //                    find the second participant other than the user
                     val participants = childSnapshot.child("participants").value as List<String>
 //                    only fill the messagelist with user chat
-                    if (participants.contains(user.uid)){
+                    if (participants.contains(user.uid)) {
                         var friendUID = ""
                         for (uid in participants) {
                             if (uid == user.uid) continue
+                            //gets friends uuid
                             friendUID = uid
                         }
 
@@ -53,9 +54,9 @@ class ChatHomePageViewModel : ViewModel() {
                         val friendName =
                                 friendInfo.child("user_name").value as String
                         val friendImgSrc = friendInfo.child("profile_image").value as String
-                        Log.d("name",friendName)
-                        val chatId = friendInfo.child("friends").child(user.uid).child("chatId").value as String
-                        messages += UserMessageInfo(friendImgSrc, friendName, lastMessage,chatId)
+                        Log.d("name", friendName)
+                        val chatId = friendInfo.child("friends").child(user.uid).child("chatId").value.toString()
+                        messages += UserMessageInfo(friendImgSrc, friendName, lastMessage, chatId)
                     }
                 }
                 _messageList.value = messages

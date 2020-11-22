@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_requests">
+    app:startDestination="@id/nav_chat_page">
 
     <fragment
         android:id="@+id/nav_chat_page"
@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_nav_requests_to_nav_profile"
             app:destination="@id/nav_profile" />
+        <action
+            android:id="@+id/action_nav_requests_to_nav_chat_page"
+            app:destination="@id/nav_chat_page" />
     </fragment>
     <fragment
         android:id="@+id/nav_search"

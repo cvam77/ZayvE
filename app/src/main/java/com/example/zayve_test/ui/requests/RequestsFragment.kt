@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.zayve_test.R
 import com.example.zayve_test.adapters.reyclerviewAdapters.AcceptButtonListner
 import com.example.zayve_test.adapters.reyclerviewAdapters.DeleteButtonListner
@@ -48,6 +49,12 @@ class RequestsFragment : Fragment() {
                 }
             })
         }
+
+//        requestsViewModel.navigate.observe(viewLifecycleOwner,{
+//            if(it){
+//                findNavController().navigate(R.id.action_nav_requests_to_nav_chat_page)
+//            }
+//        })
 
         val callback: OnBackPressedCallback =
                 object : OnBackPressedCallback(true /* enabled by default */) {

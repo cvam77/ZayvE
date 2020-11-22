@@ -19,11 +19,16 @@ class RequestsViewModel : ViewModel() {
     private lateinit var database: DatabaseReference
     private lateinit var user: FirebaseUser
 
+
     private var _requestList = MutableLiveData<List<Request>>().apply {
         value = ArrayList<Request>()
-
     }
     val requestList = _requestList
+
+////    controls navigation
+//    var  navigate = MutableLiveData<Boolean>().apply {
+//        value = false
+//    }
 
     fun acceptRequest(request: Request): Unit {
 //        todo: this uuid has to come from the user that sends the request.
@@ -34,28 +39,30 @@ class RequestsViewModel : ViewModel() {
 
 //        save accepted users in friends hashmap
         database.child("users").child(user.uid).child("friends").child(friend.uid).setValue(friend)
-//        removes accepted user from request list
-        deleteRequest(request)
-//        creates a new chat collection for connected users
-        database.child("chats").child(chatId).setValue(chat)
-
 //        retrieves user information from database
         database.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val userData = dataSnapshot.child("users").child(user.uid)
                 val userName = userData.child("user_name").value as String
+                Log.d("reached","reached here")
                 val userProfilePic = userData.child("profile_image").value as String
                 val userInfo = Friend(userProfilePic, user.uid, userName, chatId)
-                Log.d("value", userInfo.toString())
 //                save user in the friends section of the friend
                 database.child("users").child(friend.uid).child("friends").child(user.uid)
-                    .setValue(userInfo)
+                        .setValue(userInfo)
+////                navigates to the chat home page
+//                navigate.value = true
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
                 Log.d("error", "Error while reading data")
             }
         })
+//        removes accepted user from request list
+        deleteRequest(request)
+//        creates a new chat collection for connected users
+        database.child("chats").child(chatId).setValue(chat)
+
     }
 
     //    fetches request list from realtime database

@@ -70,8 +70,8 @@ class ChatPageViewModel : ViewModel() {
         val valueListner = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val userData = dataSnapshot.child("users").child(user.uid)
-                userName = userData.child("user_info").child("user_name").value as String
-                profilePic = userData.child("profile_pic").value as String
+                userName = userData.child("user_name").value as String
+                profilePic = userData.child("profile_image").value as String
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

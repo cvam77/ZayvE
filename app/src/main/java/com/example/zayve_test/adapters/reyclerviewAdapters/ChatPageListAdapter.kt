@@ -44,7 +44,7 @@ class ChatPageListAdapter() :
             if (currentItem != null) {
                 Picasso.get().load(currentItem.profile_pic).into(binding.userCardImage)
                 if (userId==currentItem.userId){
-                    Log.d("user", currentItem.userId)
+                    Log.d("image", currentItem.profile_pic)
                     binding.messageLayout.layoutDirection = View.LAYOUT_DIRECTION_RTL
                     binding.messageItem.setBackgroundResource(R.drawable.message_sent)
                     binding.messageItem.setTextColor(R.color.white)
