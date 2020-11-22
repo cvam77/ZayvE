@@ -36,7 +36,7 @@ class RequestsFragment : Fragment() {
             requestsViewModel.acceptRequest(request)
             makeText(context, "friend request from ${request.userName.toUpperCase(Locale.ROOT)} accepted", Toast.LENGTH_LONG).show()
         }, DeleteButtonListner { request ->
-            Log.d("reached", "delete button section reached")
+
             requestsViewModel.declineRequest(request)
             makeText(context, "friend request from ${request.userName.toUpperCase(Locale.ROOT)} declined", Toast.LENGTH_LONG).show()
         })

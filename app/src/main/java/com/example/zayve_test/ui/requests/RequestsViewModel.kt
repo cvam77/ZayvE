@@ -7,7 +7,6 @@ import com.example.zayve_test.models.Request
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import kotlin.collections.ArrayList
 
 
 class RequestsViewModel : ViewModel() {
@@ -67,13 +66,14 @@ class RequestsViewModel : ViewModel() {
                 val requestList = ArrayList<Request>()
 //                load request into the requestList arraylist
                 for (interest in responseData.children){
-                    Log.d("responseData", "${interest.key} : ${interest.value.toString()}")
+//                    Log.d("responseData", "${interest.key} : ${interest.value.toString()}")
                     for (requestId in interest.children){
+//                        get user data from interest collection
                        val userData = dataSnapshot.child("users").child(requestId.value.toString())
                         val profileImage = userData.child("profile_image").value.toString()
                         val userName = userData.child("user_name").value.toString()
-                        val userId = userData.value.toString()
-                        val request = Request(profileImage,userName,userId,interest.key.toString())
+                        val userId = requestId.value.toString()
+                        val request = Request(profileImage, userName, userId, interest.key.toString())
                         requestList+=request
                     }
                 }
@@ -92,6 +92,32 @@ class RequestsViewModel : ViewModel() {
     }
 
     fun declineRequest(request: Request) {
-//        Log.d("request_declined", request.userId)
+        val valueListner = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val responseData =
+                        dataSnapshot.child("users").child(user.uid).child("interest_requests")
+
+                val requestList = ArrayList<Request>()
+//                load request into the requestList arraylist
+                for (interest in responseData.children){
+                    Log.d("responseData", "${interest.key} : ${interest.value.toString()}")
+                    for (requestId in interest.children){
+                      if(requestId.value.toString() == request.userId){
+                         database.child("users").child(user.uid).child("interest_requests").child(interest.value.toString()).child(requestId.value.toString()).setValue(null)
+                      }
+                    }
+                }
+//                // loads the data into the request list livedata
+                _requestList.value = requestList
+
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+                Log.w("loadPost:onCancelled", databaseError.toException())
+            }
+        }
+        database.addValueEventListener(valueListner)
     }
 }

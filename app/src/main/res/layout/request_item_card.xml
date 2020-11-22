@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:background="@drawable/btn_custom"
+                android:background="@drawable/ic_request_add"
                 android:onClick="@{()->acceptBtnListner.onClick(request)}"
                 android:padding="4sp"
                 android:text="ACCEPT"
