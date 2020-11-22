@@ -34,11 +34,11 @@ class RequestsFragment : Fragment() {
 //        controlls user interaction with requests
         val adapter = RequestListListAdapter(AcceptButtonListner { request ->
             requestsViewModel.acceptRequest(request)
-            makeText(context, "friend request from ${request.userName.toUpperCase(Locale.ROOT)} accepted", Toast.LENGTH_LONG).show()
+            makeText(context, "Friend Request Accepted", Toast.LENGTH_SHORT).show()
         }, DeleteButtonListner { request ->
 
-            requestsViewModel.declineRequest(request)
-            makeText(context, "friend request from ${request.userName.toUpperCase(Locale.ROOT)} declined", Toast.LENGTH_LONG).show()
+            requestsViewModel.deleteRequest(request)
+            makeText(context, "Friend Request Declined", Toast.LENGTH_SHORT).show()
         })
         binding.requestRecyclerView.adapter = adapter
         if (requestsViewModel.requestList.value != null) {
