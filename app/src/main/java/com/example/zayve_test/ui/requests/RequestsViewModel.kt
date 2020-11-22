@@ -65,16 +65,16 @@ class RequestsViewModel : ViewModel() {
 
                 val requestList = ArrayList<Request>()
 //                load request into the requestList arraylist
-                for (interest in responseData.children){
+                for (interest in responseData.children) {
 //                    Log.d("responseData", "${interest.key} : ${interest.value.toString()}")
-                    for (requestId in interest.children){
+                    for (requestId in interest.children) {
 //                        get user data from interest collection
-                       val userData = dataSnapshot.child("users").child(requestId.value.toString())
+                        val userData = dataSnapshot.child("users").child(requestId.value.toString())
                         val profileImage = userData.child("profile_image").value.toString()
                         val userName = userData.child("user_name").value.toString()
                         val userId = requestId.value.toString()
                         val request = Request(profileImage, userName, userId, interest.key.toString())
-                        requestList+=request
+                        requestList += request
                     }
                 }
 //                // loads the data into the request list livedata
@@ -92,32 +92,38 @@ class RequestsViewModel : ViewModel() {
     }
 
     fun declineRequest(request: Request) {
-        val valueListner = object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val responseData =
-                        dataSnapshot.child("users").child(user.uid).child("interest_requests")
-
-                val requestList = ArrayList<Request>()
-//                load request into the requestList arraylist
-                for (interest in responseData.children){
-                    Log.d("responseData", "${interest.key} : ${interest.value.toString()}")
-                    for (requestId in interest.children){
-                      if(requestId.value.toString() == request.userId){
-                         database.child("users").child(user.uid).child("interest_requests").child(interest.value.toString()).child(requestId.value.toString()).setValue(null)
-                      }
+        database.child("users").child(user.uid).child("interest_requests").addListenerForSingleValueEvent(object : ValueEventListener {
+            /**
+             * This method will be called with a snapshot of the data at this location. It will also be called
+             * each time that data changes.
+             *
+             * @param snapshot The current data at the location
+             */
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (data in snapshot.children) {
+                    for (interestData in data.children) {
+                        val requestUserId = interestData.value.toString()
+                        if (requestUserId == request.userId) {
+                            Log.d("delete", requestUserId)
+                            interestData.ref.removeValue()
+                        }
                     }
                 }
-//                // loads the data into the request list livedata
-                _requestList.value = requestList
-
-
             }
 
-            override fun onCancelled(databaseError: DatabaseError) {
-                // Getting Post failed, log a message
-                Log.w("loadPost:onCancelled", databaseError.toException())
+            /**
+             * This method will be triggered in the event that this listener either failed at the server, or
+             * is removed as a result of the security and Firebase Database rules. For more information on
+             * securing your data, see: [ Security
+ * Quickstart](https://firebase.google.com/docs/database/security/quickstart)
+             *
+             * @param error A description of the error that occurred
+             */
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
             }
-        }
-        database.addValueEventListener(valueListner)
+
+
+        })
     }
 }
