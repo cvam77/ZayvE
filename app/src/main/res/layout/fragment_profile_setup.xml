@@ -44,16 +44,14 @@
                             app:srcCompat="@drawable/avatar_icon" />
                     </androidx.cardview.widget.CardView>
 
-
-                    <androidx.appcompat.widget.AppCompatButton
+                    <Button
                         android:id="@+id/pick_image"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_margin="8sp"
-                        android:background="@drawable/rounded_corners"
-                        android:padding="8sp"
-                        android:text="Pick an image" />
+                        android:text="Pick an image"
+                        android:textSize="16sp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/profile_username"
@@ -62,23 +60,18 @@
                         android:layout_gravity="center"
                         android:text="@string/userName" />
 
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/user_name"
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textMultiLine"
-                        android:hint="Enter your name ..."
-                        android:padding="8sp"
-                        />
+                        android:hint="Description">
 
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/user_intro"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter short intro here ..."
-                        android:padding="8sp"
-                        />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/user_intro"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8sp" />
 
+                    </com.google.android.material.textfield.TextInputLayout>
 
 
                     <Space
@@ -98,17 +91,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="20sp" />
 
-                    <LinearLayout
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:hint="First Interest">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="1. " />
-
-                        <androidx.appcompat.widget.AppCompatEditText
+                        <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/interest1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -116,19 +105,15 @@
                             android:inputType="textAutoCorrect"
                             android:padding="8sp" />
 
-                    </LinearLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <LinearLayout
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:hint="Second Interest">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="2. " />
-
-                        <androidx.appcompat.widget.AppCompatEditText
+                        <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/interest2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -136,22 +121,19 @@
                             android:inputType="textAutoCorrect"
                             android:padding="8sp" />
 
-                        <Space
-                            android:layout_width="20sp"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <LinearLayout
+                    <Space
+                        android:layout_width="20sp"
+                        android:layout_height="wrap_content" />
+
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:hint="Third Interest">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="3. " />
-
-                        <androidx.appcompat.widget.AppCompatEditText
+                        <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/interest3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -159,22 +141,19 @@
                             android:inputType="textAutoCorrect"
                             android:padding="8sp" />
 
-                        <Space
-                            android:layout_width="20sp"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <LinearLayout
+                    <Space
+                        android:layout_width="20sp"
+                        android:layout_height="wrap_content" />
+
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:hint="Fourth Interest">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="4. " />
-
-                        <androidx.appcompat.widget.AppCompatEditText
+                        <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/interest4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -182,22 +161,18 @@
                             android:inputType="textAutoCorrect"
                             android:padding="8sp" />
 
-                        <Space
-                            android:layout_width="20sp"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <LinearLayout
+                    <Space
+                        android:layout_width="20sp"
+                        android:layout_height="wrap_content" />
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:hint="Fifth Interest">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="5. " />
-
-                        <androidx.appcompat.widget.AppCompatEditText
+                        <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/interest5"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -205,10 +180,11 @@
                             android:inputType="textAutoCorrect"
                             android:padding="8sp" />
 
-                        <Space
-                            android:layout_width="20sp"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <Space
+                        android:layout_width="20sp"
+                        android:layout_height="wrap_content" />
 
                     <Space
                         android:layout_width="wrap_content"
