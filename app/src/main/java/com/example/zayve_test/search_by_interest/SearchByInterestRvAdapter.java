@@ -5,7 +5,9 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,6 +44,8 @@ public class SearchByInterestRvAdapter extends RecyclerView.Adapter<SearchByInte
     @Override
     public void onBindViewHolder(@NonNull SearchResultsViewHolder holder, int position) {
         EachUserProfile eachUserProfile = mUserList.get(position);
+
+        holder.linearLayout.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.fade_scale_animation));
 
         String name = eachUserProfile.getUserName();
         if (!name.equals("")) {
@@ -112,11 +116,15 @@ public class SearchByInterestRvAdapter extends RecyclerView.Adapter<SearchByInte
 
     class SearchResultsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        LinearLayout linearLayout;
+
         TextView mNameTv, mFirstIntTv, mSecondIntTv, mThirdIntTv, mFourthIntTv, mFifthIntTv;
         ImageView mProfilePicIv;
 
         public SearchResultsViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            linearLayout = itemView.findViewById(R.id.linear_layout_parent);
 
             mNameTv = itemView.findViewById(R.id.tvName);
             mFirstIntTv = itemView.findViewById(R.id.tvFirstInterest);

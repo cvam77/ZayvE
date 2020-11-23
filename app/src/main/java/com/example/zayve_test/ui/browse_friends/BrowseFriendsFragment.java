@@ -1,25 +1,33 @@
 package com.example.zayve_test.ui.browse_friends;
 
-import android.net.Uri;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 
 import com.example.zayve_test.R;
-import com.example.zayve_test.models.ViewPagerAdapter;
-import com.example.zayve_test.ui.browse_friends.EachUserProfile;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -30,11 +38,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeMap;
-
-import javax.xml.transform.Result;
+import java.util.Locale;
 
 public class BrowseFriendsFragment extends Fragment {
 
@@ -44,25 +51,20 @@ public class BrowseFriendsFragment extends Fragment {
 
     ArrayList<String> requestArrayList = new ArrayList<>();
 
-    private ViewPagerAdapter viewPagerAdapter;
+    private DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
+    RecyclerView mRecyclerViewBrowse;
     private ViewPager viewPager;
-
-    private Uri imageUri;
-
-    private static final int GALLERY_INTENT = 2;
-
-    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
-    private ArrayList<String> a1;
-
-    private ArrayAdapter<String> arrayAdapter;
-
-    ListView mListView;
 
     FirebaseUser getCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-    ArrayList<EachUserProfile> eachUserProfileArrayList = new ArrayList<>();
+    ArrayList<String> userIdArrayList = new ArrayList<>();
+
+    FusedLocationProviderClient fusedLocationProviderClient;
+
+    FloatingActionButton floatingActionButton;
+
+    AdapterBrowseFriends adapterBrowseFriends;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,117 +83,177 @@ public class BrowseFriendsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
 
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+
+
+            SetLocationCity();
+        } else {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+        }
         mStorage = FirebaseStorage.getInstance().getReference();
 
+        mRecyclerViewBrowse = getView().findViewById(R.id.rvBrowseFriends);
+        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
+        mRecyclerViewBrowse.setLayoutManager(mLinearLayoutManager);
 
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerViewBrowse.getContext(),
+                mLinearLayoutManager.getOrientation());
+        mRecyclerViewBrowse.addItemDecoration(dividerItemDecoration);
 
-//        a1.add("def");
-//        a1.add("ghi");
-
-        viewPager = getView().findViewById(R.id.view_pager);
+        adapterBrowseFriends = new AdapterBrowseFriends(getContext());
+        mRecyclerViewBrowse.setAdapter(adapterBrowseFriends);
 
         final ArrayList<String> sarrayList = new ArrayList<>();
 
-        boolean backgroundDone = false;
+        Log.d("watchForNotification","watch notification called");
+        WatchForNotification();
 
         CallAsync callAsync = new CallAsync();
         callAsync.execute();
 
     }
 
+    private void WatchForNotification() {
+        mDatabaseRef.child("users").child(getCurrentUser.getUid()).child("interest_requests").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if(snapshot.exists())
+                {
+                    String value = snapshot.getValue().toString();
+                    Log.d("interestNameRequest","old = "+value);
 
-    public void gettingArray(ArrayList<EachUserProfile> harrayList)
-    {
-        viewPagerAdapter = new ViewPagerAdapter(getParentFragmentManager(),harrayList );
-        viewPager.setAdapter(viewPagerAdapter);
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if(snapshot.exists())
+                {
+                    String interestName = snapshot.getKey();
+                    Log.d("interestNameRequest","new = "+interestName);
+
+                    String interestValue = snapshot.getValue().toString();
+
+                    Log.d("interestNameRequest",interestValue);
+                    for(DataSnapshot dataSnapshot : snapshot.getChildren())
+                    {
+                        String value = dataSnapshot.getValue().toString();
+                        Log.d("interestNameRequest","new = "+value);
+                    }
+                }
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void SetLocationCity() {
+
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+
+        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+            @Override
+            public void onComplete(@NonNull Task<Location> task) {
+
+                Location location = task.getResult();
+
+                if (location != null) {
+
+                    try {
+                        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+
+                        List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+
+                        String locality = addresses.get(0).getLocality();
+                        String adminArea = addresses.get(0).getAdminArea();
+                        String locationUser = locality + "," + adminArea;
+
+                        mDatabaseRef.child("users").child(getCurrentUser.getUid()).child("location").setValue(locationUser);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
     }
 
 
-    class CallAsync extends AsyncTask<Void,Void,ArrayList<EachUserProfile>> {
+    public void gettingArray(ArrayList<String> harrayList)
+    {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapterBrowseFriends.setVarrayList(harrayList);
+            }
+        });
+    }
 
-        private DatabaseReference mDatabaseRef;
+
+    class CallAsync extends AsyncTask<Void,Void,ArrayList<String>> {
 
         @Override
-        protected ArrayList<EachUserProfile> doInBackground(Void... voids) {
-
-            mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+        protected ArrayList<String> doInBackground(Void... voids) {
 
             mDatabaseRef.child("users").addChildEventListener(new ChildEventListener() {
                   @Override
                   public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                       if (snapshot.exists()) {
 
-                          String userId = snapshot.getKey();
+                          boolean cannotBrowseItSwitch = false;
 
-                          if(!snapshot.getKey().equals(getCurrentUser.getUid()))
+                          String keyOrUserId = snapshot.getKey();
+
+                          for(DataSnapshot childSnapshot : snapshot.getChildren())
                           {
-                              String userName = "", userAbout = "", firstInt = "", secondInt = "", thirdInt = "", fourthInt = "",
-                                      fifthInt = "", userPicUrl = "";
-
-                              for(DataSnapshot childSnapshot: snapshot.getChildren())
+                              String key = childSnapshot.getKey();
+                              if(key.equals("deleted_by"))
                               {
-                                  String fieldKey = childSnapshot.getKey();
-                                  String value = childSnapshot.getValue().toString();
-
-                                  switch(fieldKey)
+                                  for(DataSnapshot secondChildSnapshot : childSnapshot.getChildren())
                                   {
-                                      case "user_name":
-                                          userName = value;
-                                          break;
-                                      case "about":
-                                          userAbout = value;
-                                          break;
-                                      case "profile_image":
-                                          userPicUrl = value;
-                                          break;
-                                      default:
-                                          break;
-                                  }
-
-                                  for(DataSnapshot secondLevelChildSnapshot: childSnapshot.getChildren())
-                                  {
-                                      requestArrayList.clear();
-
-                                      String secondLevelKey = secondLevelChildSnapshot.getKey();
-                                      String keyValue = secondLevelChildSnapshot.getValue().toString();
-
-                                      if(secondLevelKey.equals(currentUser.getUid()))
+                                      String deletedByUserKey = secondChildSnapshot.getKey();
+                                      if(deletedByUserKey.equals(deletedByUserKey))
                                       {
-                                          for(DataSnapshot thirdLevel : secondLevelChildSnapshot.getChildren())
-                                          {
-                                              String requestedInterestNameByCurrentUser = thirdLevel.getKey();
-                                              requestArrayList.add(requestedInterestNameByCurrentUser);
-                                          }
-                                      }
-
-                                      switch (secondLevelKey)
-                                      {
-                                          case "0":
-                                              firstInt = keyValue;
-                                              break;
-                                          case "1":
-                                              secondInt= keyValue;
-                                              break;
-                                          case "2":
-                                              thirdInt= keyValue;
-                                              break;
-                                          case "3":
-                                              fourthInt= keyValue;
-                                              break;
-                                          case "4":
-                                              fifthInt= keyValue;
-                                              break;
-                                          default:
-                                              break;
+                                          cannotBrowseItSwitch = true;
                                       }
                                   }
                               }
-                              EachUserProfile eachUserProfile = new EachUserProfile(userId,userName, userAbout,
-                                      CheckIfInterestExist(firstInt),CheckIfInterestExist(secondInt),CheckIfInterestExist(thirdInt),
-                                      CheckIfInterestExist(fourthInt),CheckIfInterestExist(fifthInt));
-                              eachUserProfile.setProfilePicture(userPicUrl);
-                              eachUserProfileArrayList.add(eachUserProfile);
+                          }
+                          if(!snapshot.getKey().equals(getCurrentUser.getUid()))
+                          {
+                              if(!cannotBrowseItSwitch)
+                              {
+                                  userIdArrayList.add(keyOrUserId);
+                              }
+
                           }
 
                       }
@@ -223,7 +285,7 @@ public class BrowseFriendsFragment extends Fragment {
 
             long timeStart = System.currentTimeMillis();
 
-            while(eachUserProfileArrayList.isEmpty() && timeCounter < 2)
+            while(userIdArrayList.isEmpty() && timeCounter < 2)
             {
                 long timeEnd = System.currentTimeMillis();
 
@@ -234,26 +296,18 @@ public class BrowseFriendsFragment extends Fragment {
 
             }
 
-
-            return eachUserProfileArrayList;
+            return userIdArrayList;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<EachUserProfile> eachUserProfiles) {
+        protected void onPostExecute(ArrayList<String> eachUserProfiles) {
             super.onPostExecute(eachUserProfiles);
             gettingArray(eachUserProfiles);
         }
     }
 
-    public String CheckIfInterestExist(String interestName)
-    {
-        String value = interestName;
-        if(requestArrayList.contains(interestName))
-        {
-            Log.d("arrayListSize", String.valueOf(requestArrayList.size()));
-            value = interestName + "**";
-        }
 
-        return value;
-    }
+
+
 }
+

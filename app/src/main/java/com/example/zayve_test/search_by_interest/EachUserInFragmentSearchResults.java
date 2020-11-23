@@ -2,6 +2,7 @@ package com.example.zayve_test.search_by_interest;
 
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +28,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -32,7 +36,6 @@ import java.util.TreeMap;
 
 
 public class EachUserInFragmentSearchResults extends Fragment {
-    Boolean isDataLoaded = false;
 
     TreeMap<String, ArrayList<String>> requestTreeMap = new TreeMap<>();
 
@@ -40,27 +43,37 @@ public class EachUserInFragmentSearchResults extends Fragment {
 
     DatabaseReference mRtDatabase  = FirebaseDatabase.getInstance().getReference();
 
+    int secondTimeCounter = 0;
+
     String colorHexCode = "#2E7D32";
 
+    boolean isDone = false;
+
     int timeCounter = 0;
-    int secondTimeCounter = 0;
 
     ArrayList<String> keyInterestRequestedUserAl = new ArrayList<>();
 
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+    String amir = "", pahadi = "";
     private TextView mUsernameTextView,mFirstInterestTextView,mSecondInterestTextView,mThirdInterestTextView,
-            mFourthInterestTextView,mFifthInterestTextView,introTv;
+            mFourthInterestTextView,mFifthInterestTextView,introTv,mLocationTextView;
     private ImageView mProfilePictureImageView, mFirstInterestIv,mSecondInterestIv, mThirdInterestIv,
-        mFourthInterestIv,mFifthInterestIv;
+            mFourthInterestIv,mFifthInterestIv;
 
-    String userId = "",globalName = "Pahadi",firstInterest = "Gaming",secondInterest = "",
-            thirdInterest = "",fourthInterest = "",fifthInterest = "",profilePictureString = "";
+    String userId = "",globalName = "",firstInterest = "",secondInterest = "",
+            thirdInterest = "",fourthInterest = "",fifthInterest = "",profilePictureString = "", location = "";
     String intro = "";
 
     boolean switchRequestFirstInt, switchRequestSecondInt, switchRequestThirdInt,
             switchRequestFourthInt, switchRequestFifthInt;
+
+    boolean lockRequest = false;
+
+    ArrayList<String> requestArrayList = new ArrayList<>();
+
+    FrameLayout frameLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,108 +85,21 @@ public class EachUserInFragmentSearchResults extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         userId = EachUserInFragmentSearchResultsArgs.fromBundle(getArguments()).getUserID();
-        Log.d("userId",userId);
+//        Log.d("bahubali","userId = " + userId);
+//        globalName = getArguments().getString("globalName");
+//        firstInterest = getArguments().getString("firstInterest");
+//        secondInterest = getArguments().getString("secondInterest");
+//        thirdInterest = getArguments().getString("thirdInterest");
+//        fourthInterest = getArguments().getString("fourthInterest");
+//        fifthInterest = getArguments().getString("fifthInterest");
+//        profilePictureString = getArguments().getString("profilePictureString");
 //        intro = getArguments().getString("intro");
 
-        Log.d("onResume","on Create View called");
+        ExecuteAsyncTasks();
+
         return inflater.inflate(R.layout.fragment_each_user_in_search_results, container, false);
-    }
-
-    public void getUser(String userId)
-    {
-        mRtDatabase.child("users").child(userId).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                for(DataSnapshot childSnapshot : snapshot.getChildren())
-                {
-
-                    String fieldKey = childSnapshot.getKey();
-                    String value = childSnapshot.getValue().toString();
-
-                    switch (fieldKey) {
-                        case "user_name":
-                            globalName = value;
-                            break;
-                        case "about":
-                            intro = value;
-                            break;
-                        case "profile_image":
-                            profilePictureString = value;
-                            break;
-                        default:
-                            break;
-                    }
-
-                    for (DataSnapshot secondLevelChildSnapshot : childSnapshot.getChildren()) {
-
-
-                        String secondLevelKey = secondLevelChildSnapshot.getKey();
-                        String keyValue = secondLevelChildSnapshot.getValue().toString();
-
-                        switch (secondLevelKey) {
-                            case "0":
-                                firstInterest = keyValue;
-                                break;
-                            case "1":
-                                secondInterest = keyValue;
-                                break;
-                            case "2":
-                                thirdInterest = keyValue;
-                                break;
-                            case "3":
-                                fourthInterest = keyValue;
-                                break;
-                            case "4":
-                                fifthInterest = keyValue;
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-
-
-                }
-
-
-
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-        long timeStart = System.currentTimeMillis();
-        while(globalName.equals("") && secondTimeCounter < 2)
-        {
-            long timeEnd = System.currentTimeMillis();
-
-            if(timeEnd - timeStart > 1000)
-            {
-                secondTimeCounter = 5;
-            }
-
-        }
-        isDataLoaded = true;
 
     }
 
@@ -181,16 +107,16 @@ public class EachUserInFragmentSearchResults extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Log.d("onResume","on View Created called");
+        Log.d("sequencenumber","on View Created called");
+
+        frameLayout = getView().findViewById(R.id.each_user_layout);
+        frameLayout.setAnimation(AnimationUtils.loadAnimation(getContext(),R.anim.fade_transition_animation));
 
         mProfilePictureImageView = getView().findViewById(R.id.profile_picture_imageview_search_result);
-        if(!profilePictureString.equals(""))
-        {
-            Uri ppUri = Uri.parse(profilePictureString);
-            Picasso.get().load(ppUri).fit().centerCrop().into(mProfilePictureImageView);
-        }
 
         mUsernameTextView = getView().findViewById(R.id.user_name_textview_search_result);
+
+        mLocationTextView = getView().findViewById(R.id.location);
 
         mFirstInterestTextView = getView().findViewById(R.id.first_interest_textview_search_result);
         mSecondInterestTextView = getView().findViewById(R.id.second_interest_textview_search_result);
@@ -206,29 +132,194 @@ public class EachUserInFragmentSearchResults extends Fragment {
 
         introTv = getView().findViewById(R.id.intro_tv_search_result);
 
-        mUsernameTextView.setText(globalName);
-        mUsernameTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(),globalName,Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        getUser(userId);
-        if(isDataLoaded)
-        {
-            InitializeViews();
-        }
-
-
-        introTv.setText(intro);
+        Log.d("sequencenumber", "1");
+        ExecuteAsyncTasks();
 
     }
 
-    private void InitializeViews() {
+    public void ExecuteAsyncTasks() {
+        Log.d("sequencenumber", "2");
+        AsyncTaskGetUser asyncTaskGetUser = new AsyncTaskGetUser();
+        AsyncTaskInitializeViews asyncTaskInitializeViews = new AsyncTaskInitializeViews();
+
+        asyncTaskGetUser.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+        asyncTaskInitializeViews.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+    }
+
+    public String CheckIfInterestExist(String interestName)
+    {
+        String value = interestName;
+        if(requestArrayList.contains(interestName))
+        {
+            Log.d("arrayListSize", String.valueOf(requestArrayList.size()));
+            value = interestName + "**";
+        }
+
+        return value;
+    }
+
+    class AsyncTaskGetUser extends AsyncTask<Void,Void,Void>
+    {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Log.d("sequencenumber", "3");
+            mRtDatabase.child("users").child(userId).addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    if(snapshot.exists())
+                    {
+
+                        String fieldKey = snapshot.getKey();
+                        String value = snapshot.getValue().toString();
+
+                        for(DataSnapshot secondLevelChildSnapshot: snapshot.getChildren())
+                        {
+
+                            String secondLevelKey = secondLevelChildSnapshot.getKey();
+
+                            String keyValue = secondLevelChildSnapshot.getValue().toString();
+
+                            for(DataSnapshot thirdLevel : secondLevelChildSnapshot.getChildren())
+                            {
+                                String interestUserKey = thirdLevel.getValue().toString();
+                                if(interestUserKey.equals(currentUser.getUid()))
+                                {
+                                    Log.d("yeddlsdjksd", interestUserKey);
+                                    Log.d("yeddlsdjksd", secondLevelKey);
+                                    requestArrayList.add(secondLevelKey);
+                                }
+
+                            }
+
+                            String intToSend = CheckIfInterestExist(keyValue);
+
+                            switch (secondLevelKey)
+                            {
+                                case "0":
+                                    firstInterest = intToSend;
+
+                                    break;
+                                case "1":
+                                    secondInterest= intToSend;
+                                    break;
+                                case "2":
+                                    thirdInterest= intToSend;
+                                    break;
+                                case "3":
+                                    fourthInterest= intToSend;
+                                    break;
+                                case "4":
+                                    fifthInterest= intToSend;
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                        }
+
+                        switch(fieldKey)
+                        {
+                            case "user_name":
+                                globalName = value;
+                                break;
+                            case "about":
+                                intro = value;
+                                break;
+                            case "profile_image":
+                                profilePictureString = value;
+                                break;
+                            case "location":
+                                location = value;
+                                break;
+                            default:
+                                break;
+                        }
+
+
+                        Log.d("sequencenumber", "4");
+                    }
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+            long timeStart = System.currentTimeMillis();
+
+            while((globalName.equals("") || intro.equals(""))  && secondTimeCounter < 2)
+            {
+                Log.d("sequencenumber", "5");
+                long timeEnd = System.currentTimeMillis();
+
+                if(timeEnd - timeStart > 1000)
+                {
+                    secondTimeCounter = 5;
+                }
+
+            }
+
+            Log.d("sequencenumber", "6");
+            return null;
+        }
+    }
+
+    class AsyncTaskInitializeViews extends AsyncTask<Void,Void,Void>
+    {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    InitializeViews();
+                }
+            });
+            return null;
+        }
+    }
+
+    private void InitializeViews()
+    {
+
+        Log.d("sequencenumber", "9");
+
+        mUsernameTextView.setText(globalName);
+
+        introTv.setText(intro);
+
+        if(!location.equals(""))
+        {
+            mLocationTextView.setVisibility(View.VISIBLE);
+            mLocationTextView.setText(location);
+        }
+
+        if(!profilePictureString.equals(""))
+        {
+            Uri ppUri = Uri.parse(profilePictureString);
+            Picasso.get().load(ppUri).fit().centerCrop().into(mProfilePictureImageView);
+        }
+
         mFirstInterestTextView.setText(GetInterestName(firstInterest));
         mFirstInterestTextView.setTextColor(Color.parseColor(GetInterestColor(firstInterest)));
         SetInterestSwitch(firstInterest);
+
         if(switchRequestFirstInt)
         {
             mFirstInterestIv.setImageResource(android.R.drawable.checkbox_on_background);
@@ -236,9 +327,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
         mFirstInterestTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                toggleSwitchRequest(1);
-                if(switchRequestFirstInt)
+                if(!lockRequest)
                 {
                     mFirstInterestTextView.setTextColor(Color.parseColor(colorHexCode));
                     Toast.makeText(getContext(),"ZayvE Request Sent!",Toast.LENGTH_SHORT).show();
@@ -247,10 +336,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
                 }
                 else
                 {
-                    mFirstInterestTextView.setTextColor(Color.parseColor("#000000"));
-                    Toast.makeText(getContext(),"ZayvE Request Cancelled!",Toast.LENGTH_SHORT).show();
-                    mFirstInterestIv.setImageResource(android.R.color.transparent);
-                    cancelRequest(GetInterestName(firstInterest));
+                    Toast.makeText(getContext(),"Previous request still pending!",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -266,7 +352,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
             @Override
             public void onClick(View view) {
                 toggleSwitchRequest(2);
-                if(switchRequestSecondInt)
+                if(!lockRequest)
                 {
                     mSecondInterestTextView.setTextColor(Color.parseColor(colorHexCode));
                     Toast.makeText(getContext(),"ZayvE Request Sent!",Toast.LENGTH_SHORT).show();
@@ -275,10 +361,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
                 }
                 else
                 {
-                    mSecondInterestTextView.setTextColor(Color.parseColor("#000000"));
-                    Toast.makeText(getContext(),"ZayvE Request Cancelled!",Toast.LENGTH_SHORT).show();
-                    mSecondInterestIv.setImageResource(android.R.color.transparent);
-                    cancelRequest(GetInterestName(secondInterest));
+                    Toast.makeText(getContext(),"Previous request still pending!",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -294,7 +377,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
             @Override
             public void onClick(View view) {
                 toggleSwitchRequest(3);
-                if(switchRequestThirdInt)
+                if(!lockRequest)
                 {
                     mThirdInterestTextView.setTextColor(Color.parseColor(colorHexCode));
                     Toast.makeText(getContext(),"ZayvE Request Sent!",Toast.LENGTH_SHORT).show();
@@ -303,10 +386,8 @@ public class EachUserInFragmentSearchResults extends Fragment {
                 }
                 else
                 {
-                    mThirdInterestTextView.setTextColor(Color.parseColor("#000000"));
-                    Toast.makeText(getContext(),"ZayvE Request Cancelled!",Toast.LENGTH_SHORT).show();
-                    mThirdInterestIv.setImageResource(android.R.color.transparent);
-                    cancelRequest(GetInterestName(thirdInterest));
+                    Toast.makeText(getContext(),"Previous request still pending!",Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
@@ -322,7 +403,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
             @Override
             public void onClick(View view) {
                 toggleSwitchRequest(4);
-                if(switchRequestFourthInt)
+                if(!lockRequest)
                 {
                     mFourthInterestTextView.setTextColor(Color.parseColor(colorHexCode));
                     Toast.makeText(getContext(),"ZayvE Request Sent!",Toast.LENGTH_SHORT).show();
@@ -331,10 +412,8 @@ public class EachUserInFragmentSearchResults extends Fragment {
                 }
                 else
                 {
-                    mFourthInterestTextView.setTextColor(Color.parseColor("#000000"));
-                    Toast.makeText(getContext(),"ZayvE Request Cancelled!",Toast.LENGTH_SHORT).show();
-                    mFourthInterestIv.setImageResource(android.R.color.transparent);
-                    cancelRequest(GetInterestName(fourthInterest));
+                    Toast.makeText(getContext(),"Previous request still pending!",Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
@@ -350,7 +429,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
             @Override
             public void onClick(View view) {
                 toggleSwitchRequest(5);
-                if(switchRequestFifthInt)
+                if(!lockRequest)
                 {
                     mFifthInterestTextView.setTextColor(Color.parseColor(colorHexCode));
                     Toast.makeText(getContext(),"ZayvE Request Sent!",Toast.LENGTH_SHORT).show();
@@ -359,10 +438,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
                 }
                 else
                 {
-                    mFifthInterestTextView.setTextColor(Color.parseColor("#000000"));
-                    Toast.makeText(getContext(),"ZayvE Request Cancelled!",Toast.LENGTH_SHORT).show();
-                    mFifthInterestIv.setImageResource(android.R.color.transparent);
-                    cancelRequest(GetInterestName(fifthInterest));
+                    Toast.makeText(getContext(),"Previous request still pending!",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -386,13 +462,13 @@ public class EachUserInFragmentSearchResults extends Fragment {
                 switchRequestSecondInt = true;
             }
             if(interestName.equals(thirdInterest)){
-                 switchRequestThirdInt = true;
+                switchRequestThirdInt = true;
             }
             if(interestName.equals(fourthInterest)){
-                 switchRequestFourthInt = true;
+                switchRequestFourthInt = true;
             }
             if(interestName.equals(fifthInterest)){
-                 switchRequestFifthInt = true;
+                switchRequestFifthInt = true;
             }
         }
     }
@@ -421,6 +497,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
     }
     private String GetInterestColor(String interestName) {
         String color = "#000000";
+
         int length = interestName.length();
 
         String lastTwo = "";
@@ -429,7 +506,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
         {
             lastTwo = interestName.substring(length-2);
         }
-        if(lastTwo.equals("**") || switchRequestFirstInt)
+        if(lastTwo.equals("**"))
         {
             color = colorHexCode;
         }
@@ -437,17 +514,11 @@ public class EachUserInFragmentSearchResults extends Fragment {
         return color;
     }
 
-
-    private void cancelRequest(String interestName)
-    {
-        mRtDatabase.child("users").child(userId).child("requests_received").child(currentUser.getUid()).child(interestName).setValue(null);
-        mRtDatabase.child("users").child(currentUser.getUid()).child("requests_sent").child(userId).child(interestName).setValue(null);
-    }
-
     private void addRequest(String interestName)
     {
-       mRtDatabase.child("users").child(userId).child("requests_received").child(currentUser.getUid()).child(interestName).setValue("true");
-       mRtDatabase.child("users").child(currentUser.getUid()).child("requests_sent").child(userId).child(interestName).setValue("true");
+        mRtDatabase.child("users").child(userId).child("interest_requests").child(interestName).push().setValue(currentUser.getUid());
+        mRtDatabase.child("users").child(currentUser.getUid()).child("requests_sent").child(interestName).push().child(userId);
+        Toast.makeText(getContext(),"Request Sent!", Toast.LENGTH_SHORT).show();
     }
 
     public void toggleSwitchRequest(int interestNumber)
@@ -477,3 +548,4 @@ public class EachUserInFragmentSearchResults extends Fragment {
 
     }
 }
+

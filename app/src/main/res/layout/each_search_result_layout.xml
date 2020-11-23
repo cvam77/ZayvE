@@ -9,6 +9,7 @@
     android:paddingVertical="8dp"
     android:layout_margin="10dp"
     android:background="#ECEFF1"
+    android:id="@+id/linear_layout_parent"
     >
 
     <LinearLayout

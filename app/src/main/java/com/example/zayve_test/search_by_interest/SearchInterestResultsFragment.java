@@ -24,7 +24,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.zayve_test.R;
-import com.example.zayve_test.models.ViewPagerAdapterSearchResults;
 import com.example.zayve_test.ui.browse_friends.EachUserProfile;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -61,7 +60,6 @@ public class SearchInterestResultsFragment extends Fragment implements SearchByI
     DatabaseReference mRealtimeDatabase  = FirebaseDatabase.getInstance().getReference();
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-    private ViewPagerAdapterSearchResults viewPagerAdapterSearchResults;
     private ViewPager viewPagerSearchResults;
 
     FragmentManager fragmentManager;
@@ -113,9 +111,10 @@ public class SearchInterestResultsFragment extends Fragment implements SearchByI
     private void SearchButtonClicked() {
         String enteredSearchWord = mSearchWordEditText.getText().toString().trim();
 
-        mYourSearchResults.setVisibility(View.VISIBLE);
+
         if(!enteredSearchWord.equals(""))
         {
+            mYourSearchResults.setVisibility(View.VISIBLE);
             mRvSearchResults.setVisibility(View.VISIBLE);
 
             InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -153,16 +152,24 @@ public class SearchInterestResultsFragment extends Fragment implements SearchByI
         this.idArraylist = idArraylist;
     }
 
-    public void gettingArray(ArrayList<ArrayList<String>> harrayList) {
-        viewPagerSearchResults.setAdapter(viewPagerAdapterSearchResults);
-    }
-
     @Override
     public void onItemClickListener(String userId, String name, String profilePicUrlString,
                                     String about, String firstInt, String secondInt, String thirdInt,
                                     String fourthInt, String fifthInt)
     {
+
+//        Fragment fragment = new BrowseFriendsFragment();
+//
+//        Bundle bundle = new Bundle();
+//        bundle.putString("userId",userId);
+//        fragment.setArguments(bundle);
+//        fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.replace(R.id.frameLayoutContain, fragment, "demofragment");
+//        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.commit();
+//
         Navigation.findNavController(getActivity(),getView().getId()).navigate(SearchInterestResultsFragmentDirections.actionNavSearchToNavUser(userId));
+
     }
 
     @Override
