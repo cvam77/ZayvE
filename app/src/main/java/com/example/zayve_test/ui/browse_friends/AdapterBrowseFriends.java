@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,7 +64,7 @@ public class AdapterBrowseFriends extends RecyclerView.Adapter<AdapterBrowseFrie
 
         interestAl.clear();
 
-        holder.frameLayout.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.fade_transition_animation));
+        holder.linearLayout.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.fade_transition_animation));
 
         holder.mUsernameTextView.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.fade_scale_animation));
 
@@ -241,14 +242,14 @@ public class AdapterBrowseFriends extends RecyclerView.Adapter<AdapterBrowseFrie
     {
         mRtDatabase.child("users").child(VarrayList.get(position)).child("interest_requests").child(interestName).push().setValue(getCurrentUser.getUid());
         mRtDatabase.child("users").child(getCurrentUser.getUid()).child("requests_sent").child(interestName).push().child(VarrayList.get(position));
-        Toast.makeText(mContext,"Request Sent!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext,"ZayvE Request Sent!", Toast.LENGTH_SHORT).show();
 
-//        DeleteUser(position);
+        DeleteUser(position);
     }
 
     class BrowseFriendsViewHolder extends RecyclerView.ViewHolder
     {
-        FrameLayout frameLayout;
+        LinearLayout linearLayout;
 
         TextView mUsernameTextView,mFirstInterestTextView,mSecondInterestTextView,mThirdInterestTextView,
                 mFourthInterestTextView,mFifthInterestTextView,introTv, mLocationTextView;
@@ -258,7 +259,7 @@ public class AdapterBrowseFriends extends RecyclerView.Adapter<AdapterBrowseFrie
         public BrowseFriendsViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            frameLayout = itemView.findViewById(R.id.each_user_layout);
+            linearLayout = itemView.findViewById(R.id.each_user_layout);
 
             mLocationTextView = itemView.findViewById(R.id.location);
 

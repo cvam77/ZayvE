@@ -17,6 +17,8 @@ import androidx.core.content.ContextCompat;
 
 import com.example.zayve_test.R;
 import com.example.zayve_test.ZayveActivity;
+import com.example.zayve_test.search_by_interest.SearchInterestResultsFragment;
+import com.example.zayve_test.ui.browse_friends.BrowseFriendsFragment;
 
 import java.util.Random;
 
@@ -35,7 +37,7 @@ public class NotificationHandler {
         notificationManager.cancelAll();;
     }
 
-    public static void notificationCreator(Context context, String a, String b) {
+    public static void notificationCreator(Context context, String userName, String interestName) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         {
@@ -58,12 +60,12 @@ public class NotificationHandler {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context,REMINDER_CHANNEL_ID);
 
         notificationBuilder.setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
-                .setContentTitle("Conference Title: " + a)
+                .setContentTitle("New ZayvE Request Alert!")
                 .setContentText("YO")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setColor(ContextCompat.getColor(context,R.color.authui_colorPrimaryDark))
                 .setLargeIcon(bitmap(context))
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(b + " will be attending!"))
+                .setStyle(new NotificationCompat.BigTextStyle().bigText("Sent by " + userName + " for " + interestName + "!"))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setContentIntent(getPendingIntent(context))
                 .setAutoCancel(true);
@@ -83,7 +85,7 @@ public class NotificationHandler {
 
     private static PendingIntent getPendingIntent(Context context)
     {
-        Intent notificationPendingIntent = new Intent(context, ZayveActivity.class);
+        Intent notificationPendingIntent = new Intent(context, SearchInterestResultsFragment.class);
 
         return PendingIntent.getActivity(context,
                 REMINDER_PENDING_INTENT_ID,
