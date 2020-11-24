@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.zayve_test.R;
+import com.example.zayve_test.ui.requests.NotificationHandler;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,6 +36,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -45,7 +47,9 @@ import java.util.Locale;
 
 public class BrowseFriendsFragment extends Fragment {
 
-    int timeCounter = 0;
+    int timeCounter = 0, secondTimeCounter = 0;
+
+    private String universalName = "";
 
     private StorageReference mStorage;
 
@@ -54,7 +58,6 @@ public class BrowseFriendsFragment extends Fragment {
     private DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
     RecyclerView mRecyclerViewBrowse;
-    private ViewPager viewPager;
 
     FirebaseUser getCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -62,9 +65,13 @@ public class BrowseFriendsFragment extends Fragment {
 
     FusedLocationProviderClient fusedLocationProviderClient;
 
-    FloatingActionButton floatingActionButton;
-
     AdapterBrowseFriends adapterBrowseFriends;
+
+    ArrayList<String> userIdRequestArrayList = new ArrayList<>();
+
+    NotificationHandler notificationHandler = new NotificationHandler();
+
+    boolean firstRun = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -109,6 +116,7 @@ public class BrowseFriendsFragment extends Fragment {
         final ArrayList<String> sarrayList = new ArrayList<>();
 
         Log.d("watchForNotification","watch notification called");
+
         WatchForNotification();
 
         CallAsync callAsync = new CallAsync();
@@ -116,33 +124,46 @@ public class BrowseFriendsFragment extends Fragment {
 
     }
 
-    private void WatchForNotification() {
+    public void WatchForNotification() {
+
         mDatabaseRef.child("users").child(getCurrentUser.getUid()).child("interest_requests").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                String keyName = snapshot.getKey();
+
                 if(snapshot.exists())
                 {
-                    String value = snapshot.getValue().toString();
-                    Log.d("interestNameRequest","old = "+value);
+                    for(DataSnapshot childSnapshot : snapshot.getChildren())
+                    {
+                        String userIdReq = childSnapshot.getValue().toString();
+
+                        userIdRequestArrayList.add(userIdReq);
+
+                        GetUserName(userIdReq, keyName);
+
+                    }
 
                 }
+
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if(snapshot.exists())
                 {
-                    String interestName = snapshot.getKey();
-                    Log.d("interestNameRequest","new = "+interestName);
+                    String keyName = snapshot.getKey();
 
-                    String interestValue = snapshot.getValue().toString();
-
-                    Log.d("interestNameRequest",interestValue);
-                    for(DataSnapshot dataSnapshot : snapshot.getChildren())
+                    for(DataSnapshot childSnapshot : snapshot.getChildren())
                     {
-                        String value = dataSnapshot.getValue().toString();
-                        Log.d("interestNameRequest","new = "+value);
+                        String userIdReq = childSnapshot.getValue().toString();
+
+                        if(!userIdRequestArrayList.contains(userIdReq))
+                        {
+                            GetUserName(userIdReq, keyName);
+                        }
                     }
+
                 }
             }
 
@@ -161,6 +182,34 @@ public class BrowseFriendsFragment extends Fragment {
 
             }
         });
+
+    }
+
+    private void GetUserName(String userIdReq, String interestName) {
+        mDatabaseRef.child("users").child(userIdReq).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    if(dataSnapshot.getKey().equals("user_name")){
+                        String name = dataSnapshot.getValue().toString();
+                        MakeNotification(name,interestName);
+
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void MakeNotification(String hello, String shivam) {
+        NotificationHandler.notificationCreator(getContext(),hello,shivam);
     }
 
     private void SetLocationCity() {
@@ -193,7 +242,7 @@ public class BrowseFriendsFragment extends Fragment {
 
                         String locality = addresses.get(0).getLocality();
                         String adminArea = addresses.get(0).getAdminArea();
-                        String locationUser = locality + "," + adminArea;
+                        String locationUser = locality + " , " + adminArea;
 
                         mDatabaseRef.child("users").child(getCurrentUser.getUid()).child("location").setValue(locationUser);
 
