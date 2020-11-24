@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import android.widget.Toast.makeText
 import androidx.activity.OnBackPressedCallback
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -53,6 +54,9 @@ class ChatHomePage : Fragment() {
                 adapter.submitList(it)
             }
         })
+        binding.homeSearchBar.addTextChangedListener {
+            chatHomeHomePageViewModel.filter(it.toString())
+        }
         binding.recyclerView.setHasFixedSize(true)
         val callback: OnBackPressedCallback =
                 object : OnBackPressedCallback(true /* enabled by default */) {

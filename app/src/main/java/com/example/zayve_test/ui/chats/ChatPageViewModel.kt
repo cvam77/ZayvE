@@ -87,8 +87,8 @@ class ChatPageViewModel : ViewModel() {
 
     //uploads user message into the chats database
     fun sendMessage(message: String): Unit {
-//        val time = (System.currentTimeMillis() / 1000L).toString()
-        val time =  System.currentTimeMillis().toString()
+//        todo: set a standard ever increasing variable
+        val time = (System.currentTimeMillis() / 1000L).toString()
         database.child("chats").child(_chatId.value.toString()).child("messages").child(time).setValue(Message(message,userName,profilePic,time,user.uid))
         database.child("chats").child(_chatId.value.toString()).child("last_message").setValue(message)
     }
