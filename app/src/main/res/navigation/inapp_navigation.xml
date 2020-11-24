@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_browse_friends">
+    app:startDestination="@id/nav_chat_page">
 
     <fragment
         android:id="@+id/nav_chat_page"
         android:name="com.example.zayve_test.ui.chats.ChatHomePage"
-        android:label="Chat"
-        tools:layout="@layout/fragment_chat" >
+        android:label="Chats"
+        tools:layout="@layout/fragment_chat">
         <action
             android:id="@+id/action_nav_chat_page_to_chatPage"
             app:destination="@id/chatPage" />
@@ -68,7 +68,7 @@
     <fragment
         android:id="@+id/chatPage"
         android:name="com.example.zayve_test.ui.chats.ChatPage"
-        android:label="ChatPage" >
+        android:label="Chat">
         <action
             android:id="@+id/action_chatPage_to_nav_chat_page"
             app:destination="@id/nav_chat_page" />
