@@ -73,18 +73,16 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-
                     <Space
                         android:layout_width="match_parent"
-                        android:layout_height="50sp" />
-
+                        android:layout_height="20sp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
-                        android:text="List your top 5 interests:"
-                        android:textSize="24sp"
+                        android:text="List your top 5 interests below in the form"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
 
                     <Space
