@@ -83,10 +83,8 @@ class ZayveActivity : AppCompatActivity() {
                     Log.d("responseData", dataSnapshot.value.toString())
                     val profilePic = dataSnapshot.child("profile_image").value
                             ?: "https://upload.wikimedia.org/wikipedia/commons/3/3e/Android_logo_2019.png"
-                    navView[0].findViewById<TextView>(R.id.nav_bar_user_name).text = user.displayName ?: ""
                     val imageView = findViewById<ImageView>(R.id.nav_bar_user_image)
                     Picasso.get().load(profilePic as String).into(imageView);
-
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {

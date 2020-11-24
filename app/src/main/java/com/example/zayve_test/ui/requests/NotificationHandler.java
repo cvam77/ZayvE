@@ -67,7 +67,7 @@ public class NotificationHandler {
                 .setLargeIcon(bitmap(context))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText("Sent by " + userName + " for " + interestName + "!"))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
-                .setContentIntent(getPendingIntent(context))
+//                .setContentIntent(getPendingIntent(context))
                 .setAutoCancel(true);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
@@ -85,7 +85,7 @@ public class NotificationHandler {
 
     private static PendingIntent getPendingIntent(Context context)
     {
-        Intent notificationPendingIntent = new Intent(context, SearchInterestResultsFragment.class);
+        Intent notificationPendingIntent = new Intent(context, ZayveActivity.class);
 
         return PendingIntent.getActivity(context,
                 REMINDER_PENDING_INTENT_ID,
