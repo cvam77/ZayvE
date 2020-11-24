@@ -142,8 +142,6 @@ public class BrowseFriendsFragment extends Fragment {
 
                         GetUserName(userIdReq, keyName);
 
-                        MakeNotification(universalName,keyName);
-
                     }
 
                 }
@@ -162,9 +160,7 @@ public class BrowseFriendsFragment extends Fragment {
 
                         if(!userIdRequestArrayList.contains(userIdReq))
                         {
-                            Log.d("valueEvent","same branch " + keyName);
-
-                            MakeNotification("hello",keyName);
+                            GetUserName(userIdReq, keyName);
                         }
                     }
 
