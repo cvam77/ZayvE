@@ -43,7 +43,7 @@ class RequestsViewModel : ViewModel() {
         database.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val userData = dataSnapshot.child("users").child(user.uid)
-                val userName = userData.child("user_name").value as String
+                val userName = userData.child("user_name").value.toString()
                 Log.d("reached","reached here")
                 val userProfilePic = userData.child("profile_image").value as String
                 val userInfo = Friend(userProfilePic, user.uid, userName, chatId)

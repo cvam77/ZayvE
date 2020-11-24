@@ -52,7 +52,7 @@ class ChatHomePageViewModel : ViewModel() {
                         //finds the friend profile picture
                         val friendInfo = dataSnapshot.child("users").child(friendUID)
                         val friendName =
-                                friendInfo.child("user_name").value as String
+                                friendInfo.child("user_name").value.toString()
                         val friendImgSrc = friendInfo.child("profile_image").value as String
                         Log.d("name", friendName)
                         val chatId = friendInfo.child("friends").child(user.uid).child("chatId").value.toString()

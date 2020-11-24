@@ -1,4 +1,4 @@
-package com.example.kurakani.ui.logged_in.chat
+package com.example.zayve_test.ui.chats
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -44,15 +44,18 @@ class ChatPageViewModel : ViewModel() {
                 val messages = ArrayList<Message>()
                 val responseData = dataSnapshot.child("chats").child(_chatId.value.toString())
                     .child("messages")
+                var titleName = ""
                 for (messageData in responseData.children) {
                     val message = messageData.child("message").value.toString()
                     val profilePic = messageData.child("profile_pic").value.toString()
                     val senderName = messageData.child("sender_name").value.toString()
                     val time = messageData.child("time").value.toString()
                     val userId:String = messageData.child("userId").value.toString()
+                    if(userId!=user.uid){
+                        titleName = senderName
+                    }
                     messages += Message(message, senderName, profilePic, time,userId)
                 }
-
 //                val messageDummy = messages.sortedWith(compareBy { it.time })
                 _messageList.value = messages.sortedByDescending { it.time }
             }
@@ -70,7 +73,7 @@ class ChatPageViewModel : ViewModel() {
         val valueListner = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val userData = dataSnapshot.child("users").child(user.uid)
-                userName = userData.child("user_name").value as String
+                userName = userData.child("user_name").value.toString()
                 profilePic = userData.child("profile_image").value as String
             }
 

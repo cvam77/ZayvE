@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="request"
             type="com.example.zayve_test.models.Request" />
@@ -75,11 +74,6 @@
                     android:textSize="18sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/request_accept_btn"
                 android:layout_width="wrap_content"
@@ -91,15 +85,13 @@
                 android:text="ACCEPT"
                 android:textColor="@android:color/white" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/decline_btn"
+                android:layout_marginStart="8sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8sp"
-                android:background="@drawable/btn_danger"
                 android:onClick="@{()->declineBtnListner.onClick(request)}"
-                android:text="DECLINE"
-                android:textColor="@color/white" />
+                android:src="@drawable/ic_trash"/>
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>

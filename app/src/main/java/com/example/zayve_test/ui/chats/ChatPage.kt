@@ -1,8 +1,9 @@
 package com.example.zayve_test.ui.chats
 
+import android.app.ActionBar
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MotionEvent.*
+import android.view.MotionEvent.ACTION_UP
 import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.kurakani.ui.logged_in.chat.ChatPageViewModel
+import androidx.navigation.fragment.findNavController
 import com.example.zayve_test.R
 import com.example.zayve_test.adapters.reyclerviewAdapters.ChatPageListAdapter
 import com.example.zayve_test.databinding.ChatPageFragmentBinding
@@ -22,9 +23,10 @@ class ChatPage : Fragment() {
     private lateinit var binding: ChatPageFragmentBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
+
         binding = DataBindingUtil.inflate(inflater, R.layout.chat_page_fragment, container, false)
         chatPageViewModel = ViewModelProvider(this).get(ChatPageViewModel::class.java)
 //      receive chatId from argument Bundle
@@ -48,7 +50,7 @@ class ChatPage : Fragment() {
             ) {
                 val userEnteredMessage = binding.userMessage.text.toString()
                 chatPageViewModel.sendMessage(userEnteredMessage.trim())
-                binding.userMessage.text=null
+                binding.userMessage.text = null
                 return@OnTouchListener true
             }
             false

@@ -40,9 +40,7 @@ class ProfileSetupFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_setup, container, false)
 //        receivers user name from firebase
         user = FirebaseAuth.getInstance().currentUser!!
-        for (profile in user.providerData) {
-            binding.profileUsername.text = profile.displayName
-        }
+
 //        picks an image from user
         binding.pickImage.setOnClickListener {
             val intent: Intent = Intent(Intent.ACTION_PICK)
@@ -61,12 +59,7 @@ class ProfileSetupFragment : Fragment() {
 //        realtime database reference
         val database = FirebaseDatabase.getInstance()
         myDBref = database.reference
-        if (imageURI != null){
-            uploadUserProfile()
-        }
-        else {
-            Toast.makeText(context,"Please pick a profile picture for your account!",Toast.LENGTH_LONG)
-        }
+        uploadUserProfile()
     }
 
     //    handles image picker result
@@ -100,9 +93,10 @@ class ProfileSetupFragment : Fragment() {
                         )
                         val userDb = myDBref.child("users").child(user.uid)
                         userDb.child("interests").setValue(interests)
+                        userDb.child("user_name").setValue(binding.fullName.text.toString())
                         userDb.child("profile_image").setValue(imageDownloadUrl)
                         userDb.child("about").setValue(binding.userIntro.text.toString())
-                        userDb.child("user_name").setValue(binding.userName.text.toString())
+//                        userDb.child("user_name").setValue(binding.userName.text.toString())
 //                        after saving data to the realtime database, navigates to ZayveActivity
 //                        todo: if possible, manage the navigation to the profile frag
                         val intent = Intent(activity, ZayveActivity::class.java)
