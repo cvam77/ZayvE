@@ -70,7 +70,7 @@ class ChatPageViewModel : ViewModel() {
         val valueListner = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val userData = dataSnapshot.child("users").child(user.uid)
-                userName = userData.child("user_name").value as String
+                userName = userData.child("user_name").value.toString()
                 profilePic = userData.child("profile_image").value as String
             }
 
