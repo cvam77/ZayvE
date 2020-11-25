@@ -2,13 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/each_user_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#E0F7FA"
-    android:layout_margin="20dp"
-    android:padding="10dp"
-    android:id="@+id/each_user_layout"
-    >
+    android:padding="16sp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,7 +14,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
@@ -25,20 +21,7 @@
                 android:layout_width="30dp"
                 android:layout_height="26dp"
                 android:layout_gravity="end"
-                android:layout_marginRight="50dp"
                 app:srcCompat="@drawable/com_facebook_tooltip_blue_xout" />
-
-            <TextView
-                android:id="@+id/user_name_textview_search_result"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="cursive"
-                android:text=""
-                android:textColor="#263238"
-                android:textSize="35sp"
-                android:textStyle="bold"
-
-                />
 
             <ImageView
                 android:id="@+id/profile_picture_imageview_search_result"
@@ -53,12 +36,19 @@
                 app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
 
             <TextView
+                android:id="@+id/user_name_textview_search_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#263238"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+
+            <TextView
                 android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="4sp"
                 android:fontFamily="sans-serif"
                 android:textColor="#000000"
                 android:textStyle="italic"
@@ -68,10 +58,8 @@
                 android:id="@+id/intro_tv_search_result"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:fontFamily="sans-serif"
-                android:textColor="#455A64"
-                android:textStyle="italic" />
+                android:textColor="#455A64" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -81,17 +69,15 @@
                     android:id="@+id/first_interest_textview_search_result"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="cursive"
+                    android:layout_marginEnd="5dp"
                     android:text="Coding"
                     android:textColor="#000000"
-                    android:textSize="35sp"
-                    android:textStyle="bold" />
+                    android:textSize="26sp" />
 
                 <ImageView
                     android:id="@+id/first_interest_iv"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="26sp"
+                    android:layout_height="26sp"
                     android:layout_marginTop="2dp"
                     android:src="@drawable/ic_baseline_person_add_24" />
 
@@ -99,53 +85,45 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/second_interest_textview_search_result"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="cursive"
+                    android:layout_marginEnd="5dp"
                     android:text=""
                     android:textColor="#000000"
-                    android:textSize="35sp"
-                    android:textStyle="bold" />
+                    android:textSize="26sp" />
 
                 <ImageView
                     android:id="@+id/second_interest_iv"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="26sp"
+                    android:layout_height="26sp"
                     android:layout_marginTop="2dp"
-                    android:src="@drawable/ic_baseline_person_add_24"
-                    />
+                    android:src="@drawable/ic_baseline_person_add_24" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/third_interest_textview_search_result"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="cursive"
+                    android:layout_marginEnd="5dp"
                     android:text=""
                     android:textColor="#000000"
-                    android:textSize="3dp"
-                    android:textStyle="bold" />
+                    android:textSize="26sp" />
 
                 <ImageView
                     android:id="@+id/third_interest_iv"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="26sp"
+                    android:layout_height="26sp"
                     android:layout_marginTop="2dp"
-                    android:src="@drawable/ic_baseline_person_add_24"
-                    />
+                    android:src="@drawable/ic_baseline_person_add_24" />
 
             </LinearLayout>
 
@@ -157,53 +135,42 @@
                     android:id="@+id/fourth_interest_textview_search_result"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="cursive"
+                    android:layout_marginEnd="5dp"
                     android:text=""
                     android:textColor="#000000"
-                    android:textSize="35sp"
-                    android:textStyle="bold" />
+                    android:textSize="26sp" />
 
                 <ImageView
                     android:id="@+id/fourth_interest_iv"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="26sp"
+                    android:layout_height="26sp"
                     android:layout_marginTop="2dp"
-                    android:src="@drawable/ic_baseline_person_add_24"
-                    />
+                    android:src="@drawable/ic_baseline_person_add_24" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/fifth_interest_textview_search_result"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="cursive"
+                    android:layout_marginEnd="5dp"
                     android:text=""
                     android:textColor="#000000"
-                    android:textSize="35sp"
-                    android:textStyle="bold" />
+                    android:textSize="26sp" />
 
                 <ImageView
                     android:id="@+id/fifth_interest_iv"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="2dp"
+                    android:layout_width="26sp"
+                    android:layout_height="26sp"
+                    android:layout_gravity="center"
                     android:src="@drawable/ic_baseline_person_add_24"
-                    />
+                    android:textAlignment="center" />
 
             </LinearLayout>
-
-
         </LinearLayout>
     </ScrollView>
-
-
 </LinearLayout>

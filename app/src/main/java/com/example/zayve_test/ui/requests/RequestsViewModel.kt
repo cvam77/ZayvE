@@ -48,8 +48,6 @@ class RequestsViewModel : ViewModel() {
                 database.child("users").child(friend.uid).child("friends").child(user.uid)
                         .setValue(userInfo)
                 BrowseFriendsFragment().MakeNotification(context,userName,request.interest);
-////                navigates to the chat home page
-//                navigate.value = true
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -88,8 +86,6 @@ class RequestsViewModel : ViewModel() {
                 }
 //                // loads the data into the request list livedata
                 _requestList.value = requestList
-
-
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

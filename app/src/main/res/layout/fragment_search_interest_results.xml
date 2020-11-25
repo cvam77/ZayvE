@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/frameLayoutContainerSearch"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA"
-    android:id="@+id/frameLayoutContainerSearch"
-    >
+    android:background="#FAFAFA">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
         android:layout_marginBottom="20dp"
-        >
+        android:gravity="center"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,16 +18,16 @@
             android:layout_marginTop="10dp"
 
             >
+
             <EditText
                 android:id="@+id/search_interest_edittext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:background="#ECEFF1"
                 android:hint="What interest are you looking for?"
                 android:inputType="text"
-                android:padding="16dp"
-                android:layout_marginLeft="10dp"
-                />
+                android:padding="16dp" />
 
             <Button
                 android:id="@+id/search_interest_button"
@@ -39,11 +35,10 @@
                 android:layout_width="61dp"
                 android:layout_height="47dp"
                 android:layout_gravity="center"
+                android:layout_marginStart="20dp"
                 android:background="#40C4FF"
                 android:drawableTop="@android:drawable/ic_menu_search"
-                android:padding="10dp"
-                android:layout_marginLeft="20dp"
-                />
+                android:padding="10dp" />
 
         </LinearLayout>
 
@@ -51,15 +46,14 @@
             android:id="@+id/yourSearchResults"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
             android:fontFamily="sans-serif"
+            android:gravity="center"
             android:text="Your Search Results!"
             android:textColor="@color/cardview_dark_background"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:gravity="center"
-            android:layout_marginTop="25dp"
-            android:visibility="gone"
-            />
+            android:visibility="gone" />
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -70,7 +64,6 @@
 
             />
     </LinearLayout>
-
 
 
 </FrameLayout>
