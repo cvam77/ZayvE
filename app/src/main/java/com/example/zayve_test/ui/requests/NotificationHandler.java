@@ -67,7 +67,7 @@ public class NotificationHandler {
                 .setLargeIcon(bitmap(context))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText("Sent by " + userName + " for " + interestName + "!"))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
-//                .setContentIntent(getPendingIntent(context))
+                .setContentIntent(getPendingIntent(context))
                 .setAutoCancel(true);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN

@@ -1,5 +1,6 @@
 package com.example.zayve_test.ui.requests
 
+import android.content.Context
 import android.renderscript.Sampler
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.example.zayve_test.models.Chat
 import com.example.zayve_test.models.Friend
 import com.example.zayve_test.models.Request
+import com.example.zayve_test.ui.browse_friends.BrowseFriendsFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -16,6 +18,7 @@ import kotlin.collections.ArrayList
 
 class RequestsViewModel : ViewModel() {
 
+    lateinit var context: Context;
     private lateinit var database: DatabaseReference
     private lateinit var user: FirebaseUser
 
@@ -50,6 +53,7 @@ class RequestsViewModel : ViewModel() {
 //                save user in the friends section of the friend
                 database.child("users").child(friend.uid).child("friends").child(user.uid)
                         .setValue(userInfo)
+                BrowseFriendsFragment().MakeNotification(context,userName,request.interest);
 ////                navigates to the chat home page
 //                navigate.value = true
             }
