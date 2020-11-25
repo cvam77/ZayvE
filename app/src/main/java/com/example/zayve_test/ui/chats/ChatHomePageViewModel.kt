@@ -1,5 +1,6 @@
 package com.example.zayve_test.ui.chats
 
+import android.telecom.Conference
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,6 +21,18 @@ class ChatHomePageViewModel : ViewModel() {
     }
     val messageList = _messageList
 
+    var copyOfMessageList = ArrayList<UserMessageInfo>()
+
+    //    filters the home page chat list
+    fun filter(query: String): Unit {
+        val messageList = ArrayList<UserMessageInfo>()
+        for (userMessageInfo in copyOfMessageList){
+            if(userMessageInfo.userName.contains(query)){
+                messageList+=userMessageInfo
+            }
+        }
+        _messageList.value = messageList
+    }
     //  fetches user name from cloud firestore and updates the profile view
     fun fetchUserData() {
         user = FirebaseAuth.getInstance().currentUser!!
@@ -60,6 +73,7 @@ class ChatHomePageViewModel : ViewModel() {
                     }
                 }
                 _messageList.value = messages
+                copyOfMessageList = messages
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

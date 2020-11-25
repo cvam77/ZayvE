@@ -38,7 +38,7 @@ class RequestsViewModel : ViewModel() {
         val chatId = UUID.randomUUID().toString()
         val friend = Friend(request.imageSrc, request.userId, request.userName, chatId)
         val participants = listOf<String>(friend.uid, user.uid)
-        val chat = Chat("Congratulation. You guys are connected now.", participants)
+        val chat = Chat("Congratulations! You are connected now!", participants)
 
 //        save accepted users in friends hashmap
         database.child("users").child(user.uid).child("friends").child(friend.uid).setValue(friend)
