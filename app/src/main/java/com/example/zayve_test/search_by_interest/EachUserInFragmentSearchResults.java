@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,7 +74,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
 
     ArrayList<String> requestArrayList = new ArrayList<>();
 
-    FrameLayout frameLayout;
+    LinearLayout linearLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -109,8 +110,8 @@ public class EachUserInFragmentSearchResults extends Fragment {
 
         Log.d("sequencenumber","on View Created called");
 
-        frameLayout = getView().findViewById(R.id.each_user_layout);
-        frameLayout.setAnimation(AnimationUtils.loadAnimation(getContext(),R.anim.fade_transition_animation));
+        linearLayout = getView().findViewById(R.id.each_user_layout);
+        linearLayout.setAnimation(AnimationUtils.loadAnimation(getContext(),R.anim.fade_transition_animation));
 
         mProfilePictureImageView = getView().findViewById(R.id.profile_picture_imageview_search_result);
 
