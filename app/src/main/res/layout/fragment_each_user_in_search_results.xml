@@ -136,7 +136,7 @@
                     android:fontFamily="cursive"
                     android:text=""
                     android:textColor="#000000"
-                    android:textSize="3dp"
+                    android:textSize="35sp"
                     android:textStyle="bold" />
 
                 <ImageView

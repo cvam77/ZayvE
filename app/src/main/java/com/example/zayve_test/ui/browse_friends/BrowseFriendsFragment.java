@@ -120,8 +120,7 @@ public class BrowseFriendsFragment extends Fragment {
 
         WatchForNotification();
 
-        CallAsync callAsync = new CallAsync();
-        callAsync.execute();
+        fillUserIdArrayList();
 
     }
 
@@ -243,7 +242,7 @@ public class BrowseFriendsFragment extends Fragment {
 
                         String locality = addresses.get(0).getLocality();
                         String adminArea = addresses.get(0).getAdminArea();
-                        String locationUser = locality + " , " + adminArea;
+                        String locationUser = locality + ", " + adminArea;
 
                         mDatabaseRef.child("users").child(getCurrentUser.getUid()).child("location").setValue(locationUser);
 
@@ -256,108 +255,83 @@ public class BrowseFriendsFragment extends Fragment {
 
     }
 
-
-    public void gettingArray(ArrayList<String> harrayList)
+    public void fillUserIdArrayList()
     {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                adapterBrowseFriends.setVarrayList(harrayList);
-            }
-        });
-    }
+        mDatabaseRef.child("users").addChildEventListener(new ChildEventListener() {
+              @Override
+              public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                  if (snapshot.exists()) {
 
+                      boolean cannotBrowseItSwitch = false;
 
-    class CallAsync extends AsyncTask<Void,Void,ArrayList<String>> {
+                      String keyOrUserId = snapshot.getKey();
 
-        @Override
-        protected ArrayList<String> doInBackground(Void... voids) {
-
-            mDatabaseRef.child("users").addChildEventListener(new ChildEventListener() {
-                  @Override
-                  public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                      if (snapshot.exists()) {
-
-                          boolean cannotBrowseItSwitch = false;
-
-                          String keyOrUserId = snapshot.getKey();
-
-                          for(DataSnapshot childSnapshot : snapshot.getChildren())
+                      for(DataSnapshot childSnapshot : snapshot.getChildren())
+                      {
+                          String key = childSnapshot.getKey();
+                          if(key.equals("deleted_by"))
                           {
-                              String key = childSnapshot.getKey();
-                              if(key.equals("deleted_by"))
+                              for(DataSnapshot secondChildSnapshot : childSnapshot.getChildren())
                               {
-                                  for(DataSnapshot secondChildSnapshot : childSnapshot.getChildren())
+                                  String deletedByUserKey = secondChildSnapshot.getKey();
+                                  if(deletedByUserKey.equals(deletedByUserKey))
                                   {
-                                      String deletedByUserKey = secondChildSnapshot.getKey();
-                                      if(deletedByUserKey.equals(deletedByUserKey))
-                                      {
-                                          cannotBrowseItSwitch = true;
-                                      }
+                                      cannotBrowseItSwitch = true;
                                   }
                               }
                           }
-                          if(!snapshot.getKey().equals(getCurrentUser.getUid()))
+                      }
+                      if(!snapshot.getKey().equals(getCurrentUser.getUid()))
+                      {
+                          if(!cannotBrowseItSwitch)
                           {
-                              if(!cannotBrowseItSwitch)
-                              {
-                                  userIdArrayList.add(keyOrUserId);
-                              }
-
+                              adapterBrowseFriends.AddToTheEndAl(keyOrUserId);
                           }
 
                       }
-                  }
-
-                  @Override
-                  public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
                   }
+              }
 
-                  @Override
-                  public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-                  }
-
-                  @Override
-                  public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                  }
-
-                  @Override
-                  public void onCancelled(@NonNull DatabaseError error) {
-
-                  }
+              @Override
+              public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
               }
 
-            );
+              @Override
+              public void onChildRemoved(@NonNull DataSnapshot snapshot) {
 
-            long timeStart = System.currentTimeMillis();
+              }
 
-            while(userIdArrayList.isEmpty() && timeCounter < 2)
-            {
-                long timeEnd = System.currentTimeMillis();
+              @Override
+              public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-                if(timeEnd - timeStart > 2000)
-                {
-                    timeCounter = 5;
-                }
+              }
 
-            }
+              @Override
+              public void onCancelled(@NonNull DatabaseError error) {
 
-            return userIdArrayList;
-        }
+              }
 
-        @Override
-        protected void onPostExecute(ArrayList<String> eachUserProfiles) {
-            super.onPostExecute(eachUserProfiles);
-            gettingArray(eachUserProfiles);
-        }
+          }
+
+        );
+
+//        long timeStart = System.currentTimeMillis();
+//
+//        while(userIdArrayList.isEmpty())
+//        {
+//            long timeEnd = System.currentTimeMillis();
+//
+//            if(timeEnd - timeStart > 2000)
+//            {
+//                timeCounter = 5;
+//            }
+//
+//        }
+//
+//        gettingArray(userIdArrayList);
     }
-
-
-
 
 }
 
