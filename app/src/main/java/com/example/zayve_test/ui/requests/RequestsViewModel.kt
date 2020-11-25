@@ -19,16 +19,10 @@ class RequestsViewModel : ViewModel() {
     private lateinit var database: DatabaseReference
     private lateinit var user: FirebaseUser
 
-
     private var _requestList = MutableLiveData<List<Request>>().apply {
         value = ArrayList<Request>()
     }
     val requestList = _requestList
-
-////    controls navigation
-//    var  navigate = MutableLiveData<Boolean>().apply {
-//        value = false
-//    }
 
     fun acceptRequest(request: Request): Unit {
 //        todo: this uuid has to come from the user that sends the request.
