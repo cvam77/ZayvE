@@ -85,7 +85,7 @@ public class NotificationHandler {
 
     private static PendingIntent getPendingIntent(Context context)
     {
-        Intent notificationPendingIntent = new Intent(context, SearchInterestResultsFragment.class);
+        Intent notificationPendingIntent = new Intent(context, ZayveActivity.class);
 
         return PendingIntent.getActivity(context,
                 REMINDER_PENDING_INTENT_ID,

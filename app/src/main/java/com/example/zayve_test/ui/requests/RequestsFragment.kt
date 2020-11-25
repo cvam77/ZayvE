@@ -31,6 +31,7 @@ class RequestsFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_requests, container, false)
         requestsViewModel = ViewModelProvider(this).get(RequestsViewModel::class.java)
+        requestsViewModel.context = requireActivity().applicationContext;
         requestsViewModel.fetchRequestList()
 //        controlls user interaction with requests
         val adapter = RequestListListAdapter(AcceptButtonListner { request ->

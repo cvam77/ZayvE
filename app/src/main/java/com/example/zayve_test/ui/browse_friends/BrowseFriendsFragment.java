@@ -1,6 +1,7 @@
 package com.example.zayve_test.ui.browse_friends;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -193,7 +194,7 @@ public class BrowseFriendsFragment extends Fragment {
                 {
                     if(dataSnapshot.getKey().equals("user_name")){
                         String name = dataSnapshot.getValue().toString();
-                        MakeNotification(name,interestName);
+                        MakeNotification(getContext(), name,interestName);
 
                     }
 
@@ -208,8 +209,8 @@ public class BrowseFriendsFragment extends Fragment {
         });
     }
 
-    private void MakeNotification(String hello, String shivam) {
-        NotificationHandler.notificationCreator(getContext(),hello,shivam);
+    public void MakeNotification(Context context, String userName, String interestName) {
+        NotificationHandler.notificationCreator(context,userName,interestName);
     }
 
     private void SetLocationCity() {

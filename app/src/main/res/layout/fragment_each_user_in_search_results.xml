@@ -83,16 +83,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
                     android:fontFamily="cursive"
-                    android:text=""
+                    android:text="Coding"
                     android:textColor="#000000"
                     android:textSize="35sp"
                     android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/first_interest_iv"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="11dp" />
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/ic_baseline_person_add_24" />
 
             </LinearLayout>
 
@@ -114,9 +115,11 @@
 
                 <ImageView
                     android:id="@+id/second_interest_iv"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="11dp" />
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/ic_baseline_person_add_24"
+                    />
 
             </LinearLayout>
 
@@ -133,14 +136,16 @@
                     android:fontFamily="cursive"
                     android:text=""
                     android:textColor="#000000"
-                    android:textSize="35sp"
+                    android:textSize="3dp"
                     android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/third_interest_iv"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="11dp" />
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/ic_baseline_person_add_24"
+                    />
 
             </LinearLayout>
 
@@ -162,9 +167,11 @@
 
                 <ImageView
                     android:id="@+id/fourth_interest_iv"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="11dp" />
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/ic_baseline_person_add_24"
+                    />
 
             </LinearLayout>
 
@@ -186,10 +193,10 @@
 
                 <ImageView
                     android:id="@+id/fifth_interest_iv"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="11dp"
-
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/ic_baseline_person_add_24"
                     />
 
             </LinearLayout>
