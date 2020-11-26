@@ -85,7 +85,7 @@ public class SearchByInterestRvAdapter extends RecyclerView.Adapter<SearchByInte
         if(!profileUrl.equals(""))
         {
             Uri uri = Uri.parse(profileUrl);
-            Picasso.get().load(uri).fit().centerCrop().into(holder.mProfilePicIv);
+            Picasso.get().load(uri).fit().centerCrop().transform(new CircleTransform()).into(holder.mProfilePicIv);
         }
     }
 

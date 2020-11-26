@@ -220,7 +220,6 @@ public class AdapterBrowseFriends extends RecyclerView.Adapter<AdapterBrowseFrie
     public void DeleteUser(int position)
     {
         mDatabaseRef.child("users").child(VarrayList.get(position)).child("deleted_by").child(getCurrentUser.getUid()).setValue("true");
-
         VarrayList.remove(position);
         notifyDataSetChanged();
 

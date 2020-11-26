@@ -58,9 +58,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="2dp"
-                        android:fontFamily="serif"
                         android:text="Interest"
-                        android:textColor="#4A148C"
+                        android:textColor="#333333"
                         android:textSize="16sp"
                         android:visibility="visible" />
 
@@ -70,9 +69,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="2dp"
-                        android:fontFamily="serif"
                         android:text="Interest"
-                        android:textColor="#4A148C"
+                        android:textColor="#333333"
                         android:textSize="16sp"
                         android:visibility="visible" />
 
@@ -82,9 +80,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="2dp"
-                        android:fontFamily="serif"
                         android:text="Interest"
-                        android:textColor="#4A148C"
+                        android:textColor="#333333"
                         android:textSize="16sp"
                         android:visibility="visible" />
 
@@ -94,9 +91,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="2dp"
-                        android:fontFamily="serif"
                         android:text="Interest"
-                        android:textColor="#4A148C"
+                        android:textColor="#333333"
                         android:textSize="16sp"
                         android:visibility="visible" />
 
@@ -106,22 +102,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="2dp"
-                        android:fontFamily="serif"
                         android:text="Interest"
-                        android:textColor="#4A148C"
+                        android:textColor="#333333"
                         android:textSize="16sp"
                         android:visibility="visible" />
 
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/logo"
-                    android:layout_width="173dp"
-                    android:layout_height="145dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="60dp"
-                    android:background="#FFFFFF"
-                    app:srcCompat="@android:drawable/ic_menu_crop" />
+                    <ImageView
+                        android:id="@+id/logo"
+                        android:layout_width="173dp"
+                        android:layout_height="145dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="60dp"
+                        app:srcCompat="@android:drawable/ic_menu_crop" />
 
             </LinearLayout>
 

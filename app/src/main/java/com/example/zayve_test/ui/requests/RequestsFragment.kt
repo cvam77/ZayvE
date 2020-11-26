@@ -36,7 +36,7 @@ class RequestsFragment : Fragment() {
 //        controlls user interaction with requests
         val adapter = RequestListListAdapter(AcceptButtonListner { request ->
             requestsViewModel.acceptRequest(request)
-            makeText(context, "Friend Request Accepted", Toast.LENGTH_SHORT).show()
+            //makeText(context, "Friend Request Accepted", Toast.LENGTH_SHORT).show()
         }, DeleteButtonListner { request ->
 
             requestsViewModel.deleteRequest(request)
