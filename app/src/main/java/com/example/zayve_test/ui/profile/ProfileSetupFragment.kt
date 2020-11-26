@@ -62,6 +62,17 @@ class ProfileSetupFragment : Fragment() {
         uploadUserProfile()
     }
 
+    private fun checkinterest(string: String, number: Int) : Boolean
+    {
+        if (string.isEmpty())
+        {
+            Toast.makeText(context, "Fill in interest " + number,
+                    Toast.LENGTH_SHORT).show()
+            return false;
+        }
+        return true;
+    }
+
     //    handles image picker result
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -76,38 +87,43 @@ class ProfileSetupFragment : Fragment() {
 
     //   uploads avatar image and saves downloadurl into imageUrl
     private fun uploadUserProfile() {
-        mStorageRef = FirebaseStorage.getInstance().reference;
-        val imageStorageBucketRef: StorageReference = mStorageRef.child("images/${user.uid}")
-//        puts image into the firebase storage, fetches image download url and uploads the user profile to the backend
-        imageStorageBucketRef.putFile(imageURI)
-                .addOnSuccessListener { taskSnapshot -> // Get a URL to the uploaded content
-                    // Get a URL to the uploaded content
-                    val downloadTask: Task<Uri> = taskSnapshot.storage.downloadUrl
-                    downloadTask.addOnSuccessListener {
-                        imageDownloadUrl = it.toString()
-                        Log.d("response", "downloadUrl:$imageDownloadUrl")
-                        val interests = arrayListOf<String>(binding.interest1.text.toString(), binding.interest2.text.toString(),
-                                binding.interest3.text.toString(),
-                                binding.interest4.text.toString(),
-                                binding.interest5.text.toString()
-                        )
-                        val userDb = myDBref.child("users").child(user.uid)
-                        userDb.child("interests").setValue(interests)
-                        userDb.child("user_name").setValue(binding.fullName.text.toString())
-                        userDb.child("profile_image").setValue(imageDownloadUrl)
-                        userDb.child("about").setValue(binding.userIntro.text.toString())
-//                        userDb.child("user_name").setValue(binding.userName.text.toString())
-//                        after saving data to the realtime database, navigates to ZayveActivity
-//                        todo: if possible, manage the navigation to the profile frag
-                        val intent = Intent(activity, ZayveActivity::class.java)
-                        startActivity(intent)
+        val interest1 = binding.interest1.text.toString()
+        val interest2 = binding.interest2.text.toString()
+        val interest3 = binding.interest3.text.toString()
+        val interest4 = binding.interest4.text.toString()
+        val interest5 = binding.interest5.text.toString()
 
+        if (checkinterest(interest1, 1) && checkinterest(interest2, 2) && checkinterest(interest3, 3) && checkinterest(interest4, 4) && checkinterest(interest5, 5))
+        {
+            mStorageRef = FirebaseStorage.getInstance().reference;
+            val imageStorageBucketRef: StorageReference = mStorageRef.child("images/${user.uid}")
+    //        puts image into the firebase storage, fetches image download url and uploads the user profile to the backend
+            imageStorageBucketRef.putFile(imageURI)
+                    .addOnSuccessListener { taskSnapshot -> // Get a URL to the uploaded content
+                        // Get a URL to the uploaded content
+                        val downloadTask: Task<Uri> = taskSnapshot.storage.downloadUrl
+                        downloadTask.addOnSuccessListener {
+                            imageDownloadUrl = it.toString()
+                            Log.d("response", "downloadUrl:$imageDownloadUrl")
+                            val interests = arrayListOf<String>(interest1, interest2, interest3, interest4, interest5);
+                            val userDb = myDBref.child("users").child(user.uid)
+                            userDb.child("interests").setValue(interests)
+                            userDb.child("user_name").setValue(binding.fullName.text.toString())
+                            userDb.child("profile_image").setValue(imageDownloadUrl)
+                            userDb.child("about").setValue(binding.userIntro.text.toString())
+    //                        userDb.child("user_name").setValue(binding.userName.text.toString())
+    //                        after saving data to the realtime database, navigates to ZayveActivity
+    //                        todo: if possible, manage the navigation to the profile frag
+                            val intent = Intent(activity, ZayveActivity::class.java)
+                            startActivity(intent)
+
+                        }
+                        Log.d("response", "Successfully uploaded the data to firebase")
                     }
-                    Log.d("response", "Successfully uploaded the data to firebase")
-                }
-                .addOnFailureListener {
-                    Log.d("response", "Unsuccessful to upload the image to firebase")
-                }
+                    .addOnFailureListener {
+                        Log.d("response", "Unsuccessful to upload the image to firebase")
+                    }
+        }
     }
 
 }
