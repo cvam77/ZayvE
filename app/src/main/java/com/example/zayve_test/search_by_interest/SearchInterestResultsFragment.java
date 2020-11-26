@@ -19,8 +19,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.zayve_test.R;
@@ -51,6 +54,7 @@ public class SearchInterestResultsFragment extends Fragment implements SearchByI
     Button mSearchInterestButton;
 
     RecyclerView mRvSearchResults;
+    Spinner choices;
     SearchByInterestRvAdapter searchByInterestRvAdapter;
 
     ArrayList<EachUserProfile> globalResultArrayList = new ArrayList<>();
@@ -95,6 +99,27 @@ public class SearchInterestResultsFragment extends Fragment implements SearchByI
             public void onClick(View view) {
                 SearchButtonClicked();
             }
+        });
+
+        String[] items = new String[] {"", "Swimming", "Biking", "Board Games", "Hiking", "Facebook"};
+        Spinner spinner = (Spinner) getView().findViewById(R.id.spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, items);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) { // Change the formula if Continuously is chosen.
+                String option = parentView.getItemAtPosition(position).toString();
+                if (!option.equals("")) {
+                    mSearchWordEditText.setText(option);
+                    SearchButtonClicked();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+
         });
 
         mRvSearchResults = view.findViewById(R.id.rvSearch);
