@@ -49,7 +49,7 @@ public class SearchByInterestRvAdapter extends RecyclerView.Adapter<SearchByInte
 
         String name = eachUserProfile.getUserName();
         if (!name.equals("")) {
-            holder.mNameTv.setText("\"" + name + "\"" + " likes...");
+            holder.mNameTv.setText(name + " likes...");
         }
 
         String firstInterest = eachUserProfile.getFirstInterest();

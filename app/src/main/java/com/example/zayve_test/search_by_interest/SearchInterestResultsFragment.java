@@ -35,7 +35,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SearchInterestResultsFragment extends Fragment implements SearchByInterestRvAdapter.ItemClickListener{
@@ -61,7 +63,7 @@ public class SearchInterestResultsFragment extends Fragment implements SearchByI
     ArrayList<String> idArraylist = new ArrayList<>();
     ArrayList<String> requestArrayList = new ArrayList<>();
 
-    DatabaseReference mRealtimeDatabase  = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference mRealtimeDatabase = FirebaseDatabase.getInstance().getReference();
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
     private ViewPager viewPagerSearchResults;
@@ -101,25 +103,45 @@ public class SearchInterestResultsFragment extends Fragment implements SearchByI
             }
         });
 
-        String[] items = new String[] {"", "Swimming", "Biking", "Board Games", "Hiking", "Facebook"};
-        Spinner spinner = (Spinner) getView().findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, items);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mRealtimeDatabase.child("users").child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) { // Change the formula if Continuously is chosen.
-                String option = parentView.getItemAtPosition(position).toString();
-                if (!option.equals("")) {
-                    mSearchWordEditText.setText(option);
-                    SearchButtonClicked();
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+                    if (childDataSnapshot.getKey().toString().equals("interests"))
+                    {
+                        ArrayList<String> items = new ArrayList<>();
+                        items.add("");
+                        for (DataSnapshot ing : childDataSnapshot.getChildren()) {
+                            items.add(ing.getValue().toString());
+                        }
+                        Spinner spinner = (Spinner) getView().findViewById(R.id.spinner);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, items);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinner.setAdapter(adapter);
+                        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) { // Change the formula if Continuously is chosen.
+                                String option = parentView.getItemAtPosition(position).toString();
+                                if (!option.equals("")) {
+                                    mSearchWordEditText.setText(option);
+                                    SearchButtonClicked();
+                                }
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+                            }
+
+                        });
+                        break;
+                    }
                 }
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
         });
 
         mRvSearchResults = view.findViewById(R.id.rvSearch);
