@@ -37,7 +37,7 @@ public class NotificationHandler {
         notificationManager.cancelAll();;
     }
 
-    public static void notificationCreator(Context context, String userName, String interestName) {
+    public static void notificationCreator(Context context, String message) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         {
@@ -65,7 +65,7 @@ public class NotificationHandler {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setColor(ContextCompat.getColor(context,R.color.authui_colorPrimaryDark))
                 .setLargeIcon(bitmap(context))
-                .setStyle(new NotificationCompat.BigTextStyle().bigText("Sent by " + userName + " for " + interestName + "!"))
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setContentIntent(getPendingIntent(context))
                 .setAutoCancel(true);

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zayve_test.R;
@@ -225,8 +226,8 @@ public class AdapterBrowseFriends extends RecyclerView.Adapter<AdapterBrowseFrie
 
     public void DeleteUser(int position)
     {
-        mDatabaseRef.child("users").child(VarrayList.get(position)).child("deleted_by").child(getCurrentUser.getUid()).setValue("true");
         Toast.makeText(mContext, "User Deleted!", Toast.LENGTH_SHORT).show();
+        mDatabaseRef.child("users").child(VarrayList.get(position)).child("deleted_by").child(getCurrentUser.getUid()).setValue("true");
         VarrayList.remove(position);
         notifyDataSetChanged();
 
@@ -247,8 +248,7 @@ public class AdapterBrowseFriends extends RecyclerView.Adapter<AdapterBrowseFrie
     public void addRequest(String interestName, int position)
     {
         mRtDatabase.child("users").child(VarrayList.get(position)).child("interest_requests").child(interestName).push().setValue(getCurrentUser.getUid());
-        mRtDatabase.child("users").child(getCurrentUser.getUid()).child("requests_sent").child(interestName).push().child(VarrayList.get(position));
-        Toast.makeText(mContext,"ZayvE Request Sent!", Toast.LENGTH_SHORT).show();
+        mRtDatabase.child("users").child(getCurrentUser.getUid()).child("requests_sent").child(interestName).push().setValue(VarrayList.get(position));
 
         DeleteUser(position);
     }
@@ -261,6 +261,8 @@ public class AdapterBrowseFriends extends RecyclerView.Adapter<AdapterBrowseFrie
                 mFourthInterestTextView,mFifthInterestTextView,introTv, mLocationTextView;
         ImageView mProfilePictureImageView, mFirstInterestIv,mSecondInterestIv, mThirdInterestIv,
                 mFourthInterestIv,mFifthInterestIv, mDeleteUserIv;
+
+        CardView mCardView1, mCardView2, mCardView3, mCardView4, mCardView5;
 
         public BrowseFriendsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -284,46 +286,53 @@ public class AdapterBrowseFriends extends RecyclerView.Adapter<AdapterBrowseFrie
             });
 
             mFirstInterestTextView = itemView.findViewById(R.id.first_interest_textview_search_result);
-            mFirstInterestTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    addRequest(mFirstInterestTextView.getText().toString(), getAdapterPosition());
-                    mFirstInterestTextView.setTextColor(Color.parseColor(colorHexCode));
-                }
-            });
 
             mSecondInterestTextView = itemView.findViewById(R.id.second_interest_textview_search_result);
-            mSecondInterestTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    addRequest(mSecondInterestTextView.getText().toString(), getAdapterPosition());
-                    mSecondInterestTextView.setTextColor(Color.parseColor(colorHexCode));
-                }
-            });
+
             mThirdInterestTextView = itemView.findViewById(R.id.third_interest_textview_search_result);
-            mThirdInterestTextView.setOnClickListener(new View.OnClickListener() {
+
+            mFourthInterestTextView = itemView.findViewById(R.id.fourth_interest_textview_search_result);
+
+            mFifthInterestTextView = itemView.findViewById(R.id.fifth_interest_textview_search_result);
+
+            mCardView1 = itemView.findViewById(R.id.cardview1);
+            mCardView1.setOnClickListener(view -> {
+                Toast.makeText(view.getContext(),"ZayvE Request Sent!", Toast.LENGTH_SHORT).show();
+                addRequest(mFirstInterestTextView.getText().toString(), getAdapterPosition());
+                mFirstInterestTextView.setTextColor(Color.parseColor(colorHexCode));
+            });
+
+            mCardView2 = itemView.findViewById(R.id.cardview2);
+            mCardView2.setOnClickListener(view -> {
+                Toast.makeText(view.getContext(),"ZayvE Request Sent!", Toast.LENGTH_SHORT).show();
+                addRequest(mSecondInterestTextView.getText().toString(), getAdapterPosition());
+                mSecondInterestTextView.setTextColor(Color.parseColor(colorHexCode));
+            });
+
+            mCardView3 = itemView.findViewById(R.id.cardview3);
+            mCardView3.setOnClickListener(view -> {
+                Toast.makeText(view.getContext(),"ZayvE Request Sent!", Toast.LENGTH_SHORT).show();
+                addRequest(mThirdInterestTextView.getText().toString(), getAdapterPosition());
+                mThirdInterestTextView.setTextColor(Color.parseColor(colorHexCode));
+            });
+
+            mCardView4 = itemView.findViewById(R.id.cardview4);
+            mCardView4.setOnClickListener(view -> {
+                Toast.makeText(view.getContext(),"ZayvE Request Sent!", Toast.LENGTH_SHORT).show();
+                addRequest(mThirdInterestTextView.getText().toString(), getAdapterPosition());
+                mThirdInterestTextView.setTextColor(Color.parseColor(colorHexCode));
+            });
+
+            mCardView5 = itemView.findViewById(R.id.cardview5);
+            mCardView5.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Toast.makeText(view.getContext(),"ZayvE Request Sent!", Toast.LENGTH_SHORT).show();
                     addRequest(mThirdInterestTextView.getText().toString(), getAdapterPosition());
                     mThirdInterestTextView.setTextColor(Color.parseColor(colorHexCode));
                 }
             });
-            mFourthInterestTextView = itemView.findViewById(R.id.fourth_interest_textview_search_result);
-            mFourthInterestTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    addRequest(mFourthInterestTextView.getText().toString(), getAdapterPosition());
-                    mFourthInterestTextView.setTextColor(Color.parseColor(colorHexCode));
-                }
-            });
-            mFifthInterestTextView = itemView.findViewById(R.id.fifth_interest_textview_search_result);
-            mFifthInterestTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    addRequest(mFifthInterestTextView.getText().toString(), getAdapterPosition());
-                    mFifthInterestTextView.setTextColor(Color.parseColor(colorHexCode));
-                }
-            });
+
             mFirstInterestIv = itemView.findViewById(R.id.first_interest_iv);
             mSecondInterestIv = itemView.findViewById(R.id.second_interest_iv);
             mThirdInterestIv = itemView.findViewById(R.id.third_interest_iv);

@@ -47,7 +47,7 @@ class RequestsViewModel : ViewModel() {
 //                save user in the friends section of the friend
                 database.child("users").child(friend.uid).child("friends").child(user.uid)
                         .setValue(userInfo)
-                BrowseFriendsFragment().MakeNotification(context,userName,request.interest);
+                BrowseFriendsFragment().MakeNotification(context, "Accepted by " + userName + " for " + request.interest);
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

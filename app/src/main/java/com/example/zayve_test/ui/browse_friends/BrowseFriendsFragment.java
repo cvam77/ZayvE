@@ -141,7 +141,6 @@ public class BrowseFriendsFragment extends Fragment {
                         userIdRequestArrayList.add(userIdReq);
 
                         GetUserName(userIdReq, keyName);
-
                     }
 
                 }
@@ -193,12 +192,12 @@ public class BrowseFriendsFragment extends Fragment {
                 {
                     if(dataSnapshot.getKey().equals("user_name")){
                         String name = dataSnapshot.getValue().toString();
-                        MakeNotification(getContext(), name,interestName);
+
+                        String message = "Sent by " + name + " for " + interestName;
+                        MakeNotification(getContext(), message);
 
                     }
-
                 }
-
             }
 
             @Override
@@ -208,8 +207,8 @@ public class BrowseFriendsFragment extends Fragment {
         });
     }
 
-    public void MakeNotification(Context context, String userName, String interestName) {
-        NotificationHandler.notificationCreator(context,userName,interestName);
+    public void MakeNotification(Context context, String message) {
+        NotificationHandler.notificationCreator(context,message);
     }
 
     private void SetLocationCity() {
@@ -283,6 +282,7 @@ public class BrowseFriendsFragment extends Fragment {
                       }
                       if(!snapshot.getKey().equals(getCurrentUser.getUid()))
                       {
+
                           if(!cannotBrowseItSwitch)
                           {
                               adapterBrowseFriends.AddToTheEndAl(keyOrUserId);
