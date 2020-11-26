@@ -199,7 +199,6 @@ public class EachUserInFragmentSearchResults extends Fragment {
                             {
                                 case "0":
                                     firstInterest = intToSend;
-
                                     break;
                                 case "1":
                                     secondInterest= intToSend;
@@ -281,6 +280,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
             return null;
         }
     }
+
 
     class AsyncTaskInitializeViews extends AsyncTask<Void,Void,Void>
     {
