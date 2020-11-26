@@ -52,6 +52,21 @@
                 android:text="message"
                 android:textSize="16sp" />
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/message"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="50dp"
+                android:layout_toEndOf="@+id/image_card"
+                android:padding="4sp"
+                android:text="3:00 PM"
+                android:textAlignment="viewEnd"
+                android:textSize="16sp" />
+
         </RelativeLayout>
 
     </LinearLayout>
