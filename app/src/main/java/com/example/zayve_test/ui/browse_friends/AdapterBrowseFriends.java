@@ -217,9 +217,16 @@ public class AdapterBrowseFriends extends RecyclerView.Adapter<AdapterBrowseFrie
         notifyDataSetChanged();
     }
 
+    public void AddToTheEndAl(String lastId)
+    {
+        VarrayList.add(lastId);
+        notifyDataSetChanged();
+    }
+
     public void DeleteUser(int position)
     {
         mDatabaseRef.child("users").child(VarrayList.get(position)).child("deleted_by").child(getCurrentUser.getUid()).setValue("true");
+        Toast.makeText(mContext, "User Deleted!", Toast.LENGTH_SHORT).show();
         VarrayList.remove(position);
         notifyDataSetChanged();
 
