@@ -228,6 +228,7 @@ public class AdapterBrowseFriends extends RecyclerView.Adapter<AdapterBrowseFrie
     {
         Toast.makeText(mContext, "User Deleted!", Toast.LENGTH_SHORT).show();
         mDatabaseRef.child("users").child(VarrayList.get(position)).child("deleted_by").child(getCurrentUser.getUid()).setValue("true");
+        mDatabaseRef.child("users").child(getCurrentUser.getUid()).child("deleted_by").child(VarrayList.get(position)).setValue("true");
         VarrayList.remove(position);
         notifyDataSetChanged();
 
@@ -248,9 +249,42 @@ public class AdapterBrowseFriends extends RecyclerView.Adapter<AdapterBrowseFrie
     public void addRequest(String interestName, int position)
     {
         mRtDatabase.child("users").child(VarrayList.get(position)).child("interest_requests").child(interestName).push().setValue(getCurrentUser.getUid());
+        mRtDatabase.child("users").child(VarrayList.get(position)).child("interest_requests").child(interestName).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                String removedId = snapshot.getValue().toString();
+                if(removedId.equals(getCurrentUser.getUid()))
+                {
+                    new BrowseFriendsFragment().GetUserName(mContext,removedId,interestName,2);
+                }
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         mRtDatabase.child("users").child(getCurrentUser.getUid()).child("requests_sent").child(interestName).push().setValue(VarrayList.get(position));
 
         DeleteUser(position);
+
+
     }
 
     class BrowseFriendsViewHolder extends RecyclerView.ViewHolder

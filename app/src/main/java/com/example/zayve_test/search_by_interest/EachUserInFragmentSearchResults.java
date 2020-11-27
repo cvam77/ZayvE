@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zayve_test.R;
+import com.example.zayve_test.ui.browse_friends.BrowseFriendsFragment;
 import com.example.zayve_test.ui.browse_friends.EachUserProfile;
 import com.google.android.gms.auth.api.credentials.internal.DeleteRequest;
 import com.google.firebase.auth.FirebaseAuth;
@@ -552,6 +553,37 @@ public class EachUserInFragmentSearchResults extends Fragment {
         Log.d("lagado","add request called");
         lockRequest = true;
         mRtDatabase.child("users").child(userId).child("interest_requests").child(interestName).push().setValue(currentUser.getUid());
+        mRtDatabase.child("users").child(userId).child("interest_requests").child(interestName).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                String removedId = snapshot.getValue().toString();
+                if(removedId.equals(currentUser.getUid()))
+                {
+                    new BrowseFriendsFragment().GetUserName(getContext(),removedId,interestName,2);
+                }
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         mRtDatabase.child("users").child(currentUser.getUid()).child("requests_sent").child(interestName).push().setValue(userId);
         Toast.makeText(getContext(),"ZayvE Request Sent!", Toast.LENGTH_SHORT).show();
         mRtDatabase.child("users").child(userId).child("deleted_by").child(currentUser.getUid()).setValue("true");

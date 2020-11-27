@@ -140,7 +140,7 @@ public class BrowseFriendsFragment extends Fragment {
 
                         userIdRequestArrayList.add(userIdReq);
 
-                        GetUserName(userIdReq, keyName);
+                        GetUserName(getContext(),userIdReq, keyName, 1);
                     }
 
                 }
@@ -159,7 +159,7 @@ public class BrowseFriendsFragment extends Fragment {
 
                         if(!userIdRequestArrayList.contains(userIdReq))
                         {
-                            GetUserName(userIdReq, keyName);
+                            GetUserName(getContext(),userIdReq, keyName, 1);
                         }
                     }
 
@@ -168,7 +168,11 @@ public class BrowseFriendsFragment extends Fragment {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
+                String removedInterest = snapshot.getKey();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    String removedId = dataSnapshot.getValue().toString();
+                }
             }
 
             @Override
@@ -184,7 +188,8 @@ public class BrowseFriendsFragment extends Fragment {
 
     }
 
-    private void GetUserName(String userIdReq, String interestName) {
+
+    public void GetUserName(Context context, String userIdReq, String interestName, int code) {
         mDatabaseRef.child("users").child(userIdReq).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -193,8 +198,16 @@ public class BrowseFriendsFragment extends Fragment {
                     if(dataSnapshot.getKey().equals("user_name")){
                         String name = dataSnapshot.getValue().toString();
 
-                        String message = "Sent by " + name + " for " + interestName;
-                        MakeNotification(getContext(), message);
+                        String message = "";
+                        if(code ==1)
+                        {
+                            message = name + " has sent you a ZayvE for " + interestName;
+                        }
+                        else if(code ==2)
+                        {
+                            message = name +  " has accepted your ZayvE for " + interestName;
+                        }
+                        MakeNotification(context, message);
 
                     }
                 }
@@ -273,8 +286,10 @@ public class BrowseFriendsFragment extends Fragment {
                               for(DataSnapshot secondChildSnapshot : childSnapshot.getChildren())
                               {
                                   String deletedByUserKey = secondChildSnapshot.getKey();
+
                                   if(deletedByUserKey.equals(getCurrentUser.getUid()))
                                   {
+                                      Log.d("namak",keyOrUserId);
                                       cannotBrowseItSwitch = true;
                                   }
                               }

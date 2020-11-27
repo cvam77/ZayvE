@@ -67,7 +67,7 @@ public class NotificationHandler {
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context,REMINDER_CHANNEL_ID);
 
             notificationBuilder.setSmallIcon(R.drawable.ic_baseline_notifications_24)
-                    .setContentTitle("New ZayvE Request Alert!")
+                    .setContentTitle("ZayvE Alert!")
                     .setContentText("")
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setColor(ContextCompat.getColor(context,R.color.authui_colorPrimaryDark))

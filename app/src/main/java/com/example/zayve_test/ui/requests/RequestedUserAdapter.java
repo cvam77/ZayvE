@@ -61,6 +61,8 @@ public class RequestedUserAdapter extends RecyclerView.Adapter<RequestedUserAdap
 
     @Override
     public void onBindViewHolder(@NonNull RequestedUserViewHolder holder, int position) {
+        holder.linearLayout.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.fade_transition_animation));
+
         ArrayList<String> stringArrayList = requestedUserArraylist.get(position);
         String userId = stringArrayList.get(0);
         String interestName = stringArrayList.get(1);
