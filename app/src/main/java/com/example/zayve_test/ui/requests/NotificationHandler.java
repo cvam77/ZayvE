@@ -57,9 +57,10 @@ public class NotificationHandler {
 
                 notificationChannel.setDescription(channelDescription);
 
-                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-                notificationManager.createNotificationChannel(notificationChannel);
+               if(context != null){
+                   NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                   notificationManager.createNotificationChannel(notificationChannel);
+               }
             }
 
 
