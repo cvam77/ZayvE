@@ -1,4 +1,4 @@
-package com.example.zayve_test.search_by_interest;
+package com.example.zayve_test.ui.search_by_interest;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -37,7 +37,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SearchInterestResultsFragment extends Fragment implements SearchByInterestRvAdapter.ItemClickListener{

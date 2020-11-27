@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.zayve_test.search_by_interest;
+package com.example.zayve_test.ui.search_by_interest;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

@@ -1,4 +1,4 @@
-package com.example.zayve_test.search_by_interest;
+package com.example.zayve_test.ui.search_by_interest;
 
 import android.content.Context;
 import android.net.Uri;

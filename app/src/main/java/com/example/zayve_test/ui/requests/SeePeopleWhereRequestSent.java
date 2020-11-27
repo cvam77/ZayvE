@@ -17,9 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.zayve_test.R;
-import com.example.zayve_test.search_by_interest.EachUserInFragmentSearchResults;
-import com.example.zayve_test.search_by_interest.SearchByInterestRvAdapter;
-import com.example.zayve_test.search_by_interest.SearchInterestResultsFragmentDirections;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

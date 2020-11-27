@@ -1,9 +1,7 @@
 package com.example.zayve_test.ui.requests;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,20 +9,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.zayve_test.R;
-import com.example.zayve_test.search_by_interest.CircleTransform;
-import com.example.zayve_test.search_by_interest.SearchByInterestRvAdapter;
-import com.example.zayve_test.ui.browse_friends.AdapterBrowseFriends;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
+import com.example.zayve_test.ui.search_by_interest.CircleTransform;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

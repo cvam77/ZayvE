@@ -53,7 +53,7 @@
 
     <fragment
         android:id="@+id/nav_search"
-        android:name="com.example.zayve_test.search_by_interest.SearchInterestResultsFragment"
+        android:name="com.example.zayve_test.ui.search_by_interest.SearchInterestResultsFragment"
         android:label="Search Interest" >
         <action
             android:id="@+id/action_nav_search_to_nav_user"
@@ -61,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_user"
-        android:name="com.example.zayve_test.search_by_interest.EachUserInFragmentSearchResults"
+        android:name="com.example.zayve_test.ui.search_by_interest.EachUserInFragmentSearchResults"
         android:label="User" >
         <argument
             android:name="userID"

@@ -51,12 +51,6 @@ class RequestsFragment : Fragment() {
             })
         }
 
-//        requestsViewModel.navigate.observe(viewLifecycleOwner,{
-//            if(it){
-//                findNavController().navigate(R.id.action_nav_requests_to_nav_chat_page)
-//            }
-//        })
-
         val callback: OnBackPressedCallback =
                 object : OnBackPressedCallback(true /* enabled by default */) {
                     override fun handleOnBackPressed() {
