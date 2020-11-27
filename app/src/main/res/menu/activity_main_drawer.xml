@@ -23,7 +23,7 @@
             android:title="Requests Received" />
 
         <item
-            android:id="@+id/nav_requests_sent"
+            android:id="@+id/nav_sent_request"
             android:icon="@drawable/ic_request"
             android:title="Requests Sent" />
 

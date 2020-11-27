@@ -99,15 +99,6 @@ public class SeePeopleWhereRequestSent extends Fragment implements RequestedUser
     public void onItemClickListener(String userId) {
         Log.d("userIdCheck",userId);
 
-//        Navigation.findNavController(getActivity(),getView().getId()).navigate(SearchInterestResultsFragmentDirections.actionNavSearchToNavUser(userId));
-
-//        Bundle bundle = new Bundle();
-//        bundle.putString("userId",userId);
-//        Fragment fragment = new EachUserInFragmentSearchResults();
-//        fragment.setArguments(bundle);
-//        fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.add(R.id.temporary_test_container,fragment,"testing");
-//        fragmentTransaction.addToBackStack(null);
-//        fragmentTransaction.commit();
+        Navigation.findNavController(getActivity(),getView().getId()).navigate(SeePeopleWhereRequestSentDirections.actionNavSentRequestToNavUser(userId));
     }
 }
