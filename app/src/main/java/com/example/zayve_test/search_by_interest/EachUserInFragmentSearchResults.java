@@ -78,6 +78,8 @@ public class EachUserInFragmentSearchResults extends Fragment {
 
         userId = EachUserInFragmentSearchResultsArgs.fromBundle(getArguments()).getUserID();
 
+//        userId = getArguments().getString("userId");
+
         ExecuteAsyncTasks();
 
         return inflater.inflate(R.layout.fragment_each_user_in_search_results, container, false);
@@ -93,7 +95,7 @@ public class EachUserInFragmentSearchResults extends Fragment {
         mDeleteUserIv.setVisibility(View.GONE);
 
         linearLayout = getView().findViewById(R.id.each_user_layout);
-        linearLayout.setAnimation(AnimationUtils.loadAnimation(getContext(),R.anim.fade_transition_animation));
+        linearLayout.setAnimation(AnimationUtils.loadAnimation(getContext(),R.anim.fade_scale_animation));
 
         mProfilePictureImageView = getView().findViewById(R.id.profile_picture_imageview_search_result);
 

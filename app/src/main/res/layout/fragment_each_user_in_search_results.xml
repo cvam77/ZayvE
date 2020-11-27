@@ -5,7 +5,9 @@
     android:id="@+id/each_user_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16sp">
+    android:padding="16sp"
+    android:background="#FAFAFA"
+    >
 
     <ScrollView
         android:layout_width="match_parent"

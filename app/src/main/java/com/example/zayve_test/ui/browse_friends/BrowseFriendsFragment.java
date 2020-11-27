@@ -273,7 +273,7 @@ public class BrowseFriendsFragment extends Fragment {
                               for(DataSnapshot secondChildSnapshot : childSnapshot.getChildren())
                               {
                                   String deletedByUserKey = secondChildSnapshot.getKey();
-                                  if(deletedByUserKey.equals(deletedByUserKey))
+                                  if(deletedByUserKey.equals(getCurrentUser.getUid()))
                                   {
                                       cannotBrowseItSwitch = true;
                                   }
@@ -286,6 +286,7 @@ public class BrowseFriendsFragment extends Fragment {
                           if(!cannotBrowseItSwitch)
                           {
                               adapterBrowseFriends.AddToTheEndAl(keyOrUserId);
+                              Log.d("ronaldo",keyOrUserId);
                           }
 
                       }

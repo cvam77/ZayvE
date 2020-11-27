@@ -54,6 +54,24 @@ class RequestsViewModel : ViewModel() {
                 Log.d("error", "Error while reading data")
             }
         })
+
+        database.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val userData = dataSnapshot.child("users").child(user.uid)
+                val userName = userData.child("user_name").value.toString()
+                Log.d("reached","reached here")
+                val userProfilePic = userData.child("profile_image").value as String
+                val userInfo = Friend(userProfilePic, user.uid, userName, chatId)
+//                save user in the friends section of the friend
+                database.child("users").child(friend.uid).child("friends").child(user.uid)
+                        .setValue(userInfo)
+                BrowseFriendsFragment().MakeNotification(context, "Accepted by " + userName + " for " + request.interest);
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.d("error", "Error while reading data")
+            }
+        })
 //        removes accepted user from request list
         deleteRequest(request)
 //        creates a new chat collection for connected users

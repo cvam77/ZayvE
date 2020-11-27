@@ -148,8 +148,7 @@ public class SearchInterestResultsFragment extends Fragment implements SearchByI
 
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getContext());
         mRvSearchResults.setLayoutManager(mLinearLayoutManager);
-
-        searchByInterestRvAdapter = new SearchByInterestRvAdapter(getContext(),this);
+       searchByInterestRvAdapter = new SearchByInterestRvAdapter(getContext(),this);
 
         mRvSearchResults.setAdapter(searchByInterestRvAdapter);
 

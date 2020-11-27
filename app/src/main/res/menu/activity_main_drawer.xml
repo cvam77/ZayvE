@@ -20,7 +20,13 @@
         <item
             android:id="@+id/nav_requests"
             android:icon="@drawable/ic_request"
-            android:title="Requests" />
+            android:title="Requests Received" />
+
+        <item
+            android:id="@+id/nav_requests_sent"
+            android:icon="@drawable/ic_request"
+            android:title="Requests Sent" />
+
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_profile"

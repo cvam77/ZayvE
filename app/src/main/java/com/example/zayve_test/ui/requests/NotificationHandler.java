@@ -20,9 +20,13 @@ import com.example.zayve_test.ZayveActivity;
 import com.example.zayve_test.search_by_interest.SearchInterestResultsFragment;
 import com.example.zayve_test.ui.browse_friends.BrowseFriendsFragment;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class NotificationHandler {
+
+    static ArrayList<String> arrayList = new ArrayList<>();
+
     private static final int REMINDER_NOTIFICATION_ID = 77;
 
     private static final int REMINDER_PENDING_INTENT_ID = 88;
@@ -39,48 +43,52 @@ public class NotificationHandler {
 
     public static void notificationCreator(Context context, String message) {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        if(!arrayList.contains(message))
         {
-            CharSequence channelName = "Reminder Notification";
-            String channelDescription = "Creating Notification for Aims";
-            int channelImportance = NotificationManager.IMPORTANCE_HIGH;
+            arrayList.add(message);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            {
+                CharSequence channelName = "Reminder Notification";
+                String channelDescription = "Creating Notification for Aims";
+                int channelImportance = NotificationManager.IMPORTANCE_HIGH;
 
-            NotificationChannel notificationChannel = new NotificationChannel(REMINDER_CHANNEL_ID,
-                    channelName,channelImportance);
+                NotificationChannel notificationChannel = new NotificationChannel(REMINDER_CHANNEL_ID,
+                        channelName,channelImportance);
 
-            notificationChannel.setDescription(channelDescription);
+                notificationChannel.setDescription(channelDescription);
 
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-            notificationManager.createNotificationChannel(notificationChannel);
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
+
+
+
+            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context,REMINDER_CHANNEL_ID);
+
+            notificationBuilder.setSmallIcon(R.drawable.ic_baseline_notifications_24)
+                    .setContentTitle("New ZayvE Request Alert!")
+                    .setContentText("")
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setColor(ContextCompat.getColor(context,R.color.authui_colorPrimaryDark))
+                    .setLargeIcon(bitmap(context))
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+                    .setDefaults(Notification.DEFAULT_VIBRATE)
+                    .setContentIntent(getPendingIntent(context))
+                    .setAutoCancel(true);
+
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
+                    && Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
+            {
+                notificationBuilder.setPriority(NotificationCompat.PRIORITY_HIGH);
+            }
+            NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
+
+            Random rand = new Random();
+            int randomNumber = rand.nextInt(9999 - 1000) + 1000;
+
+            notificationManagerCompat.notify(randomNumber,notificationBuilder.build());
         }
-
-
-
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context,REMINDER_CHANNEL_ID);
-
-        notificationBuilder.setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
-                .setContentTitle("New ZayvE Request Alert!")
-                .setContentText("YO")
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setColor(ContextCompat.getColor(context,R.color.authui_colorPrimaryDark))
-                .setLargeIcon(bitmap(context))
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
-                .setDefaults(Notification.DEFAULT_VIBRATE)
-                .setContentIntent(getPendingIntent(context))
-                .setAutoCancel(true);
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
-                && Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
-        {
-            notificationBuilder.setPriority(NotificationCompat.PRIORITY_HIGH);
-        }
-        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
-
-        Random rand = new Random();
-        int randomNumber = rand.nextInt(9999 - 1000) + 1000;
-
-        notificationManagerCompat.notify(randomNumber,notificationBuilder.build());
     }
 
     private static PendingIntent getPendingIntent(Context context)
