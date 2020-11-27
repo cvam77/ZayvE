@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -17,8 +16,6 @@ import androidx.core.content.ContextCompat;
 
 import com.example.zayve_test.R;
 import com.example.zayve_test.ZayveActivity;
-import com.example.zayve_test.search_by_interest.SearchInterestResultsFragment;
-import com.example.zayve_test.ui.browse_friends.BrowseFriendsFragment;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -46,23 +43,19 @@ public class NotificationHandler {
         if(!arrayList.contains(message))
         {
             arrayList.add(message);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            {
-                CharSequence channelName = "Reminder Notification";
-                String channelDescription = "Creating Notification for Aims";
-                int channelImportance = NotificationManager.IMPORTANCE_HIGH;
+            CharSequence channelName = "Reminder Notification";
+            String channelDescription = "Creating Notification for Aims";
+            int channelImportance = NotificationManager.IMPORTANCE_HIGH;
 
-                NotificationChannel notificationChannel = new NotificationChannel(REMINDER_CHANNEL_ID,
-                        channelName,channelImportance);
+            NotificationChannel notificationChannel = new NotificationChannel(REMINDER_CHANNEL_ID,
+                    channelName,channelImportance);
 
-                notificationChannel.setDescription(channelDescription);
+            notificationChannel.setDescription(channelDescription);
 
-               if(context != null){
-                   NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                   notificationManager.createNotificationChannel(notificationChannel);
-               }
+            if(context != null){
+                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.createNotificationChannel(notificationChannel);
             }
-
 
 
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context,REMINDER_CHANNEL_ID);
@@ -78,11 +71,6 @@ public class NotificationHandler {
                     .setContentIntent(getPendingIntent(context))
                     .setAutoCancel(true);
 
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
-                    && Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
-            {
-                notificationBuilder.setPriority(NotificationCompat.PRIORITY_HIGH);
-            }
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
 
             Random rand = new Random();

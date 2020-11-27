@@ -1,4 +1,4 @@
-package com.example.zayve_test.search_by_interest;
+package com.example.zayve_test.ui.search_by_interest;
 
 import android.graphics.Color;
 import android.net.Uri;
@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,8 +22,6 @@ import android.widget.Toast;
 
 import com.example.zayve_test.R;
 import com.example.zayve_test.ui.browse_friends.BrowseFriendsFragment;
-import com.example.zayve_test.ui.browse_friends.EachUserProfile;
-import com.google.android.gms.auth.api.credentials.internal.DeleteRequest;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -36,7 +33,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.TreeMap;
 
 
 public class EachUserInFragmentSearchResults extends Fragment {
