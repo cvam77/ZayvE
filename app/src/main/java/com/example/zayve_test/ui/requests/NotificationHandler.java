@@ -93,7 +93,7 @@ public class NotificationHandler {
     private static Bitmap bitmap(Context context)
     {
         Resources resources = context.getResources();
-        Bitmap icon = BitmapFactory.decodeResource(resources, R.drawable.appstore);
+        Bitmap icon = BitmapFactory.decodeResource(resources, R.drawable.ic_launcher);
         return icon;
     }
 }
