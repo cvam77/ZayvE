@@ -18,7 +18,6 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="ZaYVE"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".AuthenticationActivity">
@@ -33,7 +32,6 @@
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
         -->
-        <activity android:name=".ui.requests.TemporaryTestActivity" />
         <activity android:name=".ZayveActivity" />
     </application>
 
