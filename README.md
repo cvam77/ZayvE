@@ -1,7 +1,5 @@
-# ZayvE_test
-A social networking app for connecting like-minded people!
-
-An app that helps users find people with similar interests as them in the easiest way possible!
+# ZayvE
+A social networking app for connecting like-minded people in the easiest way possible! Sign up for a new world, browse users, search for friends who have similar interests as you, send them a ZayvE request, get connected with them, chat with them, and much more!
 
 
 ![Screenshot_20201115_015034](https://user-images.githubusercontent.com/59323913/99179623-12d13980-26e5-11eb-9e83-da69769df8f8.png)
