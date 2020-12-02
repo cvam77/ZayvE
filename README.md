@@ -8,3 +8,4 @@ A social networking app for connecting like-minded people in the easiest way pos
 
 ![2](https://user-images.githubusercontent.com/59323913/100830562-94390380-3429-11eb-9772-3efeddb6fbf3.gif)
 
+![7](https://user-images.githubusercontent.com/59323913/100831214-e595c280-342a-11eb-9038-09d6e47b1218.gif)
