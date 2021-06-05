@@ -1,6 +1,9 @@
 # ZayvE
 A social networking app for connecting like-minded people in the easiest way possible! Sign up for a new world, browse users, search for friends who have similar interests as you, send them a ZayvE request, get connected with them, chat with them, and much more!
 
+### Tools used: Google Firebase Services, Kotlin, and Java
+
+
 
 <img src="https://user-images.githubusercontent.com/59323913/100832150-eaf40c80-342c-11eb-95af-e5b0207864eb.gif" width="250" height="450">
 
