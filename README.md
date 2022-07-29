@@ -1,5 +1,7 @@
+<img src="https://user-images.githubusercontent.com/59323913/181660589-62b55b42-7142-490a-b153-82e68002633c.png" width="200" height="150">
 
 <img src="https://user-images.githubusercontent.com/59323913/181660481-26b071c9-e7a9-41a6-94c6-0c72b90ddab9.png" width="250" height="250">
+
 
 # ZayvE
 A social networking app for connecting like-minded people in the easiest way possible! Sign up for a new world, browse users, search for friends who have similar interests as you, send them a ZayvE request, get connected with them, chat with them, and much more!
