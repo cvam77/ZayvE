@@ -1,7 +1,4 @@
-<img src="https://user-images.githubusercontent.com/59323913/181661323-176d64c8-41d9-4f49-9761-f49568d04c68.png" width="500" height="345">
-
-
-![bbbb](https://user-images.githubusercontent.com/59323913/181661368-0241f967-f3d6-4d5c-91ae-1b68dd5575ea.png)
+<img src="https://user-images.githubusercontent.com/59323913/181661368-0241f967-f3d6-4d5c-91ae-1b68dd5575ea.png" width="500" height="345">
 
 
 
