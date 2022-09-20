@@ -9,12 +9,4 @@ A social networking app for connecting like-minded people in the easiest way pos
 
 
 
-<img src="https://user-images.githubusercontent.com/59323913/100832150-eaf40c80-342c-11eb-95af-e5b0207864eb.gif" width="250" height="450">
-
-<img src="https://user-images.githubusercontent.com/59323913/100830562-94390380-3429-11eb-9772-3efeddb6fbf3.gif" width="250" height="450">
-
-<img src="https://user-images.githubusercontent.com/59323913/100831887-44a80700-342c-11eb-8916-7058bd236e58.gif" width="250" height="450">
-
-<img src="https://user-images.githubusercontent.com/59323913/100832141-e596c200-342c-11eb-8b3c-a0be8dcfe433.gif" width="250" height="450">
-
-<img src="https://user-images.githubusercontent.com/59323913/100831214-e595c280-342a-11eb-9038-09d6e47b1218.gif" width="250" height="450">
+<img src="![table layer added](https://user-images.githubusercontent.com/59323913/191140899-6ef655b0-393f-4e35-ae4c-2e6e3d18c82c.png)" width="275" height="210">
